@@ -1,0 +1,324 @@
+\documentclass[12pt, fullpage,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xspace}
+\usepackage{graphicx}
+
+\newcommand{\semester}{Spring 2019}
+\newcommand{\assignmentId}{0}
+\newcommand{\releaseDate}{7 January, 2019}
+\newcommand{\dueDate}{11:59pm, 16 January, 2019}
+
+\newcommand{\bx}{{\bf x}}
+\newcommand{\bw}{{\bf w}}
+
+\title{CS 5350/6350: Machine Learning \semester}
+\author{Homework \assignmentId}
+\date{Handed out: \releaseDate\\
+  Due: \dueDate}
+
+\begin{document}
+\maketitle
+
+\input{emacscomm}
+\footnotesize
+	\begin{itemize}
+		\item You are welcome to talk to other members of the class about
+		the homework. I am more concerned that you understand the
+		underlying concepts. However, you should write down your own
+		solution. Please keep the class collaboration policy in mind.
+		
+		\item Feel free discuss the homework with the instructor or the TAs.
+		
+		\item Your written solutions should be brief and clear. You need to
+		show your work, not just the final answer, but you do \emph{not}
+		need to write it in gory detail. Your assignment should be {\bf no
+			more than 10 pages}. Every extra page will cost a point.
+		
+		\item Handwritten solutions will not be accepted.
+		
+		\item The homework is due by \textbf{midnight of the due date}. Please submit
+		the homework on Canvas.
+		
+		\item Some questions are marked {\bf For 6350 students}. Students
+		who are registered for CS 6350 should do these questions. Of
+		course, if you are registered for CS 5350, you are welcome to do
+		the question too, but you will not get any credit for it.
+		
+	\end{itemize}
+
+
+
+\section*{Basic Knowledge Review}
+\label{sec:q1}
+
+%problem 1, decide wether dependency & indendency
+%2, prove p(A + B) <= P(A) + P(B)
+%3, prove P(\sum_i A_i) \le \sum_i p(A_i)
+%4. given two a joint Gaussian, calculate the conditional Guassian distribution
+%5. prove E(X) = E(E(X|Y))
+%4, prove V(E(X)) = E(V(X))
+%5. prove V(Y) = EV(Y|X) + VE(Y|X)
+
+%independency, conditional distribution, expectation, variance, basic properties
+%gradient calcualtion, logistic function, second derivatives
+%
+\begin{enumerate}
+\item~[5 points] We use sets to represent events. For example, toss a fair coin $10$ times, and the event can be represented by the set of ``Heads" or ``Tails" after each tossing. Let a specific event $A$ be ``at least one head". Calculate the probability that event $A$ happens, i.e., $p(A)$.
+
+$p(A) = 1 - \binom{10}{0}(.5)^0(.5)^{10} = 1 - 0.0009765625 = 0.9990234375$
+
+\item~[10 points] Given two events $A$ and $B$, prove that 
+\[
+p(A \cup B) \le p(A) + p(B).
+\]
+When does the equality hold?
+
+$p(A \cup B) = p(A) + p(B \cap A') $
+
+$= p(A) + [p(B) - p(A \cap B)]$
+
+$= p(A) + p(B) - p(A \cap B)$
+
+and $p(A \cap B) \ge 0$
+
+Therefore $p(A \cup B) \le p(A) + p(B)$
+
+This is true for any two events that satisfy the basic properties of probability.
+
+\item~[10 points] Let $\{A_1, \ldots, A_n\}$ be a collection of events. Show that
+\[
+p(\cup_{i=1}^n A_i) \le \sum_{i=1}^n p(A_i).
+\]
+When does the equality hold? (Hint: induction)
+
+$p(\cup_{i=1}^n A_i) = p(A_1) + ... + p(A_n) - p(A_1 \cap A_2) - ... - p(\cap_{i=1}^n A_i)$
+
+$p(\cup_{i=1}^n A_i) = \sum_{i=1}^n p(A_i) - p(A_1 \cap A_2) - ... - p(\cap_{i=1}^n A_i)$
+
+Therefore $p(\cup_{i=1}^n A_i) \le \sum_{i=1}^n p(A_i).$
+
+This equality will also hold for all events that satisfy the three axioms of probability.
+
+%\item~[5 points] Given three events $A$, $B$ and $C$, show that
+%\[
+%p(A\cap B\cap C) = p(A|B\cap C)p(B|C)p(C)
+%\]
+\item~[20 points]  We use $\EE(\cdot)$ and $\VV(\cdot)$ to denote a random variable's mean (or expectation) and variance, respectively. Given two discrete random variables $X$ and $Y$, where $X \in \{0, 1\}$ and $Y \in \{0,1\}$. The joint probability $p(X,Y)$ is given in as follows:
+\begin{table}[h]
+        \centering
+        \begin{tabular}{ccc}
+        \hline\hline
+         & $Y=0$ & $Y=1$ \\ \hline
+         $X=0$ & $1/10$ & $2/10$ \\ \hline
+         $X=1$  & $3/10$ & $4/10$ \\ \hline\hline
+        \end{tabular}
+        %\caption{Training data for the alien invasion problem.}\label{tb-alien-train}
+        \end{table}
+	
+        \begin{enumerate}
+            \item~[10 points] Calculate the following distributions and statistics. 
+            \begin{enumerate}
+            \item the the marginal distributions $p(X)$ and $p(Y)$
+            
+            \[
+            p_X(x) = 
+            \begin{cases} 
+            	3/10 & x = 0 \\
+            	7/10 & x = 1 \\ 
+            	0 & otherwise \\
+            \end{cases}
+            \]
+            
+           	\[
+            p_Y(y) = 
+            \begin{cases} 
+            	4/10 & y = 0 \\
+            	6/10 & y = 1 \\ 
+            	0 & otherwise \\
+            \end{cases}
+            \]
+            
+            \item the conditional distributions $p(X|Y)$ and $p(Y|X)$
+            
+            $P(A|B) = \frac{P(A \cap B)}{P(B)} $
+            
+            \[
+            p(X|Y) = 
+            \begin{cases} 
+            1/4 & x = 0, y = 0 \\
+            3/4 & x = 1, y = 0 \\ 
+            1/3 & x = 0, y = 1 \\
+            2/3 & x = 1, y = 1 \\
+            0 & otherwise \\
+            \end{cases}
+            \]
+            
+            \[
+            p(Y|X) = 
+            \begin{cases} 
+            	1/3 & x = 0, y = 0 \\
+            	2/3 & x = 1, y = 0 \\ 
+            	2/3 & x = 0, y = 1 \\
+            	1/3 & x = 1, y = 1 \\
+            	0 & otherwise \\
+            \end{cases}
+            \]
+            \item $\EE(X)$, $\EE(Y)$, $\VV(X)$, $\VV(Y)$
+            
+            $\EE(X) = (0 * 3/10) + (1 * 7/10) = 7/10$
+            
+            $\EE(Y) = (0 * 4/10) + (1 * 6/10) = 6/10$
+            
+            $\VV(X) = (0^2 * 3/10) + (1^2 * 7/10) - (7/10)^2 = .21$
+            
+            $\VV(Y) = (0^2 * 4/10) + (1^2 * 6/10) - (6/10)^2 = .24$
+            
+            \item  $\EE(Y|X=0)$, $\EE(Y|X=1)$,  $\VV(Y|X=0)$, $\VV(Y|X=1)$
+            
+            $\EE(Y|X=0) = (0 * 1/3) + (1 * 2/3) = 2/3$
+            
+            $\EE(Y|X=1) = (0 * 2/3) + (1 * 1/3) = 1/3$
+            
+            $\VV(Y|X=0) = \EE((Y - \EE(Y|X=0))^2 | X=0) = \EE((Y - 2/3)^2 | X=0) = (4/9 * 1/3) + (1/9 * 2/3) = 0.074$
+            
+            $\VV(Y|X=1) = \EE((Y - \EE(Y|X=1))^2 | X=1) = \EE((Y - 1/3)^2 | X=1) = (1/9 * 1/3) + (4/9 * 2/3) = 0.296$
+            
+            \item  the covariance between $X$ and $Y$
+            
+            $Cov(X,Y) = (-7/10 * -6/10 * 1/10) + (-7/10 * 4/10 * 2/10) + (3/10 * -6/10 * 3/10) + (3/10 * 4/10 * 4/10) = -0.02$
+            
+            \end{enumerate}
+            \item~[5 points] Are $X$ and $Y$ independent? Why?
+            
+            $X$ and $Y$ are not independent, this is because $p(x, y) \ne p_X(x) * p_Y(y)$ for all $(x, y)$ pairs. $p(0, 0) = 1/10, p_X(0) * p_Y(0) = 3/10 * 4/10 = 0.12$. 
+            
+            \item~[5 points] When $X$ is not assigned a specific value, are $\EE(Y|X)$ and $\VV(Y|X)$ still constant? Why?
+            
+            $\EE(Y|X)$ is a function of the random variable $X$, and is therefore a random variable itself. Additionally, $\VV(Y|X)$ is a function of $\EE(Y|X)$, making it a random variable as well.
+            
+        \end{enumerate}
+\item~[10 points] Assume a random variable $X$ follows a standard normal distribution, \ie $X \sim \N(X|0, 1)$. Let $Y = e^X$. Calculate the mean and variance of $Y$.
+\begin{enumerate}
+	\item $\EE(Y)$
+	
+	$\EE(Y) = \int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}}e^{-x^2/2} * e^x dx = \sqrt{e}$
+	
+	\item $\VV(Y)$
+	
+	$\VV(Y) = \int_{-\infty}^{\infty}(e^x - \sqrt{e})^2 * (\frac{1}{\sqrt{2\pi}}e^{-x^2/2})dx = e^2 - e$
+\end{enumerate}
+
+\item~[20 points]  Given two random variables $X$ and $Y$, show that 
+\begin{enumerate}
+\item $\EE(\EE(Y|X)) = \EE(Y)$
+
+Let $g(x) = \EE(Y|X = x)$. Then $\EE(\EE(Y|X)) = \int_{-\infty}^{\infty}g(x)f_X(x)dx$.
+
+Additionally, $g(x) = \int_{-\infty}^{\infty}y*f_{Y|X}(y|x)dy$, or $\int_{-\infty}^{\infty}y*\frac{f(x,y)}{f_X(x)}dy$.
+
+Substituting this into the first integral gives $\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}y*\frac{f(x,y)}{f_X(x)}*f_X(x)dydx$, 
+
+or $\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}y*f(x,y)dydx$, the definition of $\EE(Y)$.
+
+\item$\VV(Y) = \EE(\VV(Y|X)) + \VV(\EE(Y|X))$
+
+First we start by using the following formula for conditional variance:
+
+$\VV(Y|X) =  \EE(Y^2|X) - [\EE(Y|X)]^2$
+
+Taking the expectation of this gives $\EE(\VV(Y|X)) = \EE(\EE(Y^2|X)) - \EE([\EE(Y|X)]^2)$, which can be simplified to $\EE(Y^2) - \EE([\EE(Y|X)]^2)$.
+
+Next we take the variance of conditional expected value, $\VV(\EE(Y|X)) = \EE([\EE(Y|X)]^2) - [\EE(\EE(Y|X))]^2$. Because $\EE(\EE(Y|X)) = \EE(Y)$, this can be simplified to $\EE([\EE(Y|X)]^2) - [\EE(Y)]^2$.
+
+Finally these are combined, giving $\EE(\VV(Y|X)) + \VV(\EE(Y|X)) = \EE(Y^2) - \EE([\EE(Y|X)]^2) + \EE([\EE(Y|X)]^2) - [\EE(Y)]^2 = \EE(Y^2) - [\EE(Y)]^2 = \VV(Y)$.
+
+Therefore $\VV(Y) = \EE(\VV(Y|X)) + \VV(\EE(Y|X))$
+
+\end{enumerate}
+(Hints: using definition.)
+
+%\item~[20 points]  Let us go back to the coin tossing example. Suppose we toss a coin for $n$ times, \textit{independently}. Each toss we have $\frac{1}{2}$ chance to obtain the head. Let us denote the total number of heads by $c(n)$. Derive the following statistics. You don't need to give the numerical values. You only need to provide the formula.
+%\begin{enumerate}
+%\item $\EE(c(1))$, $\VV(c(1))$
+%\item $\EE(c(10))$, $\VV(c(10))$
+%\item $\EE(c(n))$, $\VV(c(n))$
+%\end{enumerate} 
+%What can you conclude from comparing the expectations and variances with different choices of $n$?  
+
+\item~[15 points] Given a logistic function, $f(\x) = 1/(1+\exp(-\a^\top \x))$ ($\x$ is a vector), derive/calculate the following gradients and Hessian matrices.  
+\begin{enumerate}
+\item $\nabla f(\x)$
+
+$f(\x) = 1/(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})$
+
+$\nabla f(\x) =
+\begin{Bmatrix}
+	-\frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} \\
+	\vdots \\
+	-\frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} \\
+\end{Bmatrix}$
+
+\item $\nabla^2 f(\x)$
+
+$
+\nabla^2 f(\x) = 
+\begin{Bmatrix}
+	\frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} & \dots &  \frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} \\
+	\vdots & & \vdots\\
+	\frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} & \dots & \frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2}\\
+\end{Bmatrix}
+$
+
+\item $\nabla f(\x)$ when $\a = [1,1,1,1,1]^\top$ and $\x = [0,0,0,0,0]^\top$
+
+$
+\begin{Bmatrix}
+	-.5 \\
+	-.5 \\
+	-.5 \\
+	-.5 \\
+	-.5 \\
+\end{Bmatrix}
+$
+
+\item $\nabla^2 f(\x)$  when $\a = [1,1,1,1,1]^\top$ and $\x = [0,0,0,0,0]^\top$
+
+$
+\begin{Bmatrix}
+.5 & .5 & .5 & .5 & .5 \\
+.5 & .5 & .5 & .5 & .5 \\
+.5 & .5 & .5 & .5 & .5 \\
+.5 & .5 & .5 & .5 & .5 \\
+.5 & .5 & .5 & .5 & .5 \\
+\end{Bmatrix}
+$
+
+\end{enumerate}
+Note that $0 \le f(\x) \le 1$.
+
+\item~[10 points] Show that $g(x) = -\log(f(\x))$ where $f(\x)$ is a logistic function defined as above, is convex. 
+
+$\A = \nabla^2 g(x) = 
+\begin{Bmatrix}
+\frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{ln(10)(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} & \dots &  \frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{ln(10)(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} \\
+\vdots & & \vdots\\
+\frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{ln(10)(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2} & \dots & \frac{1+\e^{-\a_1\x_1 - ... - \a_n\x_n}}{ln(10)(1+\e^{-\a_1\x_1 - ... - \a_n\x_n})^2}\\
+\end{Bmatrix}
+$
+
+For $g(x)$ to be convex, then $\v^T\A\v$ must be positive for all non-negative $\v \in \mathbb{R}^n$, aka semi-definite positive. 
+
+All the second partial derivatives in the Hessian of $g(x)$ are strictly positive, therefore $\v^T\A\v$ must always be positive, and $g(x)$ must be convex. 
+
+\end{enumerate}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
