@@ -1,13 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.13)  4 FEB 2019 22:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.6960 64-bit) (preloaded format=pdflatex 2019.2.7)  7 FEB 2019 23:25
 entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
-**hw1.tex
-(./hw1.tex
+**./hw1.tex
+(hw1.tex
 LaTeX2e <2018-12-01>
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/base/article.cls
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/base/size12.clo
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size12.clo"
 File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
 \c@part=\count80
@@ -22,21 +20,26 @@ File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/geometry/geometry.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.s
+ty"
 Package: geometry 2018/04/16 v5.8 Page Geometry
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.sty
+"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.st
+y"
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.s
+ty"
 Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.s
+ty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count88
@@ -51,29 +54,31 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layouthoffset=\dimen109
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks15
-)
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/url/url.sty
+
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.c
+fg")) ("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsmath/amsmath.sty
+) ("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.s
+ty"
 Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsmath/amstext.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.sty
+"
 Package: amstext 2000/06/29 v2.01 AMS text
-
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsmath/amsgen.sty
+ ("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
+"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks16
 \ex@=\dimen111
 ))
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsmath/amsbsy.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen112
-)
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsmath/amsopn.sty
+) ("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsopn.st
+y"
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count91
@@ -114,47 +119,56 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsfonts/amssymb.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amssymb.st
+y"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.s
+ty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/tools/xspace.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\xspace.sty"
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.s
+ty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.s
+ty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graphi
+cs.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdftex
+.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen120
 \Gin@req@width=\dimen121
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/hyperref/hyperref.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hyperref.s
+ty"
 Package: hyperref 2018/11/30 v6.88e Hypertext links for LaTeX
 
-(f:/Apps/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-h
+yperref.sty"
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
 
-(f:/Apps/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-g
+eneric.sty"
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
@@ -165,10 +179,6 @@ Package hobsub Info: Skipping package `ifvtex' (already loaded).
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 Package hobsub Info: Skipping package `ifpdf' (already loaded).
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
@@ -193,24 +203,28 @@ Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/oberdiek/auxhook.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\auxhook.st
+y"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.
+sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen122
 \Hy@linkcounter=\count103
 \Hy@pagecounter=\count104
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/hyperref/pd1enc.def
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\pd1enc.def
+"
 File: pd1enc.def 2018/11/30 v6.88e Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count105
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\hyperref.c
+fg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4519.
@@ -241,19 +255,22 @@ LaTeX Info: Redefining \pageref on input line 6454.
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/hyperref/hpdftex.def
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hpdftex.de
+f"
 File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
 \Fld@listcount=\count111
 \c@bookmark@seq@number=\count112
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\rerunfilec
+heck.sty"
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip46
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/listings/listings.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\listings.s
+ty"
 \lst@mode=\count113
 \lst@gtempboxa=\box29
 \lst@token=\toks21
@@ -267,38 +284,48 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \lst@lineno=\count118
 \lst@maxwidth=\dimen129
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/listings/lstmisc.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstmisc.st
+y"
 File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
 \c@lstnumber=\count119
 \lst@skipnumbers=\count120
 \lst@framebox=\box30
 )
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/listings/listings.cfg
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\listings.c
+fg"
 File: listings.cfg 2018/09/02 1.7 listings configuration
 ))
 Package: listings 2018/09/02 1.7 (Carsten Heinz)
 
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/framed\framed.sty"
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip47
+\fb@frw=\dimen130
+\fb@frh=\dimen131
+\FrameRule=\dimen132
+\FrameSep=\dimen133
+)
 
 LaTeX Warning: Unused global option(s):
     [fullpage].
 
-(./hw1.aux)
+(hw1.aux)
 \openout1 = `hw1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -334,23 +361,28 @@ LaTeX Font Info:    ... okay on input line 31.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(f:/Apps/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/context/base\supp-pdf.mki
+i"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
-\scratchdimen=\dimen130
+\scratchdimen=\dimen134
 \scratchbox=\box31
 \nofMPsegments=\count122
 \nofMParguments=\count123
 \everyMPshowfont=\toks22
 \MPscratchCnt=\count124
-\MPscratchDim=\dimen131
+\MPscratchDim=\dimen135
 \MPnumerator=\count125
 \makeMPintoPDFobject=\count126
 \everyMPtoPDFconversion=\toks23
-) (f:/Apps/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+)
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-b
+ase.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty
+"
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -359,111 +391,117 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
+)
 \AtBeginShipoutBox=\box32
-Package hyperref Info: Link coloring OFF on input line 31.
+Package hyperref Info: Link coloring OFF on input line 32.
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.st
+y"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
-(f:/Apps/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\gettitle
+string.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count127
 )
-LaTeX Info: Redefining \ref on input line 31.
-LaTeX Info: Redefining \pageref on input line 31.
-LaTeX Info: Redefining \nameref on input line 31.
-
-(./hw1.out) (./hw1.out)
+LaTeX Info: Redefining \ref on input line 32.
+LaTeX Info: Redefining \pageref on input line 32.
+LaTeX Info: Redefining \nameref on input line 32.
+ (hw1.out) (hw1.out)
 \@outlinefile=\write3
 \openout3 = `hw1.out'.
 
 \c@lstlisting=\count128
-LaTeX Font Info:    Try loading font information for U+msa on input line 33.
+LaTeX Font Info:    Try loading font information for U+msa on input line 34.
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 33.
+LaTeX Font Info:    Try loading font information for U+msb on input line 34.
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./emacscomm.tex)
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 37.
+)
+(emacscomm.tex)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 38.
 
-(f:/Apps/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
+("C:\Users\Will\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 37.
- [1
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 38.
 
-{f:/Apps/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[1
+
+{C:/Users/Will/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<tree1.png, id=28, 201.75375pt x 199.07709pt>
+File: tree1.png Graphic file (type png)
+<use tree1.png>
+Package pdftex.def Info: tree1.png  used on input line 136.
+(pdftex.def)             Requested size: 181.57669pt x 179.16771pt.
+ [2 <./tree1.png>]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 106.
- [2]
-Underfull \hbox (badness 10000) in paragraph at lines 125--127
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 155.
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 174--176
 
  []
 
-[3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 171--172
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
+[4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 220--221
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 233.
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
+
+ []
+
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 233.
- (./hw1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 233.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 233.
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 282.
+[8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 282.
+ (hw1.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 282.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 282.
 Package rerunfilecheck Info: File `hw1.out' has not changed.
-(rerunfilecheck)             Checksum: C6FD7FC0DA14511A24D5B9ACD1883BC9;140.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 233.
+(rerunfilecheck)             Checksum: A583B40981AF65372D75ADB74F4FDA9C;142.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 282.
  ) 
 Here is how much of TeX's memory you used:
- 8099 strings out of 494519
- 113552 string characters out of 6176109
- 207817 words of memory out of 5000000
- 11639 multiletter control sequences out of 15000+600000
- 13394 words of font info for 52 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 28i,8n,32p,1053b,1080s stack positions out of 5000i,500n,10000p,200000b,80000s
-<f:/Apps/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><f
-:/Apps/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><f:/Ap
-ps/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><f:/Apps/t
-exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><f:/Apps/texliv
-e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><f:/Apps/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><f:/Apps/texlive/2018/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><f:/Apps/texlive/2018/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy10.pfb><f:/Apps/texlive/2018/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmti10.pfb><f:/Apps/texlive/2018/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmtt10.pfb><f:/Apps/texlive/2018/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmtt12.pfb>
-Output written on hw1.pdf (7 pages, 151238 bytes).
+ 8155 strings out of 492946
+ 116220 string characters out of 3126711
+ 213587 words of memory out of 3000000
+ 11916 multiletter control sequences out of 15000+200000
+ 13394 words of font info for 52 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 28i,8n,32p,1056b,1080s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Will/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb><C:/Users/Will/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmbx12.pfb><C:/Users/Will/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Will/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Will/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Will/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/User
+s/Will/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pf
+b><C:/Users/Will/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb><C:/Users/Will/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmti10.pfb><C:/Users/Will/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Will/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on hw1.pdf (8 pages, 179962 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
- 50 named destinations out of 1000 (max. 500000)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 158 PDF objects out of 1000 (max. 8388607)
+ 51 named destinations out of 1000 (max. 500000)
+ 22 words of extra memory for PDF output out of 10000 (max. 10000000)
 

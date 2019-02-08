@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{framed}
 
 \newcommand{\semester}{Spring 2019}
 \newcommand{\assignmentId}{1}
@@ -17,13 +18,13 @@
 \newcommand{\bx}{{\bf x}}
 \newcommand{\bw}{{\bf w}}
 
-\title{CS 5350/6350: Machine Learining \semester}
+\title{CS 5350/6350: Machine Learning \semester}
 \author{Homework \assignmentId}
 \date{Handed out: \releaseDate\\
 	Due: \dueDate}
 
 
-\title{CS 5350/6350: Machine Learining \semester}
+\title{CS 5350/6350: Machine Learning \semester}
 \author{Homework \assignmentId}
 \date{Handed out: \releaseDate\\
   Due date: \dueDate}
@@ -92,9 +93,57 @@
 \begin{enumerate}
 \item~[5 points] Use the ID3 algorithm with information gain to learn a decision tree from the training dataset in Table 1. Please list every step in your tree construction, including the data subsets, the attributes, and how you calculate the information gain of each attribute and how you split the dataset according to the selected attribute. Please also give a full structure of the tree. You can manually  draw the tree structure,  convert the picture into a PDF/EPS/PNG/JPG format and include it in your homework submission; or instead, you can  represent the tree with a conjunction of prediction rules as we discussed in the lecture. 
 
-Initial Entropy = $-(2/7)\log_2(2/7)-(5/7)\log_2(5/7) \approx 0.86 $
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	Initial Entropy = $-(2/7)\log_2(2/7)-(5/7)\log_2(5/7) \approx 0.86 $
+	
+	Information gain of $x_1$ = $0.86 - (\frac{5}{7}(.72) + \frac{2}{7}(1.0)) \approx 0.06 $
+	
+	Information gain of $x_2$ = $0.86 - (\frac{3}{7}(.92) + \frac{4}{7}(.39)) \approx 0.47 $
+	
+	Information gain of $x_3$ = $0.86 - (\frac{4}{7}(.81) + \frac{3}{7}(.92)) \approx 0.006 $
+	
+	Information gain of $x_4$ = $0.86 - (\frac{4}{7}(0.0) + \frac{3}{7}(.92)) \approx 0.47 $ (Same as $x_2$)
+	
+	Split on $x_2$, giving S1 containing items [1, 3, 4] and S2 containing items [2, 5, 6, 7]
+	
+	\bigskip
+	
+	S1 Entropy: $-(1/3)\log_2(1/3)-(2/3)\log_2(2/3) \approx 0.92 $
+	
+	Information gain of $x_1$ = $0.86 - (\frac{2}{3}(1.0) + \frac{1}{3}(0.0)) \approx 0.25 $
+	
+	Information gain of $x_3$ = $0.86 - (\frac{1}{3}(0.0) + \frac{2}{3}(1.0)) \approx 0.25 $
+	
+	Information gain of $x_4$ = $0.86 - (\frac{1}{3}(0.0) + \frac{2}{3}(0.0)) \approx 0.92 $
+	
+	Split on $x_4$, giving S3 = [1] and S4 = [3, 4]
+	
+	\bigskip
+	
+	S3 Entropy: $-(1/1)\log_2(1/1)-(0/1)\log_2(0/1) = 0 $
+	
+	S4 Entropy: $-(2/2)\log_2(2/2)-(0/2)\log_2(0/2) = 0 $
+	
+	\bigskip
+	
+	S2 Entropy = $-(4/4)\log_2(4/4)-(0/4)\log_2(0/4) = 0 $
+	
+	\bigskip
+	
+	Final Tree:
+	
+	\includegraphics[scale=.9]{tree1.png}
+	\centering
+	
+\end{framed}
 
 \item~[2 points] Write the boolean function which your decision tree represents. Please use a table to describe the function --- the columns are the input variables and label, \ie $x_1$, $x_2$, $x_3$, $x_4$ and $y$; the rows are different input and  function values. 
+
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	$y = \neg x_2 \land x_4$
+\end{framed}
 \end{enumerate}
 \item~[17 points] Let us use a training dataset to learn a decision tree about whether to play tennis (\textbf{Page 39, Lecture: Decision Tree Learning}, accessible by clicking the link \href{http://www.cs.utah.edu/~zhe/teach/pdf/decision-trees-learning.pdf}{http://www.cs.utah.edu/\textasciitilde zhe/teach/pdf/decision-trees-learning.pdf}). In the class, we have shown how to use information gain to construct the tree in ID3 framework.  
 \begin{enumerate}
