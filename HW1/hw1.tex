@@ -80,7 +80,7 @@
 		0 & 1 & 0 & 0 & 0 \\ \hline
 		0 & 0 & 1 & 1 & 1 \\ \hline
 		1 & 0 & 0 & 1 & 1 \\ \hline
-		0 & 1 & 1 & 0.& 0\\ \hline
+		0 & 1 & 1 & 0 & 0\\ \hline
 		1 & 1 & 0 & 0 & 0\\ \hline
 		0 & 1 & 0 & 1 & 0\\ \hline
 	\end{tabular}
@@ -133,7 +133,7 @@
 	
 	Final Tree:
 	
-	\includegraphics[scale=.9]{tree1.png}
+	\includegraphics[scale=.7]{tree1.pdf}
 	\centering
 	
 \end{framed}
@@ -162,6 +162,8 @@
 		
 		Split on Humidity (It was $<$1e-15 larger than Outlook), giving S1 (High) = [1, 2, 3, 4, 8, 12, 14] and S2 (Normal) = [5, 6, 7, 9, 10, 11, 13]
 		
+		\bigskip
+		
 		S1 Majority Error = $\frac{3}{7} \approx 0.42$
 		
 		ME for Outlook = $0.42 - (\frac{3}{7}(0.0) + \frac{2}{7}(0.5) + \frac{2}{7}(0.0)) \approx 0.29$
@@ -172,15 +174,136 @@
 		
 		Split on Outlook, giving S3 (Sunny) = [1, 2, 8], S4 (Overcast) = [3, 12], and S5 (Rainy) = [4, 14]
 		
-		S3 Majority Error = $\frac{0}{3} = 0.0$
+		\bigskip
 		
-		S4 Majority Error = $\frac{1}{2} = 0.5$
+		S3 Majority Error = $\frac{0}{3} = 0.0$, Done.
 		
-		ME for Temperature
+		S4 Majority Error = $\frac{0}{2} = 0.0$, Done.
 		
+		\bigskip
+		
+		S5 Majority Error = $\frac{1}{2} = 0.5$
+		
+		ME for Temperature = $0.5 - (\frac{2}{2}(0.5) + \frac{0}{2}(0.0) = 0.0$
+		
+		ME for Wind = $0.5 - (\frac{1}{2}(0.0) + \frac{1}{2}(0.0) = 0.5$
+		
+		Split on Wind, giving S6 (Strong) = [14] and S7 (Weak) = [4]
+		
+		\bigskip
+		
+		S6 Majority Error = $\frac{0}{1} = 0.0$, Done.
+		
+		S7 Majority Error = $\frac{0}{1} = 0.0$, Done.
+		
+		\bigskip
+		
+		S2 Majority Error = $\frac{1}{7} \approx 0.14$
+		
+		ME for Outlook = $0.14 - (\frac{2}{7}(0.0) + \frac{3}{7}(0.33) + \frac{2}{7}(0.0)) = 0.0$
+		
+		ME for Temperature = $0.14 - (\frac{1}{7}(0.0) + \frac{4}{7}(0.25) + \frac{2}{7}(0.0)) = 0.0$
+		
+		ME for Wind = $0.14 - (\frac{3}{7}(0.33) + \frac{4}{7}(0.0)) = 0.0$
+		
+		Break the tie and split on Outlook, giving S8 (Sunny) = [9, 11], S9 (Rainy) = [5, 6, 10], and S10 (Overcast) = [7, 13]
+		
+		\bigskip
+		
+		S8 Majority Error = $\frac{0}{2} = 0.0$, Done.
+		
+		\bigskip
+		
+		S8 Majority Error = $\frac{1}{3} \approx 0.33$
+		
+		ME for Temperature = $0.33 - (\frac{2}{3}(0.5) + \frac{1}{3}(0.5)) = 0.0$
+		
+		ME for Wind = $0.33 - (\frac{1}{3}(0.0) + \frac{2}{3}(0.0)) \approx 0.33$
+		
+		Split on Wind, giving S11 (Strong) = [11] and S12 (Weak) = [9]
+		
+		\bigskip
+		
+		S11 Majority Error = $\frac{0}{1} = 0.0$, Done.
+		
+		S12 Majority Error = $\frac{0}{1} = 0.0$, Done.
+		
+		S10 Majority Error = $\frac{0}{2} = 0.0$, Done.
+		
+		\bigskip
+		
+		Final Tree:
+		
+		\includegraphics[scale=.5]{treetennis1.pdf}
+			
 	\end{framed}
-	\item~[7 points] Please use gini index (GI) to calculate the gain, and conduct tree learning with ID3 framework. List every step and the tree structure.
+	\item~[7 points] Please use gini index (GI) to calculate the gain, and conduct tree learning with ID3 framework. List every step and the tree structure.	
+	\begin{framed}
+		\noindent {\bf Solution:\/}  \newline
+		Initial Gini Index = $1 - (\frac{9}{14}^2 + \frac{5}{14}^2) \approx 0.46$
+		
+		GI for Outlook = $0.46 - (\frac{5}{14}(0.48) + \frac{5}{14}(0.48) + \frac{4}{14}(0.00)) \approx 0.12$
+		
+		GI for Temperature = $0.46 - (\frac{4}{14}(0.50) + \frac{4}{14}(0.38) + \frac{6}{14}(0.44))\approx 0.02$
+		
+		GI for Humidity = $0.46 - (\frac{7}{14}(0.49) + \frac{7}{14}(0.24)) \approx 0.09$
+		
+		GI for Wind = $0.46 - (\frac{6}{14}(0.50) + \frac{8}{14}(0.38)) \approx 0.03$
+		
+		Split on Outlook, giving S1 (Sunny) = [1, 2, 8, 9, 11], S2 (Rainy) = [4, 5, 6, 10, 14], and S3 (Overcast) = [3, 7, 12, 13]
+		
+		\bigskip
+		
+		S1 Gini Index = $1 - (\frac{2}{5}^2 + \frac{3}{5}^2) = 0.48$
+	
+		GI for Temperature = $0.48 - (\frac{2}{5}(0.00) + \frac{1}{5}(0.00) + \frac{2}{5}(0.50)) \approx 0.28$
+		
+		GI for Humidity = $0.48 - (\frac{3}{5}(0.00) + \frac{2}{5}(0.00)) \approx 0.48$
+		
+		GI for Wind = $0.48 - (\frac{2}{5}(0.50) + \frac{3}{5}(0.44)) \approx 0.01$
+		
+		Split on Humidity, giving S4 (High) = [1, 2, 8], S5 (Normal) = [9, 11]
+		
+		\bigskip
+		
+		S4 Gini Index = $1 - (\frac{3}{3}^2 + \frac{0}{3}^2) = 0.00$, Done.
+		
+		S5 Gini Index = $1 - (\frac{2}{2}^2 + \frac{0}{2}^2) = 0.00$, Done.	
+		
+		\bigskip
+		
+		S2 Gini Index = $1 - (\frac{3}{5}^2 + \frac{2}{5}^2) = 0.48$
+		
+		GI for Temperature = $0.48 - (\frac{2}{5}(0.50) + \frac{3}{5}(0.44) + ) \approx 0.01$
+		
+		GI for Humidity = $0.48 - (\frac{2}{5}(0.50) + \frac{3}{5}(0.44) + ) \approx 0.01$
+		
+		GI for Wind = $0.48 - (\frac{2}{5}(0.00) + \frac{3}{5}(0.00) + ) \approx 0.48$
+		
+		Split on Wind, giving S6 (Strong) = [6, 14] and S7 (Weak) = [4, 5, 10]
+		
+		\bigskip
+		
+		S6 Gini Index = $1 - (\frac{2}{2}^2 + \frac{0}{2}^2) = 0.00$, Done.
+		
+		S7 Gini Index = $1 - (\frac{3}{3}^2 + \frac{0}{3}^2) = 0.00$, Done.
+		
+		\bigskip
+		
+		S3 Gini Index = $1 - (\frac{4}{4}^2 + \frac{0}{4}^2) = 0.00$, Done.
+		
+		\bigskip
+		
+		Final Tree:
+		
+		\includegraphics[scale=.7]{treetennis2.pdf}
+		\centering
+	\end{framed}
 	\item~[3 points] Compare the two trees you just created with the one we built in the class (see Page 58 of the lecture slides). Are there any differences? Why? 
+	\begin{framed}
+		\noindent {\bf Solution:\/}  \newline
+		My tree created using the gini index is exactly the same as the one created using entropy/information gain. However my tree created using majority error splits with Humidity first, then Outlook. This is because it had a marginally higher gain than Outlook, perhaps due to floating point rounding errors. 
+	\end{framed}
 \end{enumerate}
 
 \item~[16 points] Continue with the same training data in Problem 2. Suppose before the tree construction, we receive one more training instance where Outlook's value is missing: \{Outlook: Missing, Temperature: Mild, Humidity: Normal, Wind: Weak, Play: Yes\}. 

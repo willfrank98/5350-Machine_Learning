@@ -1,4 +1,9 @@
-O T H W Label
+4
+Outlook Temperature Humidity Wind Label
+S O R
+H M C
+H N L
+S W
 S H H W -
 S H H S -
 O H H W +
