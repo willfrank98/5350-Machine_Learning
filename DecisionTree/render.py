@@ -1,7 +1,7 @@
-from graphviz import Graph
+from graphviz import Digraph
 
 def render(root, name):
-    graph = Graph()
+    graph = Digraph()
     nodes = get_nodes(root)
     edges = get_edges(root)
 

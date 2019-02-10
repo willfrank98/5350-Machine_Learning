@@ -366,7 +366,6 @@ To this end, you will first need to create a code repository in \href{https://gi
 
 \url{https://github.com/willfrank98/5350-Machine_Learning}
 
-
 \item~[30 points] We will implement a decision tree learning algorithm for car evaluation task. The dataset is from UCI repository(\url{https://archive.ics.uci.edu/ml/datasets/car+evaluation}). Please download the processed dataset (car.zip) from Canvas.  In this task, we have $6$ car attributes, and the label is the evaluation of the car. The attribute and label values are listed in the file ``data-desc.txt". All the attributes are categorical. The training data are stored in the file ``train.csv'', consisting of $1,000$ examples. The test data are stored in ``test.csv'', and comprise $728$ examples. In both training and test datasets, attribute values are separated by commas; the file ``data-desc.txt''  lists the attribute names in each column. 
 \\
 
@@ -380,6 +379,29 @@ with open(CSVfile, 'r') as f:
 \begin{enumerate}
 \item~[15 points] Implement the ID3 algorithm that supports, information gain,  majority error and gini index to select attributes for data splits. Besides, your ID3 should allow users to set the maximum tree depth. Note: you do not need to convert categorical attributes into binary ones and your tree can be wide here. 
 \item~[10 points] Use your implemented algorithm to learn decision trees from the training data. Vary the maximum  tree depth from $1$ to $6$  --- for each setting, run your algorithm to learn a decision tree, and use the tree to  predict both the training  and test examples. Note that if your tree cannot grow up to 6 levels, then you can stop at the maximum level. Report in a table the average prediction errors on each dataset when you use information gain, majority error and gini index heuristics, respectively.
+
+\noindent {\bf Solution:\/}  \newline
+Training Error:
+\begin{table}[h]
+	\begin{tabular}{l||llllll}
+		Tree Depth = & 1 & 2 & 3 & 4 & 5 & 6 \\
+		\hline\hline
+		Information Gain & 0.302 & 0.222 & 0.181 & 0.082 & 0.027 & 0.0 \\
+		Majority Error & 0.302 & 0.222 & 0.174 & 0.089 & 0.027 & 0.0 \\
+		Gini Index & 0.302 & 0.222 & 0.176 & 0.089 & 0.027 & 0.0
+	\end{tabular}
+\end{table}
+
+Testing Error:
+\begin{table}[h]
+	\begin{tabular}{l||llllll}
+		Tree Depth = & 1 & 2 & 3 & 4 & 5 & 6 \\
+		\hline\hline
+		Information Gain & 0.297 & 0.222 & 0.196 & 0.151 & 0.084 & 0.084 \\
+		Majority Error & 0.297 & 0.222 & 0.187 & 0.137 & 0.084 & 0.084 \\
+		Gini Index & 0.297 & 0.222 & 0.184 & 0.137 & 0.084 & 0.084
+	\end{tabular}
+\end{table}
 
 \item~[5 points] What can you conclude by comparing the training errors and the test errors? 
 \end{enumerate}

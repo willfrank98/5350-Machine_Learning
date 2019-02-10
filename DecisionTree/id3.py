@@ -1,5 +1,4 @@
 import math
-import render
 
 class Node:
     children = list()
@@ -14,11 +13,22 @@ class Node:
         self.prediction = ""
 
 
-def ID3(S, Attributes, Split, MaxDepth=None):
-    return ID3_Main(S, Attributes, Split, MaxDepth, 1)
+def ID3_Train(S, Attributes, Split, MaxDepth=None):
+    splitFunc = None
+    if Split == "InfoGain":
+        splitFunc = InfoGain
+    elif Split == "MajorityError":
+        splitFunc = MajorityError
+    elif Split == "GiniIndex":
+        splitFunc = GiniIndex
+    else:
+        print "Invalid Split Function"
+        return None
+
+    return id3_main(S, Attributes, splitFunc, MaxDepth, 0)
 
 
-def ID3_Main(S, Attributes, Split, MaxDepth, depth):
+def id3_main(S, Attributes, Split, MaxDepth, depth):
     # check if max depth reached
     if depth == MaxDepth:
         return mostCommonLabelLeaf(S)
@@ -58,7 +68,7 @@ def ID3_Main(S, Attributes, Split, MaxDepth, depth):
         else:
             tempAttr = dict(Attributes)
             tempAttr.pop(A)
-            subtree = ID3_Main(Sv, tempAttr, Split, MaxDepth, depth+1)
+            subtree = id3_main(Sv, tempAttr, Split, MaxDepth, depth+1)
             subtree.label = v
             root.children.append(subtree)
 
@@ -249,41 +259,24 @@ def GI_calc(S):
 
     return gini
 
-### MAIN ###
-dataset = "car"
 
-attrFile = open(dataset + "/data-desc.txt")
-attrFile.readline()
-attrFile.readline()
-# reads the line, uses split/join to remove all whitespace, splits on commas
-labels = "".join(attrFile.readline().split()).split(',')
+def ID3_Test(Tree, S):
+    wrong = 0
+    for s in S:
+        label = get_label(s, Tree)
+        if label != s["Label"]:
+            wrong += 1
+    return wrong/float(len(S))
 
-attrFile.readline()
-attrFile.readline()
-attrFile.readline()
 
-Attributes = {"Label":labels}
-attrList = []
+def get_label(s, Tree):
+    if Tree.prediction != "":
+        return Tree.prediction
+    
+    newTree = None
+    for node in Tree.children:
+        if node.label == s[Tree.splitsOn]:
+            newTree = node
+            break
 
-line = attrFile.readline()
-while line != "\n":
-    splitLine = line.split(':')
-    attr = splitLine[0]
-    attrList.append(attr)
-    attrVals = "".join(splitLine[1].split()).split(',')
-    Attributes[attr] = attrVals
-    line = attrFile.readline()
-
-attrList.append("Label")
-
-S = []
-with open(dataset + "/train.csv") as f:
-    for line in f:
-        i = 0
-        example = {}
-        for attr in line.strip().split(','):
-            example[attrList[i]] = attr
-            i += 1
-        S.append(example)
-
-MegaRoot = ID3(S, Attributes, InfoGain)
+    return get_label(s, newTree)
