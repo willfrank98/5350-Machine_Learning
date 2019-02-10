@@ -309,9 +309,44 @@
 \item~[16 points] Continue with the same training data in Problem 2. Suppose before the tree construction, we receive one more training instance where Outlook's value is missing: \{Outlook: Missing, Temperature: Mild, Humidity: Normal, Wind: Weak, Play: Yes\}. 
 \begin{enumerate}
 \item~[3 points] Use the most common value in the training data as the missing  value, and calculate the information gains of the four features. Indicate the best feature.
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	New Outlook value: Sunny (tied with Rainy)
+	
+	Initial Entropy = $-(10/15)\log_2(10/15)-(5/15)\log_2(5/15) \approx 0.92 $
+	
+	Information gain of Outlook = $0.92 - (\frac{6}{15}(1.0) + \frac{4}{15}(0.0) + \frac{5}{15}(.97)) \approx 0.19 $
+	
+	Information gain of Temperature = $0.92 - (\frac{4}{15}(1.0) + \frac{7}{15}(.86) + \frac{4}{15}(.81)) \approx 0.03$
+	
+	Information gain of Wind = $0.92 - (\frac{6}{15}(1.0) + \frac{9}{15}(.76)) \approx 0.06 $
+	
+	Information gain of Humidity = $0.92 - (\frac{7}{15}(.99) + \frac{8}{15}(.54)) \approx 0.17 $
+	
+	Best Feature: Outlook
+\end{framed}
 \item~[3 points] Use the most common value among the  training instances with the same label, namely, their attribute "Play" is "Yes", and calculate the information gains of the four features. Indicate the best feature
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	New Outlook value: Overcast
+	
+	Information gain of Outlook = $0.92 - (\frac{5}{15}(.97) + \frac{5}{15}(0.0) + \frac{5}{15}(.97)) \approx 0.27 $
+	
+	Information gain of Temperature = $0.92 - (\frac{4}{15}(1.0) + \frac{7}{15}(.86) + \frac{4}{15}(.81)) \approx 0.03$
+	
+	Information gain of Wind = $0.92 - (\frac{6}{15}(1.0) + \frac{9}{15}(.76)) \approx 0.06 $
+	
+	Information gain of Humidity = $0.92 - (\frac{7}{15}(.99) + \frac{8}{15}(.54)) \approx 0.17 $
+	
+	Best Feature: Outlook
+\end{framed}
 \item~[3 points] Use the fractional counts to infer the feature values, and then calculate the information gains of the four features. Indicate the best feature.
+
+\textbf{Unfinished}
+
 \item~[7 points] Continue with the fractional examples, and build the whole free with information gain. List every step and the final tree structure.  
+
+\textbf{Unfinished}
 
 \end{enumerate}
 \item ~[\textbf{Bonus question 1}]~[5 points].  Prove that the information gain is always non-negative.  That means, as long as we split the data, the purity will never get worse! (Hint: use convexity)

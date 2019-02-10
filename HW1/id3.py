@@ -290,6 +290,6 @@ for line in file:
 
 Label = "0"
 
-MegaRoot = ID3(S, Attributes, Label, GiniIndex)
+MegaRoot = ID3(S, Attributes, Label, InfoGain)
 
 render(MegaRoot, "treetennis2")

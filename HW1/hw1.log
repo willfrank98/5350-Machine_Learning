@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.13)  8 FEB 2019 18:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.1.13)  9 FEB 2019 17:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -433,40 +433,40 @@ Package pdftex.def Info: treetennis2.pdf  used on input line 299.
 [4 <./treetennis1.pdf>] [5 <./treetennis2.pdf>]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 309.
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--330
+ [6]
+Underfull \hbox (badness 10000) in paragraph at lines 363--365
 
  []
 
-[6] [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
+[7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 394--395
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 398--399
+Underfull \hbox (badness 10000) in paragraph at lines 433--434
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 430--431
+Underfull \hbox (badness 10000) in paragraph at lines 465--466
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 436.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 471.
 [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 436.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 471.
  (./hw1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 436.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 436.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 471.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 471.
 Package rerunfilecheck Info: File `hw1.out' has not changed.
 (rerunfilecheck)             Checksum: C6FD7FC0DA14511A24D5B9ACD1883BC9;140.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 436.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 471.
  ) 
 Here is how much of TeX's memory you used:
  8169 strings out of 494519
@@ -487,7 +487,7 @@ t/fonts/type1/public/amsfonts/cm/cmsy10.pfb><f:/Apps/texlive/2018/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti10.pfb><f:/Apps/texlive/2018/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmtt10.pfb><f:/Apps/texlive/2018/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmtt12.pfb>
-Output written on hw1.pdf (11 pages, 214304 bytes).
+Output written on hw1.pdf (11 pages, 215841 bytes).
 PDF statistics:
  200 PDF objects out of 1000 (max. 8388607)
  165 compressed objects within 2 object streams
