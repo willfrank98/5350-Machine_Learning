@@ -427,17 +427,14 @@
 
 \end{enumerate}
 \item ~[\textbf{Bonus question 1}]~[5 points].  Prove that the information gain is always non-negative.  That means, as long as we split the data, the purity will never get worse! (Hint: use convexity)
-\begin{framed}
-	\noindent {\bf Solution:\/}  \newline
-	$Gain(S, A) = Entropy(S) - \sum_{v \in Values(A)}^{}\frac{\abs{S_v}}{\abs{S}}Entropy(S_v)$
-	
-\end{framed}
 
 \item ~[\textbf{Bonus question 2}]~[5 points].  We have discussed how to use decision tree for regression (i.e., predict numerical values) --- on the leaf node, we simply use the average of the (numerical) labels as the prediction.  Now, to construct a regression tree, can you invent a gain to select the best attribute to split data in ID3 framework?
 
 \begin{framed}
 	\noindent {\bf Solution:\/}  \newline
 	Instead of information gain I would use some kind of least variance to split data. You want to converge on one number for any set of attributes, therefore you want to make splits that remove variance from the resulting subsets. 
+	
+	$$Gain(S, A) = Variance(S) - \sum_{v \in Values(A)}^{}\frac{\abs{S_v}}{\abs{S}}Variance(S_v)$$
 	
 \end{framed}
 
