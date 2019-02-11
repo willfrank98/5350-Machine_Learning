@@ -1,4 +1,5 @@
 from id3 import ID3_Train, ID3_Test
+import sys
 #from render import render
 
 
@@ -13,8 +14,9 @@ def calc_median(arr):
 
 
 ### MAIN ###
-dataset = "bank"
-function = "GiniIndex"
+dataset = sys.argv[1]
+function = sys.argv[2]
+maxdepth = int(sys.argv[3])
 
 attrFile = open(dataset + "/data-desc.txt")
 attrFile.readline()
@@ -117,13 +119,13 @@ for attr in numericList:
 for attr in unknownList:
     Attributes[attr].remove("unknown")
 
-print "DataSet:", dataset, "Algorithm:", function
+print "DataSet:", dataset, "\tAlgorithm:", function
 outputTrain = ""
 outputTest = ""
-for i in range(1, 17):
+for i in range(1, maxdepth+1):
     Tree = ID3_Train(S_train, Attributes, function, i)
-    outputTrain += str(ID3_Test(Tree, S_train)) + " & "
-    outputTest += str(ID3_Test(Tree, S_test)) + " & "
+    outputTrain += "{:.3f}".format(ID3_Test(Tree, S_train)) + "\t"
+    outputTest += "{:.3f}".format(ID3_Test(Tree, S_test)) + "\t"
 
-print outputTrain
-print outputTest
+print "Training Error:\t" + outputTrain
+print "Testing Error:\t" + outputTest
