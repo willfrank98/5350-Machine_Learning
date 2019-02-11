@@ -1,9 +1,6 @@
 from id3 import ID3_Train, ID3_Test
 from render import render
 
-def open_dataset(FileName, NumericList, AttributesList):
-    
-    return S
 
 def calc_median(arr):
     n = len(arr)
@@ -17,9 +14,7 @@ def calc_median(arr):
 
 ### MAIN ###
 dataset = "bank"
-function = "InfoGain"
-maxDepth = 1
-output = "cars"
+function = "GiniIndex"
 
 attrFile = open(dataset + "/data-desc.txt")
 attrFile.readline()
@@ -47,21 +42,28 @@ attrList.append("Label")
 
 # gets a list of all attributes that are numerical rather than categorical
 numericList = [A for A in attrList if A in Attributes and Attributes[A][0] == "(numeric)"]
+unknownList = [A for A in attrList if A in Attributes and Attributes[A][0] == "unknown"]
 
 # opens training data
 S_train = []
 numericalLists = {}
+unknownsLists = {}
 with open(dataset + "/train.csv") as f:
     for line in f:
         i = 0
         example = {}
         for attr in line.strip().split(','):
             # if this is a numerical attribute, add it to the list that calculates medians
-            if attrList[i] in numericList:
-                attrName = attrList[i]
+            attrName = attrList[i]
+            if attrName in numericList:
                 if attrName not in numericalLists:
                     numericalLists[attrName] = []
                 numericalLists[attrName].append(float(attr))
+            # if this attribute can be unknown then track the most common attribute value
+            if attrName in unknownList and attr != "unknown":
+                if attrName not in unknownsLists:
+                    unknownsLists[attrName] = []
+                unknownsLists[attrName].append(attr)
             example[attrList[i]] = attr
             i += 1
         S_train.append(example)
@@ -70,13 +72,21 @@ medianList = {}
 for name, arr in numericalLists.items():
     medianList[name] = calc_median(arr)
 
+unknownReplace = {}
+for name, arr in unknownsLists.items():
+    unknownReplace[name] = max(set(arr), key=arr.count)
+
 # convert numerical data into binary
+# convert unknowns into most common value
 for s in S_train:
     for attr in numericList:
         if s[attr] >= numericalLists[attr]:
             s[attr] = "1"
         elif s[attr] < numericalLists[attr]:
             s[attr] = "-1"
+    for attr in unknownList:
+        if s[attr] == "unknown":
+            s[attr] = unknownReplace[attr]
 
 S_test = []
 with open(dataset + "/test.csv") as f:
@@ -84,19 +94,36 @@ with open(dataset + "/test.csv") as f:
         i = 0
         example = {}
         for attr in line.strip().split(','):
-            if attrList[i] in numericList:
+            name = attrList[i]
+            # convert numerical data into binary
+            if name in numericList:
                 val = float(attr)
-                # convert numerical data into binary
-                if val >= numericalLists[attr]:
+                if val >= numericalLists[name]:
                     attr = "1"
-                elif s[attr] < numericalLists[attr]:
+                elif val < numericalLists[name]:
                     attr = "-1"
-            example[attrList[i]] = attr
+            # convert unknown into most common training value
+            if name in unknownList and attr == "unknown":
+                attr = unknownReplace[name]
+            example[name] = attr
             i += 1
         S_test.append(example)
 
+# fix (numeric) Attributes
+for attr in numericList:
+    Attributes[attr] = ["-1", "1"]
+
+# fix unknown attributes
+for attr in unknownList:
+    Attributes[attr].remove("unknown")
+
 print "DataSet:", dataset, "Algorithm:", function
-for i in range(1, 7):
+outputTrain = ""
+outputTest = ""
+for i in range(1, 17):
     Tree = ID3_Train(S_train, Attributes, function, i)
-    render(Tree, None)
-    print "Depth:", i, "Training error:", ID3_Test(Tree, S_train), "Testing error:", ID3_Test(Tree, S_test)
+    outputTrain += str(ID3_Test(Tree, S_train)) + " & "
+    outputTest += str(ID3_Test(Tree, S_test)) + " & "
+
+print outputTrain
+print outputTest

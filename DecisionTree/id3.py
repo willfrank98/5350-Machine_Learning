@@ -22,8 +22,7 @@ def ID3_Train(S, Attributes, Split, MaxDepth=None):
     elif Split == "GiniIndex":
         splitFunc = GiniIndex
     else:
-        print "Invalid Split Function"
-        return None
+        raise ValueError("Invalid Split function passed to ID3")
 
     return id3_main(S, Attributes, splitFunc, MaxDepth, 0)
 
@@ -158,7 +157,7 @@ def InfoGain(S, Attributes):
     """gets the attribute with the best information gain"""
     entropy = ent_calc(S)
 
-    maxInfo = 0
+    maxInfo = -1
     maxAttr = ""
     for A in Attributes:
         infoGain = infohelper(S, Attributes, A, entropy)
@@ -207,7 +206,7 @@ def GiniIndex(S, Attributes):
     """gets the attribute with the lowest Gini Index"""
     initialGini = GI_calc(S)
 
-    maxInfo = 0
+    maxInfo = -1
     maxAttr = ""
     for A in Attributes:
         infoGain = ginihelper(S, Attributes, A, initialGini)

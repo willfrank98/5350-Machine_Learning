@@ -6,7 +6,7 @@ yes, no
 
 age: (numeric)
 job : admin.,unknown,unemployed,management,housemaid,entrepreneur,student,blue-collar,self-employed,retired,technician,services
-marital : married,divorced,single; note: divorced means divorced or widowed
+marital : married,divorced,single
 education: unknown,secondary,primary,tertiary
 default: yes,no
 balance: (numeric) 
