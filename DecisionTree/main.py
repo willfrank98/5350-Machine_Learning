@@ -1,5 +1,5 @@
 from id3 import ID3_Train, ID3_Test
-from render import render
+#from render import render
 
 
 def calc_median(arr):
