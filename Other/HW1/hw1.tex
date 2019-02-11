@@ -342,20 +342,103 @@
 \end{framed}
 \item~[3 points] Use the fractional counts to infer the feature values, and then calculate the information gains of the four features. Indicate the best feature.
 
-\textbf{Unfinished}
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	New Outlook value: {5/14 Sunny, 4/14 Overcast, 5/14 Rainy}
+	
+	Information gain of Outlook = $0.92 - (\frac{5.36}{15}(.99) + \frac{4.29}{15}(0.0) + \frac{5.36}{15}(.95)) \approx 0.22 $
+	
+	Information gain of Temperature = $0.92 - (\frac{4}{15}(1.0) + \frac{7}{15}(.86) + \frac{4}{15}(.81)) \approx 0.03$
+	
+	Information gain of Wind = $0.92 - (\frac{6}{15}(1.0) + \frac{9}{15}(.76)) \approx 0.06 $
+	
+	Information gain of Humidity = $0.92 - (\frac{7}{15}(.99) + \frac{8}{15}(.54)) \approx 0.17 $
+	
+	Best Feature: Outlook
+\end{framed}
 
 \item~[7 points] Continue with the fractional examples, and build the whole free with information gain. List every step and the final tree structure.  
 
-\textbf{Unfinished}
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	New Outlook value: {5/14 Sunny, 4/14 Overcast, 5/14 Rainy}
+	
+	\bigskip
+	
+	Information gain of Outlook = $0.92 - (\frac{5.36}{15}(.99) + \frac{4.29}{15}(0.0) + \frac{5.36}{15}(.95)) \approx 0.22 $
+	
+	Information gain of Temperature = $0.92 - (\frac{4}{15}(1.0) + \frac{7}{15}(.86) + \frac{4}{15}(.81)) \approx 0.03$
+	
+	Information gain of Wind = $0.92 - (\frac{6}{15}(1.0) + \frac{9}{15}(.76)) \approx 0.06 $
+	
+	Information gain of Humidity = $0.92 - (\frac{7}{15}(.99) + \frac{8}{15}(.54)) \approx 0.17 $
+	
+	Split on Outlook, giving S1 (Sunny) = [1, 2, 8, 9, 11, 15], S2 (Overcast) = [3, 7, 12, 13, 16], and S3 (Rainy) = [4, 5, 6, 10, 14, 17]
+	
+	\bigskip
+	
+	S1 Initial Entropy = $-(2.35/5.35)\log_2(2.35/5.35)-(3/5.35)\log_2(3/5.35) \approx 0.99 $
+	
+	Info gain for Temperature =$0.99 - (\frac{2}{5.36}(0.00) + \frac{2.36}{5.36}(0.98) + \frac{1}{5.36}(0.00)) \approx 0.56$
+	
+	Info gain for Wind = $0.99 - (\frac{2}{5.36}(1.00) + \frac{3.36}{5.36}(0.97)) \approx 0.01$
+	
+	Info gain for Humidity = $0.99 - (\frac{3}{5.36}(0.00) + \frac{2.36}{5.36}(0.00) + \frac{0}{5.36}(0.00)) \approx 0.99$
+	
+	Split on Humidity, giving S4 (High) = [1, 2, 8], S5 (Normal) = [9, 11, 15], and S6 (Low) = []
+	
+	\bigskip
+	
+	S4 Initial Entropy = $-(0/3)\log_2(0/3)-(3/3)\log_2(3/3) = 0 $, Done.
+	
+	S4 Initial Entropy = $-(0/2.36)\log_2(0/2.36)-(2.36/2.36)\log_2(2.36/2.36) = 0 $, Done.
+	
+	S6 Initial Entropy = $ 0 $, Done.
+	
+	\bigskip
+	
+	S2 Initial Entropy = $-(4.29/4.29)\log_2(4.29/4.29))-(0/4.29)\log_2(0/4.29)) = 0$, Done.
+	
+	\bigskip
+	
+	S3 Initial Entropy = $-(3.35/5.35)\log_2(3.35/5.35)-(2/5.35)\log_2(2/5.35) \approx 0.95 $
+	
+	Info gain for Temperature = $0.95 - (\frac{0.00}{5.36}(0.00) + \frac{3.36}{5.36}(0.88) + \frac{2.00}{5.36}(1.00)) \approx 0.03$
+	
+	Info gain for Wind = $0.95 - (\frac{2.00}{5.36}(0.00) + \frac{3.36}{5.36}(0.00) + ) \approx 0.95$
+	
+	Info gain for Humidity = $0.95 - (\frac{2.00}{5.36}(1.00) + \frac{3.36}{5.36}(0.88) + \frac{0.00}{5.36}(0.00)) \approx 0.03$
+	
+	Split on Wind, giving S7 (Strong) = [6, 14] and S8 (Weak) = [4, 5, 10, 17]
+	
+	\bigskip
+	
+	S7 Initial Entropy = $-(0/2)\log_2(0/2)-(2/2)\log_2(2/2) = 0 $, Done.
+	
+	S8 Initial Entropy = $-(4.36/4.36)\log_2(4.36/4.36))-(0/4.36)\log_2(0/4.36)) = 0$, Done.
+	
+	\bigskip
+	
+	Final Tree:
+	
+	\includegraphics[scale=.7]{treetennisfrac.pdf}
+	\centering	
+\end{framed}
 
 \end{enumerate}
 \item ~[\textbf{Bonus question 1}]~[5 points].  Prove that the information gain is always non-negative.  That means, as long as we split the data, the purity will never get worse! (Hint: use convexity)
-
-\textbf{Unfinished}
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	\textbf{Unfinished}
+\end{framed}
 
 \item ~[\textbf{Bonus question 2}]~[5 points].  We have discussed how to use decision tree for regression (i.e., predict numerical values) --- on the leaf node, we simply use the average of the (numerical) labels as the prediction.  Now, to construct a regression tree, can you invent a gain to select the best attribute to split data in ID3 framework?
 
-\textbf{Unfinished}
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	Instead of information gain I would use some kind of least variance to split data. You want to converge on one number for any set of attributes, therefore you want to make splits that remove variance from the resulting subsets. 
+	
+\end{framed}
 
 \end{enumerate}
 
@@ -406,8 +489,12 @@ Testing Error:
 \item~[5 points] What can you conclude by comparing the training errors and the test errors? 
 \end{enumerate}
 
+\begin{framed}
+	\noindent {\bf Solution:\/}  \newline
+	For all algorithms a depth of 6 was enough to eliminate all training error. However there are obviously some examples in the test data which do not conform to the tree created from the training data, as even at depth 6 there is testing error across the board. Trees of depth 1 are also more accurate on the test data than the training data.
+\end{framed}
 
-\item~[25 points] Next, modify your implementation a little bit to support numerical attributes. We will use a simple approach to convert a numerical feature to a binary one. We choose the media (NOT the average) of the attribute values (in the training set) as the threshold, and examine if the feature is bigger (or less) than the threshold. We will use another real dataset from UCI repository(\url{https://archive.ics.uci.edu/ml/datasets/Bank+Marketing}). This dataset contains $16$ attributes, including both numerical and categorical ones. Please download the processed dataset from Canvas (bank.zip).  The attribute and label values are listed in the file ``data-desc.txt". The training set is the file ``train.csv'', consisting of $5,000$ examples, and the test  ``test.csv'' with $5,000$ examples as well.  In both training and test datasets, attribute values are separated by commas; the file ``data-desc.txt''  lists the attribute names in each column. 
+\item~[25 points] Next, modify your implementation a little bit to support numerical attributes. We will use a simple approach to convert a numerical feature to a binary one. We choose the median (NOT the average) of the attribute values (in the training set) as the threshold, and examine if the feature is bigger (or less) than the threshold. We will use another real dataset from UCI repository(\url{https://archive.ics.uci.edu/ml/datasets/Bank+Marketing}). This dataset contains $16$ attributes, including both numerical and categorical ones. Please download the processed dataset from Canvas (bank.zip).  The attribute and label values are listed in the file ``data-desc.txt". The training set is the file ``train.csv'', consisting of $5,000$ examples, and the test  ``test.csv'' with $5,000$ examples as well.  In both training and test datasets, attribute values are separated by commas; the file ``data-desc.txt''  lists the attribute names in each column. 
 \begin{enumerate}
 	\item~[10 points] Let us consider ``unkown'' as a particular attribute value, and hence we do not have any missing attributes for both training and test. Vary the maximum  tree depth from $1$ to $16$ --- for each setting, run your algorithm to learn a decision tree, and use the tree to  predict both the training  and test examples. Again, if your tree cannot grow up to $16$ levels, stop at the maximum level. Report in a table the average prediction errors on each dataset when you use information gain, majority error and gini index heuristics, respectively.
 	

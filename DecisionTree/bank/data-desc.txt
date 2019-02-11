@@ -1,3 +1,32 @@
+| label values
+
+yes, no
+
+| attributes
+
+age: (numeric)
+job : admin.,unknown,unemployed,management,housemaid,entrepreneur,student,blue-collar,self-employed,retired,technician,services
+marital : married,divorced,single; note: divorced means divorced or widowed
+education: unknown,secondary,primary,tertiary
+default: yes,no
+balance: (numeric) 
+housing: yes,no
+loan: yes,no
+contact: unknown,telephone,cellular
+day: (numeric)
+month: jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+duration: (numeric)
+campaign: (numeric)
+pdays: (numeric)
+previous: (numeric)
+poutcome: unknown,other,failure,success
+
+
+
+
+
+### OLD FILE ###
+
 1. Title: Bank Marketing
 
 2. Relevant Information:

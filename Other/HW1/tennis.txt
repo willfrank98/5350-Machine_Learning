@@ -4,18 +4,20 @@ S O R
 H M C
 H N L
 S W
-S H H W -
-S H H S -
-O H H W +
-R M H W +
-R C N W +
-R C N S -
-O C N S +
-S M H W -
-S C N W +
-R M N W +
-S M N S +
-O M H S +
-O H N W +
-R M H S -
-O M N W +
+S H H W - 1
+S H H S - 1
+O H H W + 1
+R M H W + 1
+R C N W + 1
+R C N S - 1
+O C N S + 1
+S M H W - 1
+S C N W + 1
+R M N W + 1
+S M N S + 1
+O M H S + 1
+O H N W + 1
+R M H S - 1
+S M N W + 5/14.0
+O M N W + 4/14.0
+R M N W + 5/14.0

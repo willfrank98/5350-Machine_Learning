@@ -146,20 +146,12 @@ def ME_calc(S):
             labels[label] = 0
         labels[label] += 1
 
-    maxLabel = ""
     numLabel = 0
     for label, num in labels.items():
         if num > numLabel:
             numLabel = num
-            maxLabel = label
 
-    numWrong = 0
-    for s in S:
-        label = s["Label"]
-        if label != maxLabel:
-            numWrong += 1
-
-    return numWrong/float(len(S))
+    return 1 - numLabel/float(len(S))
 
 
 def InfoGain(S, Attributes):
