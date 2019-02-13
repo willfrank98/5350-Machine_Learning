@@ -47,7 +47,7 @@ def ID3(S, Attributes, Label, Split):
                 label = s["Label"]
                 if label not in labels:
                     labels[label] = 0
-                labels[label] += 1
+                labels[label] += eval(s["Weight"])
 
             maxNum = 0
             maxLabel = ""
@@ -140,6 +140,7 @@ def InfoGain(S, Attributes):
     maxInfo = 0
     maxAttr = ""
     for A in Attributes:
+        print "GI for " + A + " = "
         infoGain = infohelper(S, Attributes, A, entropy)
         if infoGain > maxInfo:
             maxInfo = infoGain
@@ -151,13 +152,19 @@ def InfoGain(S, Attributes):
 def infohelper(S, Attributes, A, entropy):
     """calculates the info gain of a specific attribute"""
     newEnt = 0.0
+    norm = float(get_len(S))
+    output = "$" + "{:.2f}".format(entropy) + " - ("
     for v in Attributes[A]:
         # creates a list of examples where attr A has value v
         Sv = getSv(S, A, v)
-        ratio = len(Sv)/float(len(S))
+        Sv_len = get_len(Sv)
+        ratio = Sv_len/norm
         ent = ent_calc(Sv)
+        output += "\\frac{" + "{:.2f}".format(Sv_len) + "}{" + "{:.2f}".format(norm) + "}(" + "{:.2f}".format(ent) + ") + "
         newEnt += ratio * ent
 
+    output += ") \\approx " + "{:.2f}".format(entropy - newEnt) + "$"
+    print output
     return entropy - newEnt
 
 
@@ -171,15 +178,21 @@ def ent_calc(S):
         label = s["Label"]
         if label not in labels:
             labels[label] = 0
-        labels[label] += 1
+        labels[label] += eval(s["Weight"])
 
     entropy = 0.0
-    norm = len(S)  # normalizing value
+    norm = get_len(S)  # normalizing value
     for (label, quant) in labels.items():
         ratio = quant/float(norm)
         entropy -= math.log((ratio), 2) * (ratio)
 
     return entropy
+
+def get_len(S):
+    len = 0
+    for s in S:
+        len += eval(s["Weight"])
+    return len
 
 
 def GiniIndex(S, Attributes):
@@ -268,7 +281,7 @@ def get_edges(root):
         edges.extend(get_edges(child))
     return edges
 
-
+###MAIN###
 file = open("tennis.txt")
 numAttr = int(file.readline().strip())
 
@@ -278,6 +291,7 @@ Attributes = {}
 for i in range(0, numAttr):
     Attributes[listAttr[i]] = file.readline().strip().split(' ')
 listAttr.append("Label") # Label isn't an attribute, but we need it to build examples
+listAttr.append("Weight")
 
 S = []
 for line in file:
@@ -292,4 +306,4 @@ Label = "0"
 
 MegaRoot = ID3(S, Attributes, Label, InfoGain)
 
-render(MegaRoot, None)
+render(MegaRoot, "treetennisfrac")
