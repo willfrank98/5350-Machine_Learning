@@ -17,7 +17,7 @@
 \newcommand{\bx}{{\bf x}}
 \newcommand{\bw}{{\bf w}}
 
-\title{CS 5350/6350: Machine Learining \semester}
+\title{CS 5350/6350: Machine Learning \semester}
 \author{Homework \assignmentId}
 \date{Handed out: \releaseDate\\
 	Due: \dueDate}
@@ -81,9 +81,22 @@ m > \frac{1}{\epsilon}\big(\log(|H|) + \log\frac{1}{\delta}\big).
 	For each target function in $C$, we assume both algorithms can find a hypothesis consistent with the training data. 
 	\begin{enumerate}
 		\item~[1 point] According to Occam's Razor principle, which learning algorithm's  result hypothesis do you prefer? Why?
+		\bigskip\newline
+		Occam's Razor dictates that one always prefer the most simple model of something possible. Therefore I would prefer $H_1$, as it uses fewer attributes to describe something.
+		\bigskip
 		\item~[1 point]  How is this principle reflected in our PAC guarantee? Please use the above inequality to explain why we will prefer the corresponding result hypothesis. 
+		\bigskip\newline
+		Because $H_1$ is a smaller hypothesis space, a consistent learner will require fewer examples to achieve a certain amount of generalization error in comparison to the larger $H_2$, as defined by the PAC guarantee.
+		\bigskip
 	\end{enumerate}
 	\item~[3 points] Let us investigate algorithm $L_1$. Suppose we have $n$ input features, and the size of the hypothesis space used by $L_1$ is $3^n$. Given $n=10$ features, if we want to guarantee a 95\% chance of learning a hypothesis of at least 90\% generalization accuracy, how many training examples at least do we need for $L_1$?
+	\smallskip\newline
+	$m > \frac{1}{\epsilon}\big(\log(|H|) + \log\frac{1}{\delta}\big)$
+	
+	$\frac{1}{0.9}\big(\log_2(3^{10}) + \log_2\frac{1}{(1-0.95)}\big) \approx 22.413 < m$
+	
+	At least 23 training examples are needed for $L_1$.
+	\bigskip
 \end{enumerate}
 
 \item~[7 points] Let us check the PAC learnability for several concept classes. We assume that our learning algorithm can always result in a hypothesis consistent with the training data. We assume the hypothesis space $H$ is the same as the concept class $C$. Please determine whether the following concept classes are PAC learnable or not and prove your conclusions [Hint: please carefully check the definition of PAC learnability]. 
