@@ -1,4 +1,5 @@
 import math
+import random
 from graphviz import Graph
 
 
@@ -55,6 +56,48 @@ def id3_with_weight(S, Attributes, MaxDepth, depth):
             tempAttr = dict(Attributes)
             tempAttr.pop(A)
             subtree = id3_with_weight(Sv, tempAttr, MaxDepth, depth+1)
+            subtree.label = v
+            root.children.append(subtree)
+
+    return root
+
+def id3_rand_learn(S, Attributes, NumFeatures):
+    # check if all labels are the same
+    labelCheck = S[0]["Label"]
+    allSame = True
+    for s in S:
+        if s["Label"] != labelCheck:
+            allSame = False
+            break
+
+    if allSame:
+        # return a leaf node with the label
+        leaf = Node()
+        leaf.prediction = labelCheck
+        return leaf
+
+    # check if all attributes have been used
+    if len(Attributes) == 0:
+        return mostCommonLabelLeaf(S)
+
+    # get attribute A that best splits S
+    A = InfoGain_rand(S, Attributes, NumFeatures)
+
+    #create a root node for tree
+    root = Node()
+    root.splitsOn = A
+
+    for v in Attributes[A]:
+        Sv = getSv(S, A, v)
+
+        if len(Sv) == 0:
+            # add leaf node w/ most common value of Label in S
+            leaf = mostCommonLabelLeaf(S, v)
+            root.children.append(leaf)
+        else:
+            tempAttr = dict(Attributes)
+            tempAttr.pop(A)
+            subtree = id3_rand_learn(Sv, tempAttr, NumFeatures)
             subtree.label = v
             root.children.append(subtree)
 
@@ -139,6 +182,29 @@ def ent_calc(S):
         entropy -= math.log((ratio), 2) * (ratio)
 
     return entropy
+
+def InfoGain_rand(S, Attributes, NumFeatures):
+    """gets the attribute with the best information gain"""
+    entropy = ent_calc(S)
+
+    newAttrs = []
+    cpyAttrs = list(Attributes)
+    for _ in range(0, NumFeatures):
+        if len(cpyAttrs) == 0:
+            break
+        rand = random.randint(0, len(cpyAttrs)-1)
+        newAttrs.append(cpyAttrs[rand])
+        del cpyAttrs[rand]
+
+    maxInfo = -1
+    maxAttr = ""
+    for A in newAttrs:
+        infoGain = infohelper(S, Attributes, A, entropy)
+        if infoGain > maxInfo:
+            maxInfo = infoGain
+            maxAttr = A
+
+    return maxAttr
 
 def get_len(S):
     length = 0

@@ -1,5 +1,7 @@
 from ada import *
 from bagging import *
+from forest import *
+import random
 
 def calc_median(arr):
     n = len(arr)
@@ -120,13 +122,31 @@ with open(dataset + "/test.csv") as f:
 for attr in numericList:
     Attributes[attr] = ["-1", "1"]
 
-# fix unknown attributes
-# for attr in unknownList:
-#     Attributes[attr].remove("unknown")
 
-for T in range(1, 1001, 10):
-    hypothesis = Bagging(S_train, Attributes, T)
-    err_train = Bagging_Test(hypothesis, S_train)
-    err_test = Bagging_Test(hypothesis, S_test)
-    print "T = " + str(T-1) + ": " + str(err_train) + ",\t" + str(err_test)
-    reset_weights(S_train)
+
+asodufh = Random_Forest_Train(S_train, Attributes, 10, 2)
+
+
+
+predictors = []
+for _ in range(0, 100):
+    copy_S = list(S_train)
+    new_S = []
+    for i in range(0, 1000):
+        rand = random.randint(0, len(copy_S) - 1)
+        new_S.append(copy_S[rand])
+        del copy_S[rand]
+    predictor = Bagging_Train(new_S, Attributes, 1000)
+    predictors.append(predictor)
+
+pass
+
+
+
+
+# for T in range(1, 1001, 10):
+#     hypothesis = Bagging(S_train, Attributes, T)
+#     err_train = Bagging_Test(hypothesis, S_train)
+#     err_test = Bagging_Test(hypothesis, S_test)
+#     print "T = " + str(T-1) + ": " + str(err_train) + ",\t" + str(err_test)
+#     reset_weights(S_train)

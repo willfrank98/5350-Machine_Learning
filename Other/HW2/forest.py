@@ -1,7 +1,7 @@
-from id3 import id3_with_weight, id3_weighted_err, get_label, render
 import random
+from id3 import *
 
-def Bagging_Train(S, Attributes, T):
+def Random_Forest_Train(S, Attributes, T, num_features):
     M = len(S)/2
     predictions = []
     weights = []
@@ -11,15 +11,14 @@ def Bagging_Train(S, Attributes, T):
             rand = random.randint(0, len(S) - 1)
             new_S.append(S[rand])
 
-        tree = id3_with_weight(new_S, Attributes, None, 0)
+        tree = id3_rand_learn(new_S, Attributes, 2)
         #render(tree, "tree")
         predictions.append(tree)
-        weights.append(1)# - id3_weighted_err(tree, S))
+        weights.append(1 - id3_weighted_err(tree, S))
 
     return predictions, weights
 
-
-def Bagging_Test(Hypothesis, S):
+def Random_Forest_Test(Hypothesis, S):
     wrong = 0
     for s in S:
         prediction = 0
