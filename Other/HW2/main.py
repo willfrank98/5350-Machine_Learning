@@ -124,9 +124,9 @@ for attr in numericList:
 # for attr in unknownList:
 #     Attributes[attr].remove("unknown")
 
-for T in range(1, 101, 10):
+for T in range(1, 1001, 10):
     hypothesis = Bagging(S_train, Attributes, T)
     err_train = Bagging_Test(hypothesis, S_train)
     err_test = Bagging_Test(hypothesis, S_test)
-    print "T = " + str(T) + ": " + str(err_train) + ",\t" + str(err_test)
+    print "T = " + str(T-1) + ": " + str(err_train) + ",\t" + str(err_test)
     reset_weights(S_train)
