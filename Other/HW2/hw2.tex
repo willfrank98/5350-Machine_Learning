@@ -294,14 +294,16 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 
 \item~[36 points] We will implement the boosting and bagging algorithms based on decision trees.  Let us test them on the bank marketing dataset in HW1 (bank.zip in Canvas). We use the same approach to convert the numerical features into binary ones. That is, we choose the media (NOT the average) of the attribute values (in the training set) as the threshold, and examine if the feature is bigger (or less) than the threshold.  For simplicity, we treat ``unknown'' as a particular attribute value, and hence we do not have any missing attributes for both training and test.
 \begin{enumerate}
-	\item~[8 points] Modify your decision tree learning algorithm to learn decision stumps ---  trees with only two levels. Specifically, compute the information gain to select the best feature to split the data. Then for each subset, create a leaf node. Note that your decision stumps must support weighted training examples. Based on your decision stump learning algorithm, implement AdaBoost algorithm. Vary the number of iterations T from $1$ to $1000$, and examine the training and test errors. You should report the results in two figures. The first figure shows how the training and test errors vary along with T. The second figure shows  the training and test errors of all the decision stumps learned in each iteration. What can you observe and conclude? You have had the results for a fully expanded decision tree in HW1. Comparing them with Adaboost, what can you observe and conclude?
+	\item~[8 points] Modify your decision tree learning algorithm to learn decision stumps ---  trees with only two levels. Specifically, compute the information gain to select the best feature to split the data. Then for each subset, create a leaf node. Note that your decision stumps must support weighted training examples. Based on your decision stump learning algorithm, implement AdaBoost algorithm. Vary the number of iterations T from $1$ to $1000$, and examine the training and test errors. You should report the results in two figures. The first figure shows how the training and test errors vary along with T. The second figure shows  the training and test errors of all the decision stumps learned in each iteration. What can you observe and conclude? You have had the results for a fully expanded decision tree in HW1. Comparing them with AdaBoost, what can you observe and conclude?
 	
 	\item~[8 points] Based on your code of the decision tree learning algorithm (with information gain), implement a Bagged trees learning algorithm. Note that each tree should be fully expanded --- no early stopping or post pruning. Vary the number of trees from $1$ to $1000$, report how the training and test errors vary along with the tree number in a figure. Overall, are bagged trees better than a single tree? Are bagged trees better than Adaboost? 
+	
+	\includegraphics{bagging_graph}
 
 	\item~[6 points] Through the bias and variance decomposition, we have justified why the bagging approach is more effective than a single classifier/predictor. Let us verify it in real data. Experiment with the following procedure.
 	\begin{itemize}
 		\item REPEAT for 100 times
-		\item ~[STEP 1] Sample $1,000$ examples \textit{uniformly without replacement} from the training datset
+		\item ~[STEP 1] Sample $1,000$ examples \textit{uniformly without replacement} from the training dataset
 		\item ~[STEP 2] Run your bagged trees learning algorithm based on the $1,000$ training examples and learn $1000$ trees.
 		\item END REPEAT 
 		\item Now you have $100$ bagged predictors in hand. For comparison, pick the first tree in each run to get $100$ fully expanded trees (i.e. single trees). 

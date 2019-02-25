@@ -53,7 +53,6 @@ def Stochastic_LMS(S, Attributes, R, Convergence):
     norm = 1
     T = 0
     while norm > Convergence:
-        #random.shuffle(S)
         storedW = list(w)
         for i in range(0, len(S)):
             newW = []
