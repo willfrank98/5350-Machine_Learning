@@ -127,6 +127,14 @@ $\frac{1}{2}\big(1 - \sum D_t(i) y_i h_t(x_i)\big)$
 
 $\frac{1}{2}\big(1 - \sum_{y_i = h_t(x_i)} D_t(i) + \sum_{y_i \neq h_t(x_i)} D_t(i)\big)$
 
+$\frac{1}{2}\big(1 - \sum_{y_i = h_t(x_i)} D_t(i) + \sum_{y_i \neq h_t(x_i)} D_t(i) + (\sum_{y_i = h_t(x_i)} D_t(i) + \sum_{y_i \neq h_t(x_i)} D_t(i) - 1)\big)$
+
+$\frac{1}{2}\big(1 - 1 + \sum_{y_i = h_t(x_i)}D_t(i) - \sum_{y_i = h_t(x_i)}D_t(i) + \sum_{y_i \neq h_t(x_i)}D_t(i) + \sum_{y_i \neq h_t(x_i)}D_t(i)\big)$
+
+$\frac{1}{2}\big(2\sum_{y_i \neq h_t(x_i)}D_t(i)\big)$
+
+$\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
+
 \bigskip
 
 	\item~[8 points] Can you figure out an equivalent linear classifier and a decision tree for the following Boolean functions? For linear classifiers, please point out what the weight vector, the bias parameter and the hyperplane are. Note that the hyperplane is determined by an equality. If you cannot find out such a  linear classifier, please explain why. 
