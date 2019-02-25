@@ -1,5 +1,5 @@
-#from id3 import *
-from ada import AdaBoost, AdaBoost_Test
+from ada import *
+from bagging import *
 
 def calc_median(arr):
     n = len(arr)
@@ -124,9 +124,9 @@ for attr in numericList:
 # for attr in unknownList:
 #     Attributes[attr].remove("unknown")
 
-for T in range(5, 1001):
-    hypothesis = AdaBoost(S_train, Attributes, T)
-    err_train = AdaBoost_Test(hypothesis, S_train)
-    #err_test = AdaBoost_Test(hypothesis, S_test)
-    print "T = " + str(T) + ": " + str(err_train) #+ ",\t" + str(err_test)
+for T in range(1, 101, 10):
+    hypothesis = Bagging(S_train, Attributes, T)
+    err_train = Bagging_Test(hypothesis, S_train)
+    err_test = Bagging_Test(hypothesis, S_test)
+    print "T = " + str(T) + ": " + str(err_train) + ",\t" + str(err_test)
     reset_weights(S_train)

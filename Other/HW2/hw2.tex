@@ -102,6 +102,9 @@ m > \frac{1}{\epsilon}\big(\log(|H|) + \log\frac{1}{\delta}\big).
 \item~[7 points] Let us check the PAC learnability for several concept classes. We assume that our learning algorithm can always result in a hypothesis consistent with the training data. We assume the hypothesis space $H$ is the same as the concept class $C$. Please determine whether the following concept classes are PAC learnable or not and prove your conclusions [Hint: please carefully check the definition of PAC learnability]. 
 \begin{enumerate}
 	\item~[1 points] Simple disjunctions out of $n$ binary variables
+	\bigskip\newline
+	This hypothesis space has size at most $2^n$. This being a finite number, some m can be chosen for any n such that the PAC learnability inequality is true.
+	\bigskip
 	\item~[1 points] $m$-of-$n$ rules (Note that $m$ is a fixed constant).  
 	\item~[1 points] General conjunctions out of $n$ binary variables (``General'' means that negations are allowed to operator on each variable before the conjunction).
 	\item~[2 points] General Boolean functions of $n$ binary variables. 
@@ -117,21 +120,98 @@ where $D_t(i)$ is the weight of $i$-th training example, and $h_t(x_i)$ is the p
 \epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).
 \]
 
+\bigskip
+$\frac{1}{2} - \frac{1}{2}\big(\sum D_t(i) y_i h_t(x_i)\big)$
+
+$\frac{1}{2}\big(1 - \sum D_t(i) y_i h_t(x_i)\big)$
+
+$\frac{1}{2}\big(1 - \sum_{y_i = h_t(x_i)} D_t(i) + \sum_{y_i \neq h_t(x_i)} D_t(i)\big)$
+
+\bigskip
+
 	\item~[8 points] Can you figure out an equivalent linear classifier and a decision tree for the following Boolean functions? For linear classifiers, please point out what the weight vector, the bias parameter and the hyperplane are. Note that the hyperplane is determined by an equality. If you cannot find out such a  linear classifier, please explain why. 
 	\begin{enumerate}
 		\item~[1 point] $f(x_1, x_2, x_3) = x_1 \lor x_2 \lor x_3$
+		
+		\bigskip
+		$y = 1$ if $x_1 + x_2 + x_3 \ge 1$
+		
+		w = [1, 1, 1]
+		
+		b = -1
+		
+		plane: $-1 + x_1 + x_2 + x_3 = 0$
+		
+		Decision Tree:
+		
+		\includegraphics[scale=.5]{4a_tree.pdf}
+		\bigskip\bigskip
 		\item~[1 point] $f(x_1, x_2, x_3) = x_1 \land \neg x_2 \land \neg x_3$
-		\item~[1 point] $f(x_1, x_2, x_3) = \neg x_1 \lor \neg x_2 \lor \neg x_3$ 
+		
+		\bigskip
+		$y = 1$ if $x_1 - x_2 - x_3 \ge 1$
+		
+		w = [1, -1, -1]
+		
+		b = -1
+		
+		plane: $-1 + x_1 - x_2 - x_3 = 0$
+		
+		Decision Tree:
+		
+		\includegraphics[scale=.5]{4b_tree.pdf}
+		\bigskip
+		\item~[1 point] $f(x_1, x_2, x_3) = \neg x_1 \lor \neg x_2 \lor \neg x_3$
+		
+		\bigskip
+		$y = 1$ if $-x_1 - x_2 - x_3 \ge -2$
+		
+		w = [-1, -1, -1]
+		
+		b = 2
+		
+		plane: $2 - x_1 - x_2 - x_3 = 0$
+		
+		Decision Tree:
+		
+		\includegraphics[scale=.5]{4c_tree.pdf}
+		\bigskip 
 		\item~[2 points] $f(x_1, x_2, x_3, x_4) = (x_1 \lor x_2) \land (x_3 \lor x_4)$
+		
+		\bigskip
+		This boolean function is not linearly separable. At least two of the variables need to be true, however there is no way to specify which combinations of just two variables will create a true statement with a linear classifier.
+		
+		Decision Tree:
+		
+		\includegraphics[scale=.4]{4d_tree.pdf}
+
 		\item~[2 points] $f(x_1, x_2, x_3, x_4) = (x_1 \land x_2) \lor (x_3 \land x_4)$
+		
+		\bigskip
+		This boolean function is not linearly separable for the same general reason as the previous one. At least two of the variables need to be true, however there is no way to specify which combinations of just two variables will create a true statement with a linear classifier.
+		
+		Decision Tree:
+		
+		\includegraphics[scale=.4]{4e_tree.pdf}
+		
 		\item~[1 point] What do you conclude about the expressiveness of decision trees and linear classifiers? Why?
+		\bigskip
+		
+		Decision trees can be far more expressive than linear classifiers when it comes to data with categorical attributes. Decision trees can encode every possible combination of values if enough depth and examples are given.
+		
 	\end{enumerate}
 		
 	
 	\item~[6 points] The following boolean functions cannot be represented by linear classifiers. Can you work out some feature mapping such that, after mapping all the inputs of these functions into a higher dimensional space, you can easily identify a hyperplane that separates the inputs with different corresponding boolean function values? Please write down the separating hyperplane as well. 
 	\begin{enumerate}
-		\item $f(x_1, x_2) = (x_1 \land \neg x_2) \lor (\neg x_1 \land x_2) $
+		\item $f(x_1, x_2) = (x_1 \land \neg x_2) \lor (\neg x_1 \land x_2)$
+		
+		Here I would add the third dimension $x_3$ such that $x_3 = x_1 \land x_2$. The resulting hyperplane would be $-1 + x_1 + x_2 + x_3 = 0$.
+		
 		\item $f(x_1, x_2) = (x_1 \land x_2) \lor (\neg x_1 \land \neg x_2)$
+		
+		Here I would add the third dimension $x_3$ such that $x_3 = (x_1 \land \neg x_2) \lor (\neg x_1 \land x_2)$. The resulting hyperplane would be $x_1 - x_2 - x_3 = 0$
+		
 		\item $f(x_1, x_2, x_3)$ is listed in the following table
 		\begin{table}[h]
 			\centering
@@ -153,8 +233,18 @@ where $D_t(i)$ is the weight of $i$-th training example, and $h_t(x_i)$ is the p
 	\item~[\textbf{Bonus}]~[6 points]  Given two vectors $\x = [x_1,  x_2]$ and $\y=[y_1,  y_2]$, find a feature mapping $\phi(\cdot)$ for each of the following functions, such that the function is equal to the inner product between the mapped feature vectors, $\phi(\x)$ and $\phi(\y)$. For example, $(\x^\top \y)^0 = \phi(\x)^\top \phi(\y)$ where $\phi(\x) = [1]$ and $\phi(\y) = [1]$; $(\x^\top \y)^1 = \phi(\x)^\top \phi(\y)$ where $\phi(\x) = \x$ and $\phi(\y) = \y$. 
 	\begin{enumerate}
 		\item~[2 points] $(\x^\top \y)^2$
+		
+		$\phi(\x) = [x_1^2, 2x_1x_2, x_2^2]$
+		
+		$\phi(\y) = [y_1^2, y_1y_2, y_2^2]$
 		\item~[2 points] $(\x^\top \y)^3$
-		\item~[2 points] $(\x^\top \y)^k$ where $k$ is  any positive integer.  
+		
+		$\phi(\x) = [x_1^3, 3x_1^2x_2, 3x_1x_2^2, x_2^2]$
+		
+		$\phi(\y) = [y_1^3, y_1^2y_2, y_1y_2^2, y_2^3]$
+		\item~[2 points] $(\x^\top \y)^k$ where $k$ is  any positive integer.
+		
+		Expand $(x_1y_1 + x_2y_2)^k$, then put the coefficients and $x$ terms into $\x$, and the $y$ terms into $\y$
 	\end{enumerate}
 
 \item~[9 points] Suppose we have the training data shown in Table \ref{tb:1}, from which we want to learn a linear regression model, parameterized by a weight vector $\w$ and a bias parameter $b$.  
@@ -169,11 +259,15 @@ where $D_t(i)$ is the weight of $i$-th training example, and $h_t(x_i)$ is the p
 		1 & 2 & -4 & -2 \\ \hline
 		3 & -1 & -1 & 0\\ \hline
 	\end{tabular}
-	\caption{Linear regression training data.}\label{tb:1}
+	\caption{Linear regression training data.}
+	\label{tb:1}
 \end{table}
 
 \begin{enumerate}
 	\item~[1 point] Write down the LMS (least mean square) cost function $J(\w, b)$. 
+	
+	$$J(\w, b) = \frac{1}{2} \sum_{i=1}^{m}(y_i - \w^T\x_i + b)^2$$
+	\bigskip
 	\item~[3 points] Calculate the gradient $\frac{\nabla J}{\nabla \w}$ and $\frac{\nabla J}{\nabla b}$ 
 	\begin{enumerate}
 		\item when $\w = [0,0,0]^\top$ and $b = 0$;

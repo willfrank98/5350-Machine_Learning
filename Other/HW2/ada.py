@@ -9,7 +9,8 @@ def AdaBoost(S, Attributes, T):
         #render(tree, None)
         trees.append(tree)
 
-        norm = 0.0
+        # normalize values
+        norm = 0.0        
         epsilon = id3_weighted_err(tree, S)
         alpha = .5 * math.log((1 - epsilon)/epsilon)
         alphas.append(alpha)
@@ -22,8 +23,7 @@ def AdaBoost(S, Attributes, T):
                 newWeight = s["Weight"] * math.exp(-alpha)
                 s["Weight"] = newWeight
             norm += newWeight
-        
-        # normalize values
+
         for s in S:
             s["Weight"] /= norm
 
@@ -33,7 +33,6 @@ def AdaBoost(S, Attributes, T):
 def AdaBoost_Test(Hypothesis, S):
     wrong = 0
     for s in S:
-        #trees, weights = Hypothesis
         prediction = 0
         for tree , weight in zip(Hypothesis[0], Hypothesis[1]):
             label = get_label(s, tree)
