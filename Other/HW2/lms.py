@@ -2,10 +2,10 @@ import random
 
 def Batch_LMS(S, Attributes, R, Convergence):
     w = [0 for _ in range(0, len(Attributes))]
-    f = open("batch_out.txt", "a")
+    f = open("batch_out.txt", "w")
     norm = 1000
     T = 0
-    f.write("Iteration\tCost")
+    f.write("Iteration\tCost\n")
     print "Iteration\tCost"
     while norm > Convergence:
         cost = 0.0
@@ -21,12 +21,10 @@ def Batch_LMS(S, Attributes, R, Convergence):
                 error = label - prediction
                 xij = s[Attributes[j]]
                 temp += error * xij
-                #compute cost
-                if j == len(Attributes) - 1:
-                    cost += pow(error, 2)
             J_grad.append(-temp)
 
-        f.write(str(T) + "\t" + str(cost/2))
+        cost = get_cost(S, Attributes, w)
+        f.write(str(T) + "\t" + str(cost/2) + "\n")
         print str(T) + "\t" + str(cost/2)
         T += 1
 
@@ -42,13 +40,15 @@ def Batch_LMS(S, Attributes, R, Convergence):
 
         w = newW
 
+    f.write("Final W: " + str(w))
+    print "Final W: " + str(w)
     return w 
     
 
 def Stochastic_LMS(S, Attributes, R, Convergence):
     w = [0 for _ in range(0, len(Attributes))]
-    f = open("stoch_out.txt", "a")
-    f.write("Iteration\tCost")
+    f = open("stoch_out.txt", "w")
+    f.write("Iteration\tCost\n")
     print "Iteration\tCost"
     norm = 1
     T = 0
@@ -57,10 +57,6 @@ def Stochastic_LMS(S, Attributes, R, Convergence):
         storedW = list(w)
         for i in range(0, len(S)):
             newW = []
-            cost = get_cost(S, Attributes, w)
-            f.write(str(T) + "\t" + str(cost/2))
-            print str(T) + "\t" + str(cost/2)
-            T += 1
             for j in range(0, len(Attributes)):
                 vals = [S[i][attr] for attr in Attributes]
                 prediction = 0.0
@@ -72,6 +68,11 @@ def Stochastic_LMS(S, Attributes, R, Convergence):
                 adjustment = error * xij * R
                 newW.append(w[j] + adjustment)
             w = newW
+
+        cost = get_cost(S, Attributes, w)
+        f.write(str(T) + "\t" + str(cost/2) + "\n")
+        print str(T) + "\t" + str(cost/2)
+        T += 1
 
         norm = -1
         for i in range(0, len(w)):

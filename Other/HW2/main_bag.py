@@ -2,6 +2,7 @@ from ada import *
 from bagging import *
 from forest import *
 import random
+import numpy
 
 def calc_median(arr):
     n = len(arr)
@@ -49,12 +50,10 @@ attrList.append("Label")
 
 # gets a list of all attributes that are numerical rather than categorical
 numericList = [A for A in attrList if A in Attributes and Attributes[A][0] == "(numeric)"]
-# unknownList = [A for A in attrList if A in Attributes and Attributes[A][0] == "unknown"]
 
 # opens training data
 S_train = []
 numericalLists = {}
-# unknownsLists = {}
 with open(dataset + "/train.csv") as f:
     for line in f:
         i = 0
@@ -66,11 +65,6 @@ with open(dataset + "/train.csv") as f:
                 if attrName not in numericalLists:
                     numericalLists[attrName] = []
                 numericalLists[attrName].append(float(attr))
-            # if this attribute can be unknown then track the most common attribute value
-            # if attrName in unknownList and attr != "unknown":
-            #     if attrName not in unknownsLists:
-            #         unknownsLists[attrName] = []
-            #     unknownsLists[attrName].append(attr)
             example[attrList[i]] = attr
             i += 1
         S_train.append(example)
@@ -79,12 +73,7 @@ medianList = {}
 for name, arr in numericalLists.items():
     medianList[name] = calc_median(arr)
 
-# unknownReplace = {}
-# for name, arr in unknownsLists.items():
-#     unknownReplace[name] = max(set(arr), key=arr.count)
-
 # convert numerical data into binary
-# convert unknowns into most common value
 # assigns uniform distribution weight
 for s in S_train:
     for attr in numericList:
@@ -92,10 +81,7 @@ for s in S_train:
             s[attr] = "1"
         elif s[attr] < numericalLists[attr]:
             s[attr] = "-1"
-    # for attr in unknownList:
-    #     if s[attr] == "unknown":
-    #         s[attr] = unknownReplace[attr]
-    s["Weight"] = 1/float(len(S_train))
+    s["Weight"] = 1#/float(len(S_train))
 
 S_test = []
 with open(dataset + "/test.csv") as f:
@@ -111,9 +97,6 @@ with open(dataset + "/test.csv") as f:
                     attr = "1"
                 elif val < numericalLists[name]:
                     attr = "-1"
-            # convert unknown into most common training value
-            # if name in unknownList and attr == "unknown":
-            #     attr = unknownReplace[name]
             example[name] = attr
             i += 1
         S_test.append(example)
@@ -123,8 +106,15 @@ for attr in numericList:
     Attributes[attr] = ["-1", "1"]
 
 
+# for T in range(1, 1001):
+#     pred = AdaBoost(S_train, Attributes, T)
+#     err_train = AdaBoost_Test(pred, S_train)
+#     err_test = AdaBoost_Test(pred, S_test)
+#     print str(err_train) + "\t" + str(err_test)
+#     reset_weights(S_train)
 
-asodufh = Random_Forest_Train(S_train, Attributes, 10, 2)
+
+# asodufh = Random_Forest_Train(S_train, Attributes, 10, 2)
 
 
 
@@ -139,14 +129,62 @@ for _ in range(0, 100):
     predictor = Bagging_Train(new_S, Attributes, 1000)
     predictors.append(predictor)
 
-pass
+total_single_bias = 0.0
+total_single_variance = 0.0
+for s in S_test:
+    avg = 0.0
+    predictions = []
+    for p in predictors:
+        label = get_label(s, p[0][0])
+        val = 1 if label == "yes" else -1
+        avg += val
+        predictions.append(val)
+    avg /= len(predictors)
+    label_num = 1 if s["Label"] == "yes" else -1
+
+    bias = pow(label_num - avg, 2)
+    total_single_bias += bias
+
+    variance = numpy.var(predictions)
+    total_single_variance += variance
+
+single_bias = total_single_bias/len(S_test)
+single_variance = total_single_variance/len(S_test)
+
+print "Single bias: " + str(single_bias)
+print "Single variance: " + str(single_variance)
+
+total_mass_bias = 0.0
+total_mass_variance = 0.0
+for s in S_test:
+    avg = 0.0
+    predictions = []
+    for p in predictors:
+        val = get_bag_label(p, s) / float(len(p[0]))
+        avg += val
+        predictions.append(val)
+    avg /= len(predictors)
+    label_num = 1 if s["Label"] == "yes" else -1
+
+    bias = pow(label_num - avg, 2)
+    total_mass_bias += bias
+
+    variance = numpy.var(predictions)
+    total_mass_variance += variance
+
+mass_bias = total_mass_bias/len(S_test)
+mass_variance = total_mass_variance/len(S_test)
+
+print "Single bias: " + str(single_bias)
+print "Single variance: " + str(single_variance)
 
 
-
-
-# for T in range(1, 1001, 10):
-#     hypothesis = Bagging(S_train, Attributes, T)
+# f = open("bagging_out.txt", "w")
+# f.write("Iter\tTrain\tTest\n")
+# for T in range(1, 1001, 50):
+#     hypothesis = Bagging_Train(S_train, Attributes, T)
 #     err_train = Bagging_Test(hypothesis, S_train)
 #     err_test = Bagging_Test(hypothesis, S_test)
-#     print "T = " + str(T-1) + ": " + str(err_train) + ",\t" + str(err_test)
+#     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
+#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
 #     reset_weights(S_train)

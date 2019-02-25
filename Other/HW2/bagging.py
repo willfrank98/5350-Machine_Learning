@@ -2,14 +2,14 @@ from id3 import id3_with_weight, id3_weighted_err, get_label, render
 import random
 
 def Bagging_Train(S, Attributes, T):
-    M = len(S)/2
+    M = len(S)/5
     predictions = []
     weights = []
     for _ in range(0, T):
-        new_S = []
-        for __ in range(0, M):
-            rand = random.randint(0, len(S) - 1)
-            new_S.append(S[rand])
+        new_S = [random.choice(S) for __ in range(0, M)]
+        # for __ in range(0, M):
+        #     rand = random.randint(0, len(S) - 1)
+        #     new_S.append(S[rand])
 
         tree = id3_with_weight(new_S, Attributes, None, 0)
         #render(tree, "tree")
@@ -36,3 +36,11 @@ def Bagging_Test(Hypothesis, S):
             wrong += 1
 
     return wrong/float(len(S))
+
+def get_bag_label(hypo, s):
+    prediction = 0.0
+    for tree , weight in zip(hypo[0], hypo[1]):
+            label = get_label(s, tree)
+            label = 1 if label == "yes" else -1
+            prediction += label * weight
+    return prediction
