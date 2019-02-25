@@ -120,6 +120,7 @@ for attr in numericList:
 
 predictors = []
 for _ in range(0, 100):
+    print "predictor " + str(_) + " done"
     copy_S = list(S_train)
     new_S = []
     for i in range(0, 1000):
