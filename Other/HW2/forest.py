@@ -6,15 +6,11 @@ def Random_Forest_Train(S, Attributes, T, num_features):
     predictions = []
     weights = []
     for _ in range(0, T):
-        new_S = []
-        for __ in range(0, M):
-            rand = random.randint(0, len(S) - 1)
-            new_S.append(S[rand])
+        new_S = [random.choice(S) for __ in range(0, M)]
 
         tree = id3_rand_learn(new_S, Attributes, 2)
-        #render(tree, "tree")
         predictions.append(tree)
-        weights.append(1 - id3_weighted_err(tree, S))
+        weights.append(1)
 
     return predictions, weights
 

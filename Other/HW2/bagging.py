@@ -2,17 +2,13 @@ from id3 import id3_with_weight, id3_weighted_err, get_label
 import random
 
 def Bagging_Train(S, Attributes, T):
-    M = len(S)/5
+    M = len(S)/2
     predictions = []
     weights = []
     for _ in range(0, T):
         new_S = [random.choice(S) for __ in range(0, M)]
-        # for __ in range(0, M):
-        #     rand = random.randint(0, len(S) - 1)
-        #     new_S.append(S[rand])
 
         tree = id3_with_weight(new_S, Attributes, None, 0)
-        #render(tree, "tree")
         predictions.append(tree)
         weights.append(1)# - id3_weighted_err(tree, S))
 
