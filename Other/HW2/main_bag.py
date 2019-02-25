@@ -98,6 +98,7 @@ with open(dataset + "/test.csv") as f:
                 elif val < numericalLists[name]:
                     attr = "-1"
             example[name] = attr
+            example["Weight"] = 1/5000.0 # I know there are 5000 examples here
             i += 1
         S_test.append(example)
 
@@ -107,16 +108,17 @@ for attr in numericList:
 
 ## Generates Data for 2a ##
 
-f = open("adaboost_out.txt", "w")
-f.write("Iter\tTrain\tTest\n")
-for T in range(1, 1050, 50):
-    hypothesis = AdaBoost(S_train, Attributes, T)
-    err_train = AdaBoost_Test(hypothesis, S_train)
-    err_test = AdaBoost_Test(hypothesis, S_test)
-    print str(T-1) + "\t" + str(err_train) + "\t" + str(err_test)
-    f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-    reset_weights(S_train)
+# f = open("adaboost_out.txt", "w")
+# f.write("Iter\tTrain\tTest\n")
+# for T in range(1, 1050, 50):
+#     hypothesis = AdaBoost(S_train, Attributes, T)
+#     err_train = AdaBoost_Test(hypothesis, S_train)
+#     err_test = AdaBoost_Test(hypothesis, S_test)
+#     print str(T-1) + "\t" + str(err_train) + "\t" + str(err_test)
+#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
+#     reset_weights(S_train)
 
+hypothesis = AdaBoost_print(S_train, S_test, Attributes, 1000)
 
 ## Generates Data for 2b ##
 

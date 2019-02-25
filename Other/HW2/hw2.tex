@@ -294,11 +294,23 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 
 \item~[36 points] We will implement the boosting and bagging algorithms based on decision trees.  Let us test them on the bank marketing dataset in HW1 (bank.zip in Canvas). We use the same approach to convert the numerical features into binary ones. That is, we choose the media (NOT the average) of the attribute values (in the training set) as the threshold, and examine if the feature is bigger (or less) than the threshold.  For simplicity, we treat ``unknown'' as a particular attribute value, and hence we do not have any missing attributes for both training and test.
 \begin{enumerate}
-	\item~[8 points] Modify your decision tree learning algorithm to learn decision stumps ---  trees with only two levels. Specifically, compute the information gain to select the best feature to split the data. Then for each subset, create a leaf node. Note that your decision stumps must support weighted training examples. Based on your decision stump learning algorithm, implement AdaBoost algorithm. Vary the number of iterations T from $1$ to $1000$, and examine the training and test errors. You should report the results in two figures. The first figure shows how the training and test errors vary along with T. The second figure shows  the training and test errors of all the decision stumps learned in each iteration. What can you observe and conclude? You have had the results for a fully expanded decision tree in HW1. Comparing them with AdaBoost, what can you observe and conclude?
+	\item~[8 points] Modify your decision tree learning algorithm to learn decision stumps ---  trees with only two levels. Specifically, compute the information gain to select the best feature to split the data. Then for each subset, create a leaf node. Note that your decision stumps must support weighted training examples. Based on your decision stump learning algorithm, implement AdaBoost algorithm. Vary the number of iterations T from $1$ to $1000$, and examine the training and test errors. You should report the results in two figures. The first figure shows how the training and test errors vary along with T. The second figure shows the training and test errors of all the decision stumps learned in each iteration. What can you observe and conclude? You have had the results for a fully expanded decision tree in HW1. Comparing them with AdaBoost, what can you observe and conclude?
+	
+	\includegraphics{adaboost_graph}
+	
+	\includegraphics{adaboost_graph2}
+	
+	The error of an individual stump quickly rises to near .5, but the overall error drops very slowly. A fully expanded tree is far more accurate on training data, but is prone to overfitting as AdaBoost had better testing error.
+	
+	\bigskip
 	
 	\item~[8 points] Based on your code of the decision tree learning algorithm (with information gain), implement a Bagged trees learning algorithm. Note that each tree should be fully expanded --- no early stopping or post pruning. Vary the number of trees from $1$ to $1000$, report how the training and test errors vary along with the tree number in a figure. Overall, are bagged trees better than a single tree? Are bagged trees better than Adaboost? 
 	
 	\includegraphics{bagging_graph}
+	
+	Compared to a single tree, bagging is far less prone to overfitting. The training error is higher, but the testing error is lower. Bagged trees have a lower training error than AdaBoost, but a higher testing error, suggesting AdaBoost is even better at avoiding overfitting.
+	
+	\bigskip
 
 	\item~[6 points] Through the bias and variance decomposition, we have justified why the bagging approach is more effective than a single classifier/predictor. Let us verify it in real data. Experiment with the following procedure.
 	\begin{itemize}
@@ -310,8 +322,20 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		\item 	For each of the test example, compute the predictions of the $100$ single trees. Take the average, subtract the ground-truth label, and take square to compute the bias term (see the lecture slides). Use all the predictions to compute the sample variance  as the approximation to the variance term (if you forget what the sample variance is, check it out 
 		\href{http://www.randomservices.org/random/sample/Variance.html}{here}). You now obtain the bias and variance terms of a single tree learner for one test example. You will need to compute them for all the test examples and then take average as your final estimation of the bias and variance terms for the single decision tree learner. You can add the two terms to obtain the estimation of the general squared error (that is, expected error w.r.t test examples). Now use your $100$ bagged predictors to do the same thing and estimate the general bias and variance terms, as well as the general squared error.  Comparing the results of the single tree learner and the bagged trees, what can you conclude?  What causes the difference?  
 	\end{itemize}
-	 
+	\bigskip
+	Single Tree bias: 0.37509816
+	
+	Single Tree variance: 0.36286184
+	
+	Single Tree general error: 0.73796
+	\bigskip
 	\item~[8 points] Implement the random forest algorithm as we discussed in our lecture. Vary the number of random trees from $1$ to $1000$. Note that you need to modify your tree learning algorithm to randomly select a subset of features before each split. Then use the information gain to select the best feature to split.  Vary the size of the feature subset from $\{2, 4, 6\}$. Note that if your feature subset happen to be all the features used before, simply resample the subset.  Report in a figure how the training and test errors vary along with the number of random trees for each feature subset size setting. How does the performance compare with bagged trees? 
+
+	\includegraphics{forest_graph}
+	
+	The training error is lower for the random forest than bagged trees, but the testing error is higher, so generally lower performance.
+	
+	\bigskip
 	
 	\item~[6 points] Following (c), estimate the bias and variance terms, and the squared error for a single random tree and the whole forest.  Comparing with the bagged trees, what do you observe? What can you conclude? 
 \end{enumerate}
@@ -330,6 +354,8 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		
 		Learning Rate: 0.0145
 		
+		Test Data Cost: 23.360684566927414
+		
 		\includegraphics{batch_graph}
 		
 		\item~[8 points] Implement the stochastic gradient descent (SGD) algorithm. You can initialize your weight vector to be $\0$. Each step, you randomly sample a training example, and then calculate the stochastic gradient to update the weight vector.  Tune the learning rate $r$ to ensure your SGD converges. To check convergence, you can calculate the cost function of the training data after each stochastic gradient update, and draw a figure showing how the cost function values vary along with the number of updates. At the beginning, your curve will oscillate a lot. However, with an appropriate $r$, as more and more updates are finished, you will see the cost function tends to converge. Please report the learned weight vector, and the learning rate you chose, and the cost function value of the test data with your learned weight vector.
@@ -339,6 +365,8 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		Final Weight Vector: [0.5094767567479317, 0.025697021439722925, 0.5271134261486301, 0.8440867852320653, 0.19446188146527899, 0.58406310559173, 0.4617250233508782]
 		
 		Learning Rate: 0.1
+		
+		Test Data Cost: 20.444922087438073
 		
 		\includegraphics{stoch_graph}
 		

@@ -1,4 +1,4 @@
-from lms import Batch_LMS, Stochastic_LMS
+from lms import Batch_LMS, Stochastic_LMS, get_cost
 
 def calc_median(arr):
     n = len(arr)
@@ -45,4 +45,10 @@ Attributes.remove("Label")
 
 w = Batch_LMS(S_train, Attributes, .0145, 0.000001)
 
+test_cost = get_cost(S_test, Attributes, w)
+print test_cost
+
 w = Stochastic_LMS(S_train, Attributes, .1, .000001)
+
+test_cost = get_cost(S_test, Attributes, w)
+print test_cost
