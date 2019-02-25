@@ -43,4 +43,6 @@ with open(dataset + "/test.csv") as f:
 
 Attributes.remove("Label")
 
-w = Batch_LMS(S_train, Attributes, .01, 0.000001) 
+w = Batch_LMS(S_train, Attributes, .0145, 0.000001)
+
+w = Stochastic_LMS(S_train, Attributes, .2, .000001)
