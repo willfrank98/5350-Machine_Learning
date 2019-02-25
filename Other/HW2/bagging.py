@@ -1,4 +1,4 @@
-from id3 import id3_with_weight, id3_weighted_err, get_label, render
+from id3 import id3_with_weight, id3_weighted_err, get_label
 import random
 
 def Bagging_Train(S, Attributes, T):

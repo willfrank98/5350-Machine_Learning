@@ -1,4 +1,4 @@
-from id3 import id3_with_weight, get_label, id3_weighted_err, render
+from id3 import id3_with_weight, get_label, id3_weighted_err
 import math
 
 def AdaBoost(S, Attributes, T):
