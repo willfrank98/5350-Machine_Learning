@@ -236,6 +236,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 				1 & 1 & 1 & 1\\ \hline
 			\end{tabular}
 		\end{table}
+	
+	Here I would add a 4th dimension $x_4$ such that $x_4 = $
+	
 	\end{enumerate}
 	
 	\item~[\textbf{Bonus}]~[6 points]  Given two vectors $\x = [x_1,  x_2]$ and $\y=[y_1,  y_2]$, find a feature mapping $\phi(\cdot)$ for each of the following functions, such that the function is equal to the inner product between the mapped feature vectors, $\phi(\x)$ and $\phi(\y)$. For example, $(\x^\top \y)^0 = \phi(\x)^\top \phi(\y)$ where $\phi(\x) = [1]$ and $\phi(\y) = [1]$; $(\x^\top \y)^1 = \phi(\x)^\top \phi(\y)$ where $\phi(\x) = \x$ and $\phi(\y) = \y$. 
@@ -274,16 +277,41 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 \begin{enumerate}
 	\item~[1 point] Write down the LMS (least mean square) cost function $J(\w, b)$. 
 	
-	$$J(\w, b) = \frac{1}{2} \sum_{i=1}^{m}(y_i - \w^T\x_i + b)^2$$
+	$$J(\w, b) = \frac{1}{2} \sum_{i=1}^{m}(y_i - \w^T\x_i - b)^2$$
 	\bigskip
-	\item~[3 points] Calculate the gradient $\frac{\nabla J}{\nabla \w}$ and $\frac{\nabla J}{\nabla b}$ 
+	\item~[3 points] Calculate the gradient $\frac{\nabla J}{\nabla \w}$ and $\frac{\nabla J}{\nabla b}$
+	
+	$\frac{\nabla J}{\nabla \w} = [-\sum_{i=1}^{m}(y_i - \w^Tx_i - b)x_{i1}, \ldots, -\sum_{i=1}^{m}(y_i - \w^Tx_i - b)x_{id}]$
+	
+	$\frac{\nabla J}{\nabla b} = -\sum_{i=1}^{m}(y_i - \w^Tx_i - b)$	
+	
 	\begin{enumerate}
 		\item when $\w = [0,0,0]^\top$ and $b = 0$;
+		
+		$\frac{\nabla J}{\nabla \w} = [-4, 2, -22]$
+		
+		$\frac{\nabla J}{\nabla b} = -2$
 		\item when $\w = [-1,1,-1]^\top$ and $b = -1$;
+		
+		$\frac{\nabla J}{\nabla \w} = [-22, 16, -56]$
+		
+		$\frac{\nabla J}{\nabla b} = -10$
 		\item when $\w = [1/2,-1/2,1/2]^\top$ and $b = 1$.
+		
+		$\frac{\nabla J}{\nabla \w} = [7.5, -4, -5]$
+		
+		$\frac{\nabla J}{\nabla b} = 4.5$
 	\end{enumerate}
 	\item~[2 points] What are the optimal $\w$ and $\b$ that minimize the cost function? 
-	\item~[3 points] Now, we want to use stochastic gradient descent to minimize $J(\w, b)$. We initialize $\w = \0$ and $b = 0$. We set the learning rate $r = 0.1$ and sequentially go through the $5$ training examples. Please list the stochastic gradient in each step and the updated $\w$ and $b$.  
+	
+	$\w = [1, 1, 1]^\top$
+	
+	$b = -1$
+	
+	\item~[3 points] Now, we want to use stochastic gradient descent to minimize $J(\w, b)$. We initialize $\w = \0$ and $b = 0$. We set the learning rate $r = 0.1$ and sequentially go through the $5$ training examples. Please list the stochastic gradient in each step and the updated $\w$ and $b$.
+	
+	
+	
 \end{enumerate}
 \end{enumerate}
 
