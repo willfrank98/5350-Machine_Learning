@@ -237,7 +237,7 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 			\end{tabular}
 		\end{table}
 	
-	Here I would add a 4th dimension $x_4$ such that $x_4 = $
+	Here I would add a 4th dimension $x_4$ such that $x_4 = (x_1 \land \neg x_2 \land \neg x_3) \lor (\neg x_1 \land x_2 \land \neg x_3) \lor (\neg x_1 \land \neg x_2 \land x_3) \lor (x_1 \land x_2 \land x_3)$. The resulting hyperplane would be $x_4 = 0.5$.
 	
 	\end{enumerate}
 	
@@ -259,7 +259,7 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	\end{enumerate}
 
 \item~[9 points] Suppose we have the training data shown in Table \ref{tb:1}, from which we want to learn a linear regression model, parameterized by a weight vector $\w$ and a bias parameter $b$.  
-\begin{table}
+\begin{table}[h]
 	\centering
 	\begin{tabular}{ccc|c}
 		$x_1 $ & $x_2$ & $x_3$ &  $y$\\ 
@@ -370,9 +370,13 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 \begin{enumerate}
 	\item~[8 points] Modify your decision tree learning algorithm to learn decision stumps ---  trees with only two levels. Specifically, compute the information gain to select the best feature to split the data. Then for each subset, create a leaf node. Note that your decision stumps must support weighted training examples. Based on your decision stump learning algorithm, implement AdaBoost algorithm. Vary the number of iterations T from $1$ to $1000$, and examine the training and test errors. You should report the results in two figures. The first figure shows how the training and test errors vary along with T. The second figure shows the training and test errors of all the decision stumps learned in each iteration. What can you observe and conclude? You have had the results for a fully expanded decision tree in HW1. Comparing them with AdaBoost, what can you observe and conclude?
 	
-	\includegraphics{adaboost_graph}
+	\begin{center}
+		\includegraphics[scale=0.8]{adaboost_graph}
+	\end{center}
 	
-	\includegraphics{adaboost_graph2}
+	\begin{center}
+		\includegraphics[scale=0.8]{adaboost_graph2}
+	\end{center}
 	
 	The error of an individual stump quickly rises to near .5, but the overall error drops very slowly. A fully expanded tree is far more accurate on training data, but is prone to overfitting as AdaBoost had better testing error.
 	
@@ -380,7 +384,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	
 	\item~[8 points] Based on your code of the decision tree learning algorithm (with information gain), implement a Bagged trees learning algorithm. Note that each tree should be fully expanded --- no early stopping or post pruning. Vary the number of trees from $1$ to $1000$, report how the training and test errors vary along with the tree number in a figure. Overall, are bagged trees better than a single tree? Are bagged trees better than Adaboost? 
 	
-	\includegraphics{bagging_graph}
+	\begin{center}
+		\includegraphics[scale=0.8]{bagging_graph}
+	\end{center}
 	
 	Compared to a single tree, bagging is far less prone to overfitting. The training error is higher, but the testing error is lower. Bagged trees have a lower training error than AdaBoost, but a higher testing error, suggesting AdaBoost is even better at avoiding overfitting.
 	
@@ -405,7 +411,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	\bigskip
 	\item~[8 points] Implement the random forest algorithm as we discussed in our lecture. Vary the number of random trees from $1$ to $1000$. Note that you need to modify your tree learning algorithm to randomly select a subset of features before each split. Then use the information gain to select the best feature to split.  Vary the size of the feature subset from $\{2, 4, 6\}$. Note that if your feature subset happen to be all the features used before, simply resample the subset.  Report in a figure how the training and test errors vary along with the number of random trees for each feature subset size setting. How does the performance compare with bagged trees? 
 
-	\includegraphics{forest_graph}
+	\begin{center}
+		\includegraphics[scale=0.8]{forest_graph}
+	\end{center}
 	
 	The training error is lower for the random forest than bagged trees, but the testing error is higher, so generally lower performance.
 	
@@ -430,7 +438,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		
 		Test Data Cost: 23.360684566927414
 		
-		\includegraphics{batch_graph}
+		\begin{center}
+			\includegraphics[scale=0.8]{batch_graph}
+		\end{center}
 		
 		\item~[8 points] Implement the stochastic gradient descent (SGD) algorithm. You can initialize your weight vector to be $\0$. Each step, you randomly sample a training example, and then calculate the stochastic gradient to update the weight vector.  Tune the learning rate $r$ to ensure your SGD converges. To check convergence, you can calculate the cost function of the training data after each stochastic gradient update, and draw a figure showing how the cost function values vary along with the number of updates. At the beginning, your curve will oscillate a lot. However, with an appropriate $r$, as more and more updates are finished, you will see the cost function tends to converge. Please report the learned weight vector, and the learning rate you chose, and the cost function value of the test data with your learned weight vector.
 				
@@ -442,9 +452,13 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		
 		Test Data Cost: 20.444922087438073
 		
-		\includegraphics{stoch_graph}
-		
+		\begin{center}
+			\includegraphics[scale=0.8]{stoch_graph}
+		\end{center}
+	
 		\item~[6 points] We have discussed how to  calculate the optimal weight vector with an analytical form. Please calculate the optimal weight vector in this way. Comparing with the  weight vectors learned by batch gradient descent and stochastic gradient descent, what can you conclude? Why?
+		
+		\bigskip
 		
 		$\w* = [0.92154947, 0.80829428, 0.87397433, 1.3142877, 0.13392374, 1.59904727, 1.02029192]$
 		
