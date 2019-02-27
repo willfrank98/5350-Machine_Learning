@@ -328,6 +328,14 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	Single Tree variance: 0.36286184
 	
 	Single Tree general error: 0.73796
+	
+	All Tree bias: 0.369140156808
+	
+	All Tree variance: 0.0582005373522
+	
+	All Tree general error: 0.4273406941602
+	
+	
 	\bigskip
 	\item~[8 points] Implement the random forest algorithm as we discussed in our lecture. Vary the number of random trees from $1$ to $1000$. Note that you need to modify your tree learning algorithm to randomly select a subset of features before each split. Then use the information gain to select the best feature to split.  Vary the size of the feature subset from $\{2, 4, 6\}$. Note that if your feature subset happen to be all the features used before, simply resample the subset.  Report in a figure how the training and test errors vary along with the number of random trees for each feature subset size setting. How does the performance compare with bagged trees? 
 

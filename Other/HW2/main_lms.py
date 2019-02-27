@@ -1,4 +1,4 @@
-from lms import Batch_LMS, Stochastic_LMS, get_cost
+from lms import Batch_LMS, Stochastic_LMS, get_cost 
 
 ### MAIN ###
 dataset = "concrete"
