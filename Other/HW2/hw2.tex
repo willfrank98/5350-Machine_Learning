@@ -414,19 +414,19 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		\href{http://www.randomservices.org/random/sample/Variance.html}{here}). You now obtain the bias and variance terms of a single tree learner for one test example. You will need to compute them for all the test examples and then take average as your final estimation of the bias and variance terms for the single decision tree learner. You can add the two terms to obtain the estimation of the general squared error (that is, expected error w.r.t test examples). Now use your $100$ bagged predictors to do the same thing and estimate the general bias and variance terms, as well as the general squared error.  Comparing the results of the single tree learner and the bagged trees, what can you conclude?  What causes the difference?  
 	\end{itemize}
 	\bigskip
-	Single Tree bias: 0.37509816
+	Single Tree Bias: 0.37509816
 	
-	Single Tree variance: 0.36286184
+	Single Tree Variance: 0.36286184
 	
-	Single Tree general error: 0.73796
+	Single Tree General Error: 0.73796
 	
 	\bigskip
 	
-	All Tree bias: 0.369140156808
+	All Tree Bias: 0.369140156808
 	
-	All Tree variance: 0.0582005373522
+	All Tree Variance: 0.0582005373522
 	
-	All Tree general error: 0.4273406941602
+	All Tree General Error: 0.4273406941602
 	
 	\bigskip
 	
@@ -443,7 +443,26 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	
 	\bigskip
 	
-	\item~[6 points] Following (c), estimate the bias and variance terms, and the squared error for a single random tree and the whole forest.  Comparing with the bagged trees, what do you observe? What can you conclude? 
+	\item~[6 points] Following (c), estimate the bias and variance terms, and the squared error for a single random tree and the whole forest.  Comparing with the bagged trees, what do you observe? What can you conclude?
+	
+	\bigskip
+	Single Tree Bias: 24.1
+	
+	Single Tree Variance: 13.723348
+	
+	Single Tree General Error: 37.823348
+	
+	\bigskip
+	
+	All Tree Bias: 18.618549407
+	
+	All Tree Variance: 0.8171063970159976
+	
+	All Tree General Error: 19.4356558040159976
+	
+	\bigskip
+	 
+	 Compared to the bagged trees, the random trees have a much larger bias, and a somewhat higher variance. Although the testing error is about the same, random trees have significantly more variance.
 \end{enumerate}
 
 \item~[\textbf{Bonus}][10 points] In practice, to confirm the performance of your algorithm, you need to find multiple datasets for test (rather than one). You need to extract and process data by yourself. Now please use the credit default dataset in UCI repository \href{https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients}{https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients}. Randomly choose $24000$ examples for training and the remaining $6000$ for test. Feel free to deal with continuous features. Run bagged trees, random forest, and Adaboost with decision stumps algorithms for $1000$ iterations. Report in a figure how the training and test errors vary along with the number of iterations, as compared with a fully expanded single decision tree. Are the results consistent with the results you obtained from the bank dataset?
