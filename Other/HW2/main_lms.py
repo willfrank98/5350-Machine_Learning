@@ -1,4 +1,5 @@
-from lms import Batch_LMS, Stochastic_LMS, get_cost 
+from lms import Batch_LMS, Stochastic_LMS, get_cost
+#import numpy as np
 
 ### MAIN ###
 dataset = "concrete"
@@ -27,6 +28,34 @@ with open(dataset + "/test.csv") as f:
         S_test.append(example)
 
 Attributes.remove("Label")
+
+## Calculates optimal weights ##
+# x = []
+# y = []
+
+# for i in range(0, 7):
+#     tempX = []
+#     for s in S_train:
+#         tempX.append(s[Attributes[i]])
+#     x.append(tempX)
+
+# for s in S_train:
+#     y.append([s["Label"]])
+
+# X = np.array(x)
+# Y = np.array(y)
+
+# Xt = np.transpose(X)
+
+# X2 = np.matmul(X, Xt)
+
+# Xi = np.linalg.inv(X2)
+
+# XY = np.matmul(X, Y)
+
+# final = np.matmul(Xi, XY)
+
+# print str(final)
 
 w = Batch_LMS(S_train, Attributes, .0145, 0.000001)
 

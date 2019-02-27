@@ -236,6 +236,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 				1 & 1 & 1 & 1\\ \hline
 			\end{tabular}
 		\end{table}
+	
+	Here I would add a 4th dimension $x_4$ such that $x_4 = (x_1 \land \neg x_2 \land \neg x_3) \lor (\neg x_1 \land x_2 \land \neg x_3) \lor (\neg x_1 \land \neg x_2 \land x_3) \lor (x_1 \land x_2 \land x_3)$. The resulting hyperplane would be $x_4 = 0.5$.
+	
 	\end{enumerate}
 	
 	\item~[\textbf{Bonus}]~[6 points]  Given two vectors $\x = [x_1,  x_2]$ and $\y=[y_1,  y_2]$, find a feature mapping $\phi(\cdot)$ for each of the following functions, such that the function is equal to the inner product between the mapped feature vectors, $\phi(\x)$ and $\phi(\y)$. For example, $(\x^\top \y)^0 = \phi(\x)^\top \phi(\y)$ where $\phi(\x) = [1]$ and $\phi(\y) = [1]$; $(\x^\top \y)^1 = \phi(\x)^\top \phi(\y)$ where $\phi(\x) = \x$ and $\phi(\y) = \y$. 
@@ -256,7 +259,7 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	\end{enumerate}
 
 \item~[9 points] Suppose we have the training data shown in Table \ref{tb:1}, from which we want to learn a linear regression model, parameterized by a weight vector $\w$ and a bias parameter $b$.  
-\begin{table}
+\begin{table}[h]
 	\centering
 	\begin{tabular}{ccc|c}
 		$x_1 $ & $x_2$ & $x_3$ &  $y$\\ 
@@ -274,16 +277,87 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 \begin{enumerate}
 	\item~[1 point] Write down the LMS (least mean square) cost function $J(\w, b)$. 
 	
-	$$J(\w, b) = \frac{1}{2} \sum_{i=1}^{m}(y_i - \w^T\x_i + b)^2$$
+	$$J(\w, b) = \frac{1}{2} \sum_{i=1}^{m}(y_i - \w^T\x_i - b)^2$$
 	\bigskip
-	\item~[3 points] Calculate the gradient $\frac{\nabla J}{\nabla \w}$ and $\frac{\nabla J}{\nabla b}$ 
+	\item~[3 points] Calculate the gradient $\frac{\nabla J}{\nabla \w}$ and $\frac{\nabla J}{\nabla b}$
+	
+	$\frac{\nabla J}{\nabla \w} = [-\sum_{i=1}^{m}(y_i - \w^Tx_i - b)x_{i1}, \ldots, -\sum_{i=1}^{m}(y_i - \w^Tx_i - b)x_{id}]$
+	
+	$\frac{\nabla J}{\nabla b} = -\sum_{i=1}^{m}(y_i - \w^Tx_i - b)$	
+	
 	\begin{enumerate}
 		\item when $\w = [0,0,0]^\top$ and $b = 0$;
+		
+		$\frac{\nabla J}{\nabla \w} = [-4, 2, -22]$
+		
+		$\frac{\nabla J}{\nabla b} = -2$
 		\item when $\w = [-1,1,-1]^\top$ and $b = -1$;
+		
+		$\frac{\nabla J}{\nabla \w} = [-22, 16, -56]$
+		
+		$\frac{\nabla J}{\nabla b} = -10$
 		\item when $\w = [1/2,-1/2,1/2]^\top$ and $b = 1$.
+		
+		$\frac{\nabla J}{\nabla \w} = [7.5, -4, -5]$
+		
+		$\frac{\nabla J}{\nabla b} = 4.5$
 	\end{enumerate}
 	\item~[2 points] What are the optimal $\w$ and $\b$ that minimize the cost function? 
-	\item~[3 points] Now, we want to use stochastic gradient descent to minimize $J(\w, b)$. We initialize $\w = \0$ and $b = 0$. We set the learning rate $r = 0.1$ and sequentially go through the $5$ training examples. Please list the stochastic gradient in each step and the updated $\w$ and $b$.  
+	
+	$\w = [1, 1, 1]^\top$
+	
+	$b = -1$
+	
+	\item~[3 points] Now, we want to use stochastic gradient descent to minimize $J(\w, b)$. We initialize $\w = \0$ and $b = 0$. We set the learning rate $r = 0.1$ and sequentially go through the $5$ training examples. Please list the stochastic gradient in each step and the updated $\w$ and $b$.
+	
+	\begin{enumerate}
+		\item After s = [1, -1, 2]
+		
+		$\frac{\nabla J}{\nabla \w} = [-1, 1, -2]$
+		
+		$\frac{\nabla J}{\nabla b} = -1$
+		
+		$\w = [0.1, -0.1, 0.2]$
+		
+		$b = 0.1$
+		\item After s = [1, 1, 3]
+		
+		$\frac{\nabla J}{\nabla \w} = [-3.3, -3.3, -9.9]$
+		
+		$\frac{\nabla J}{\nabla b} = -3.3$
+		
+		$\w = [0.43, 0.23, 1.19]$
+		
+		$b = 0.43$
+		\item After s = [-1, 1, 0]
+		
+		$\frac{\nabla J}{\nabla \w} = [-1.23, 1.23, 0.0]$
+		
+		$\frac{\nabla J}{\nabla b} = 1.23$
+		
+		$\w = [0.553, 0.107, 1.19]$
+		
+		$b = 0.307$
+		\item After s = [1, 2, -4]
+		
+		$\frac{\nabla J}{\nabla \w} = [-1.686, -3.372, 6.744]$
+		
+		$\frac{\nabla J}{\nabla b} = -1.686$
+		
+		$\w = [0.7216, 0.4442, 0.5156]$
+		
+		$b = 0.4756$
+		\item After s = [3, -1, -1]
+		
+		$\frac{\nabla J}{\nabla \w} = [5.0418, -1.6806, -1.6806]$
+		
+		$\frac{\nabla J}{\nabla b} = 1.6806$
+		
+		$\w = [0.21742, 0.61226, 0.68366]$
+		
+		$b = 0.30754$
+	\end{enumerate}
+	
 \end{enumerate}
 \end{enumerate}
 
@@ -296,9 +370,13 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 \begin{enumerate}
 	\item~[8 points] Modify your decision tree learning algorithm to learn decision stumps ---  trees with only two levels. Specifically, compute the information gain to select the best feature to split the data. Then for each subset, create a leaf node. Note that your decision stumps must support weighted training examples. Based on your decision stump learning algorithm, implement AdaBoost algorithm. Vary the number of iterations T from $1$ to $1000$, and examine the training and test errors. You should report the results in two figures. The first figure shows how the training and test errors vary along with T. The second figure shows the training and test errors of all the decision stumps learned in each iteration. What can you observe and conclude? You have had the results for a fully expanded decision tree in HW1. Comparing them with AdaBoost, what can you observe and conclude?
 	
-	\includegraphics{adaboost_graph}
+	\begin{center}
+		\includegraphics[scale=0.8]{adaboost_graph}
+	\end{center}
 	
-	\includegraphics{adaboost_graph2}
+	\begin{center}
+		\includegraphics[scale=0.8]{adaboost_graph2}
+	\end{center}
 	
 	The error of an individual stump quickly rises to near .5, but the overall error drops very slowly. A fully expanded tree is far more accurate on training data, but is prone to overfitting as AdaBoost had better testing error.
 	
@@ -306,7 +384,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	
 	\item~[8 points] Based on your code of the decision tree learning algorithm (with information gain), implement a Bagged trees learning algorithm. Note that each tree should be fully expanded --- no early stopping or post pruning. Vary the number of trees from $1$ to $1000$, report how the training and test errors vary along with the tree number in a figure. Overall, are bagged trees better than a single tree? Are bagged trees better than Adaboost? 
 	
-	\includegraphics{bagging_graph}
+	\begin{center}
+		\includegraphics[scale=0.8]{bagging_graph}
+	\end{center}
 	
 	Compared to a single tree, bagging is far less prone to overfitting. The training error is higher, but the testing error is lower. Bagged trees have a lower training error than AdaBoost, but a higher testing error, suggesting AdaBoost is even better at avoiding overfitting.
 	
@@ -329,17 +409,24 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	
 	Single Tree general error: 0.73796
 	
+	\bigskip
+	
 	All Tree bias: 0.369140156808
 	
 	All Tree variance: 0.0582005373522
 	
 	All Tree general error: 0.4273406941602
 	
+	\bigskip
+	
+	The single tree and bagged trees have about the same bias, but the single trees have a much larger variance. This is because the bagged trees average the results of many decision trees.	
 	
 	\bigskip
 	\item~[8 points] Implement the random forest algorithm as we discussed in our lecture. Vary the number of random trees from $1$ to $1000$. Note that you need to modify your tree learning algorithm to randomly select a subset of features before each split. Then use the information gain to select the best feature to split.  Vary the size of the feature subset from $\{2, 4, 6\}$. Note that if your feature subset happen to be all the features used before, simply resample the subset.  Report in a figure how the training and test errors vary along with the number of random trees for each feature subset size setting. How does the performance compare with bagged trees? 
 
-	\includegraphics{forest_graph}
+	\begin{center}
+		\includegraphics[scale=0.8]{forest_graph}
+	\end{center}
 	
 	The training error is lower for the random forest than bagged trees, but the testing error is higher, so generally lower performance.
 	
@@ -364,7 +451,9 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		
 		Test Data Cost: 23.360684566927414
 		
-		\includegraphics{batch_graph}
+		\begin{center}
+			\includegraphics[scale=0.8]{batch_graph}
+		\end{center}
 		
 		\item~[8 points] Implement the stochastic gradient descent (SGD) algorithm. You can initialize your weight vector to be $\0$. Each step, you randomly sample a training example, and then calculate the stochastic gradient to update the weight vector.  Tune the learning rate $r$ to ensure your SGD converges. To check convergence, you can calculate the cost function of the training data after each stochastic gradient update, and draw a figure showing how the cost function values vary along with the number of updates. At the beginning, your curve will oscillate a lot. However, with an appropriate $r$, as more and more updates are finished, you will see the cost function tends to converge. Please report the learned weight vector, and the learning rate you chose, and the cost function value of the test data with your learned weight vector.
 				
@@ -376,9 +465,18 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		
 		Test Data Cost: 20.444922087438073
 		
-		\includegraphics{stoch_graph}
-		
+		\begin{center}
+			\includegraphics[scale=0.8]{stoch_graph}
+		\end{center}
+	
 		\item~[6 points] We have discussed how to  calculate the optimal weight vector with an analytical form. Please calculate the optimal weight vector in this way. Comparing with the  weight vectors learned by batch gradient descent and stochastic gradient descent, what can you conclude? Why?
+		
+		\bigskip
+		
+		$\w* = [0.92154947, 0.80829428, 0.87397433, 1.3142877, 0.13392374, 1.59904727, 1.02029192]$
+		
+		The weight vector batch gradient descent converged on is very close to the optimal weight vector, while the stochastic version likely converged to a different local minimum. This is likely because the first few examples evaluated by the stochastic version moved the weight vector very close to the local minimum it ended on.
+		
 	\end{enumerate}
 
 \end{enumerate}
