@@ -82,11 +82,11 @@ m > \frac{1}{\epsilon}\big(\log(|H|) + \log\frac{1}{\delta}\big).
 	\begin{enumerate}
 		\item~[1 point] According to Occam's Razor principle, which learning algorithm's  result hypothesis do you prefer? Why?
 		\bigskip\newline
-		Occam's Razor dictates that one always prefer the most simple model of something possible. Therefore I would prefer $H_1$, as it uses fewer attributes to describe something.
+		Occam's Razor dictates that one always prefer the most simple model of something possible. Therefore I would prefer $H_2$, as it uses fewer attributes to describe something.
 		\bigskip
 		\item~[1 point]  How is this principle reflected in our PAC guarantee? Please use the above inequality to explain why we will prefer the corresponding result hypothesis. 
 		\bigskip\newline
-		Because $H_1$ is a smaller hypothesis space, a consistent learner will require fewer examples to achieve a certain amount of generalization error in comparison to the larger $H_2$, as defined by the PAC guarantee.
+		Because $H_2$ is a smaller hypothesis space, a consistent learner will require fewer examples to achieve a certain amount of generalization error in comparison to the larger $H_1$, as defined by the PAC guarantee.
 		\bigskip
 	\end{enumerate}
 	\item~[3 points] Let us investigate algorithm $L_1$. Suppose we have $n$ input features, and the size of the hypothesis space used by $L_1$ is $3^n$. Given $n=10$ features, if we want to guarantee a 95\% chance of learning a hypothesis of at least 90\% generalization accuracy, how many training examples at least do we need for $L_1$?

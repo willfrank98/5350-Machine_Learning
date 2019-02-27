@@ -10,7 +10,7 @@ def Bagging_Train(S, Attributes, T):
 
         tree = id3_with_weight(new_S, Attributes, None, 0)
         predictions.append(tree)
-        weights.append(1)# - id3_weighted_err(tree, S))
+        weights.append(1)
 
     return predictions, weights
 

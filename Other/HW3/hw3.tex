@@ -167,6 +167,10 @@
 		\bigskip
 		
 		\item~[2 points]  Now, let us state the second assumption in another way: Suppose there is a hyperplane that can correctly separate all the positive examples from the negative examples in the data, and the margin for this hyper plane is $\gamma$. What is the upper bound for the number of mistakes made by Perceptron algorithm?
+		
+		\bigskip
+		This is an equivalent statement to $\frac{y_i(\u^\top \x_i)}{||\u||} \ge \gamma$, so the upper bound for error is still $(||\u||R/\gamma)^2$.
+		
 	\end{enumerate}
 	
 	\item~[6 points] We want to use Perceptron to learn a disjunction as follows,
@@ -179,9 +183,20 @@
 	\item~[6 points] Suppose we have a finite hypothesis space $\Hcal$.
 	\begin{enumerate}
 		\item~[3 points] Suppose $|\Hcal| = 2^{10}$. What is the VC dimension of $\Hcal$? 
-		\item~[3 points] Generally, for  any finite $\Hcal$, what is $\mathrm{VC}(\Hcal)$ ?
+		
+		\bigskip
+		A hypothesis space of this size can represent a disjunction of up to 10 boolean variables. Therefore the VC dimension is 10.
+		\bigskip
+		\item~[3 points] Generally, for  any finite $\Hcal$, what is $\mathrm{VC}(\Hcal)$?
+		
+		\bigskip
+		$\mathrm{VC}(\Hcal) = \log(|\Hcal|)$ for finite $\Hcal$, generally.
 	\end{enumerate}
 	\item~[6 points] Prove that linear classifiers in a plane cannot shatter any $4$ distinct points. 
+	
+	\bigskip
+	The XOR function on 2 binary variables will give four points that are not linearly separable, and therefore cannot be shattered.
+	\bigskip
 	\item~[\textbf{Bonus}]~[10 points] Consider our infinite hypothesis space $\Hcal$ are all rectangles in a plain. Each rectangle corresponds to a classifier --- all the points inside the rectangle are classified as positive, and otherwise classified as negative. What is $\mathrm{VC}(\Hcal)$? 
 
 

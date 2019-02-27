@@ -21,8 +21,6 @@ def reset_weights(S):
 
 ### MAIN ###
 dataset = "bank"
-# function = "InfoGain"
-#maxdepth = int(sys.argv[3])
 
 attrFile = open(dataset + "/data-desc.txt")
 attrFile.readline()
@@ -131,7 +129,6 @@ for attr in numericList:
 #     err_test = Bagging_Test(hypothesis, S_test)
 #     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
 #     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-#     reset_weights(S_train)
 
 
 ## Generates Data for 2c ##
