@@ -310,7 +310,53 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	
 	\item~[3 points] Now, we want to use stochastic gradient descent to minimize $J(\w, b)$. We initialize $\w = \0$ and $b = 0$. We set the learning rate $r = 0.1$ and sequentially go through the $5$ training examples. Please list the stochastic gradient in each step and the updated $\w$ and $b$.
 	
-	
+	\begin{enumerate}
+		\item After s = [1, -1, 2]
+		
+		$\frac{\nabla J}{\nabla \w} = [-1, 1, -2]$
+		
+		$\frac{\nabla J}{\nabla b} = -1$
+		
+		$\w = [0.1, -0.1, 0.2]$
+		
+		$b = 0.1$
+		\item After s = [1, 1, 3]
+		
+		$\frac{\nabla J}{\nabla \w} = [-3.3, -3.3, -9.9]$
+		
+		$\frac{\nabla J}{\nabla b} = -3.3$
+		
+		$\w = [0.43, 0.23, 1.19]$
+		
+		$b = 0.43$
+		\item After s = [-1, 1, 0]
+		
+		$\frac{\nabla J}{\nabla \w} = [-1.23, 1.23, 0.0]$
+		
+		$\frac{\nabla J}{\nabla b} = 1.23$
+		
+		$\w = [0.553, 0.107, 1.19]$
+		
+		$b = 0.307$
+		\item After s = [1, 2, -4]
+		
+		$\frac{\nabla J}{\nabla \w} = [-1.686, -3.372, 6.744]$
+		
+		$\frac{\nabla J}{\nabla b} = -1.686$
+		
+		$\w = [0.7216, 0.4442, 0.5156]$
+		
+		$b = 0.4756$
+		\item After s = [3, -1, -1]
+		
+		$\frac{\nabla J}{\nabla \w} = [5.0418, -1.6806, -1.6806]$
+		
+		$\frac{\nabla J}{\nabla b} = 1.6806$
+		
+		$\w = [0.21742, 0.61226, 0.68366]$
+		
+		$b = 0.30754$
+	\end{enumerate}
 	
 \end{enumerate}
 \end{enumerate}
@@ -399,6 +445,11 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		\includegraphics{stoch_graph}
 		
 		\item~[6 points] We have discussed how to  calculate the optimal weight vector with an analytical form. Please calculate the optimal weight vector in this way. Comparing with the  weight vectors learned by batch gradient descent and stochastic gradient descent, what can you conclude? Why?
+		
+		$\w* = [0.92154947, 0.80829428, 0.87397433, 1.3142877, 0.13392374, 1.59904727, 1.02029192]$
+		
+		The weight vector batch gradient descent converged on is very close to the optimal weight vector, while the stochastic version likely converged to a different local minimum. This is likely because the first few examples evaluated by the stochastic version moved the weight vector very close to the local minimum it ended on.
+		
 	\end{enumerate}
 
 \end{enumerate}
