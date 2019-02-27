@@ -103,12 +103,23 @@ m > \frac{1}{\epsilon}\big(\log(|H|) + \log\frac{1}{\delta}\big).
 \begin{enumerate}
 	\item~[1 points] Simple disjunctions out of $n$ binary variables
 	\bigskip\newline
-	This hypothesis space has size at most $2^n$. This being a finite number, some m can be chosen for any n such that the PAC learnability inequality is true.
+	Because each binary variable can be required to be true or ignored, the hypothesis space size is $2^n$. Plugging this into the PAC guarantee formula tells us we need at least $\frac{1}{\epsilon}(n\ln(2) + \ln(\frac{1}{\delta}))$ samples. Because this is polynomial, this concept class is PAC learnable.
 	\bigskip
-	\item~[1 points] $m$-of-$n$ rules (Note that $m$ is a fixed constant).  
+	\item~[1 points] $m$-of-$n$ rules (Note that $m$ is a fixed constant).
+	\bigskip\newline
+	These rules have a hypothesis space size of $2^{\binom{n}{m}}$, which means $\frac{1}{\epsilon}(\binom{n}{m}\ln(2) + \ln(\frac{1}{\delta}))$ samples are needed. This is not polynomial, and therefore not PAC learnable.
+	\bigskip
 	\item~[1 points] General conjunctions out of $n$ binary variables (``General'' means that negations are allowed to operator on each variable before the conjunction).
+	\bigskip\newline
+	General conjunctions have a hypothesis space size of $3^n$ because each variable can be assumed to be true or false, or ignored. This means $\frac{1}{\epsilon}(n\ln(3) + \ln(\frac{1}{\delta}))$ samples are needed. As this is polynomial, this class is PAC learnable. 
+	\bigskip
 	\item~[2 points] General Boolean functions of $n$ binary variables. 
-	\item~[2 points] Can ID3 algorithm \textit{efficiently} PAC learn the above concept classes? 
+	\bigskip\newline
+	Because general boolean functions have a hypothesis space size of $2^{2^n}$, $\frac{1}{\epsilon}(n^2\ln(2) + \ln(\frac{1}{\delta}))$ samples are needed. This is exponential of $n$ rather than polynomial, and therefore is not PAC learnable.
+	\bigskip
+	\item~[2 points] Can ID3 algorithm \textit{efficiently} PAC learn the above concept classes?
+	\bigskip
+	The time complexity of ID3 is at most $O(n^2k)$, where n is the number of training examples, and k is the number of attributes. Because this is polynomial run time with respect to the right variables, ID3 can efficiently PAC learn the above (PAC learnable) concept classes.
 \end{enumerate}
 
 \item~[5 points] In our lecture about AdaBoost algorithm, we introduced the definition of weighted error in each round $t$, 

@@ -236,6 +236,10 @@ for attr in numericList:
 
 ## Generates Data for 2e ##
 
+total_single_bias = 0.0
+total_single_variance = 0.0
+single_predictions = []
+single_avg = len(S_test)*[None]
 predictors = []
 for i in range(0, 100):
     print "predictor " + str(i) + " done"
@@ -246,10 +250,16 @@ for i in range(0, 100):
         new_S.append(copy_S[rand])
         del copy_S[rand]
     predictor = Random_Forest_Train(new_S, Attributes, 1000, 4)
+
+    for s in range(0, len(S_test)):
+        label = get_label(S_test[s], predictor[0])
+        val = 1 if label == "yes" else -1
+        single_avg[s] += val
+        #single_predictions.append(val)
+
     predictors.append(predictor)
 
-total_single_bias = 0.0
-total_single_variance = 0.0
+
 for s in S_test:
     avg = 0.0
     predictions = []
