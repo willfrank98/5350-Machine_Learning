@@ -107,134 +107,133 @@ for attr in numericList:
     Attributes[attr] = ["-1", "1"]
 
 ## Generates Data for 2a ##
+print "Generating data for problem 2a"
 
-# f = open("adaboost_out.txt", "w")
-# f.write("Iter\tTrain\tTest\n")
-# for T in range(1, 1050, 50):
-#     hypothesis = AdaBoost(S_train, Attributes, T)
-#     err_train = AdaBoost_Test(hypothesis, S_train)
-#     err_test = AdaBoost_Test(hypothesis, S_test)
-#     print str(T-1) + "\t" + str(err_train) + "\t" + str(err_test)
-#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-#     reset_weights(S_train)
+f = open("adaboost_out.txt", "w")
+f.write("Iter\tTrain\tTest\n")
+for T in range(1, 1050, 50):
+    hypothesis = AdaBoost(S_train, Attributes, T)
+    err_train = AdaBoost_Test(hypothesis, S_train)
+    err_test = AdaBoost_Test(hypothesis, S_test)
+    print str(T-1) + "\t" + str(err_train) + "\t" + str(err_test)
+    f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
+    reset_weights(S_train)
 
-# hypothesis = AdaBoost_print(S_train, S_test, Attributes, 1000)
+hypothesis = AdaBoost_print(S_train, S_test, Attributes, 1000)
 
 
 ## Generates Data for 2b ##
+print "Generating data for problem 2b"
 
-# f = open("bagging_out.txt", "w")
-# f.write("Iter\tTrain\tTest\n")
-# for T in range(1, 1050, 50):
-#     hypothesis = Bagging_Train(S_train, Attributes, T)
-#     err_train = Bagging_Test(hypothesis, S_train)
-#     err_test = Bagging_Test(hypothesis, S_test)
-#     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
-#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-#     reset_weights(S_train)
+f = open("bagging_out.txt", "w")
+f.write("Iter\tTrain\tTest\n")
+for T in range(1, 1050, 50):
+    hypothesis = Bagging_Train(S_train, Attributes, T)
+    err_train = Bagging_Test(hypothesis, S_train)
+    err_test = Bagging_Test(hypothesis, S_test)
+    print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
+    f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
+    reset_weights(S_train)
 
 
 ## Generates Data for 2c ##
+print "Generating data for problem 2c"
 
-# predictors = []
-# for _ in range(0, 100):
-#     print "predictor " + str(_) + " done"
-#     copy_S = list(S_train)
-#     new_S = []
-#     for i in range(0, 1000):
-#         rand = random.randint(0, len(copy_S) - 1)
-#         new_S.append(copy_S[rand])
-#         del copy_S[rand]
-#     predictor = Bagging_Train(new_S, Attributes, 1000)
-#     predictors.append(predictor)
+predictors = []
+for _ in range(0, 100):
+    copy_S = list(S_train)
+    new_S = []
+    for i in range(0, 1000):
+        rand = random.randint(0, len(copy_S) - 1)
+        new_S.append(copy_S[rand])
+        del copy_S[rand]
+    predictor = Bagging_Train(new_S, Attributes, 1000)
+    predictors.append(predictor)
 
-# total_single_bias = 0.0
-# total_single_variance = 0.0
-# for s in S_test:
-#     avg = 0.0
-#     predictions = []
-#     for p in predictors:
-#         label = get_label(s, p[0][0])
-#         val = 1 if label == "yes" else -1
-#         avg += val
-#         predictions.append(val)
-#     avg /= len(predictors)
-#     label_num = 1 if s["Label"] == "yes" else -1
+total_single_bias = 0.0
+total_single_variance = 0.0
+for s in S_test:
+    avg = 0.0
+    predictions = []
+    for p in predictors:
+        label = get_label(s, p[0][0])
+        val = 1 if label == "yes" else -1
+        avg += val
+        predictions.append(val)
+    avg /= len(predictors)
+    label_num = 1 if s["Label"] == "yes" else -1
 
-#     bias = pow(label_num - avg, 2)
-#     total_single_bias += bias
+    bias = pow(label_num - avg, 2)
+    total_single_bias += bias
 
-#     variance = numpy.var(predictions)
-#     total_single_variance += variance
+    variance = numpy.var(predictions)
+    total_single_variance += variance
 
-# single_bias = total_single_bias/len(S_test)
-# single_variance = total_single_variance/len(S_test)
+single_bias = total_single_bias/len(S_test)
+single_variance = total_single_variance/len(S_test)
 
-# print "Single bias: " + str(single_bias)
-# print "Single variance: " + str(single_variance)
+print "Single bias: " + str(single_bias)
+print "Single variance: " + str(single_variance)
 
-# total_mass_bias = 0.0
-# total_mass_variance = 0.0
-# T = 0
-# for s in S_test:
-#     print T
-#     T += 1
-#     avg = 0.0
-#     predictions = []
-#     for p in predictors:
-#         val = get_bag_label(p, s) / float(len(p[0]))
-#         avg += val
-#         predictions.append(val)
-#     avg /= len(predictors)
-#     label_num = 1 if s["Label"] == "yes" else -1
+total_mass_bias = 0.0
+total_mass_variance = 0.0
+for s in S_test:
+    T += 1
+    avg = 0.0
+    predictions = []
+    for p in predictors:
+        val = get_bag_label(p, s) / float(len(p[0]))
+        avg += val
+        predictions.append(val)
+    avg /= len(predictors)
+    label_num = 1 if s["Label"] == "yes" else -1
 
-#     bias = pow(label_num - avg, 2)
-#     total_mass_bias += bias
+    bias = pow(label_num - avg, 2)
+    total_mass_bias += bias
 
-#     variance = numpy.var(predictions)
-#     total_mass_variance += variance
+    variance = numpy.var(predictions)
+    total_mass_variance += variance
 
-# mass_bias = total_mass_bias/len(S_test)
-# mass_variance = total_mass_variance/len(S_test)
+mass_bias = total_mass_bias/len(S_test)
+mass_variance = total_mass_variance/len(S_test)
 
-# print "Mass bias: " + str(mass_bias)
-# print "Mass variance: " + str(mass_variance)
+print "Mass bias: " + str(mass_bias)
+print "Mass variance: " + str(mass_variance)
 
 
 ## Generates Data for 2d ##
+print "Generating data for problem 2d"
 
-# f = open("forest_out.txt", "w")
-# f.write("Iter\tTrain\tTest\tN=2\n")
-# for T in range(1, 1050, 50):
-#     hypothesis = Random_Forest_Train(S_train, Attributes, T, 2)
-#     err_train = Random_Forest_Test(hypothesis, S_train)
-#     err_test = Random_Forest_Test(hypothesis, S_test)
-#     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
-#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-#     reset_weights(S_train)
+f = open("forest_out.txt", "w")
+f.write("Iter\tTrain\tTest\tN=2\n")
+for T in range(1, 1050, 50):
+    hypothesis = Random_Forest_Train(S_train, Attributes, T, 2)
+    err_train = Random_Forest_Test(hypothesis, S_train)
+    err_test = Random_Forest_Test(hypothesis, S_test)
+    f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
+    reset_weights(S_train)
 
-# f.write("\n\n")
-# f.write("Iter\tTrain\tTest\tN=4\n")
-# for T in range(1, 1050, 50):
-#     hypothesis = Random_Forest_Train(S_train, Attributes, T, 4)
-#     err_train = Random_Forest_Test(hypothesis, S_train)
-#     err_test = Random_Forest_Test(hypothesis, S_test)
-#     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
-#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-#     reset_weights(S_train)
+f.write("\n\n")
+f.write("Iter\tTrain\tTest\tN=4\n")
+for T in range(1, 1050, 50):
+    hypothesis = Random_Forest_Train(S_train, Attributes, T, 4)
+    err_train = Random_Forest_Test(hypothesis, S_train)
+    err_test = Random_Forest_Test(hypothesis, S_test)
+    f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
+    reset_weights(S_train)
 
-# f.write("\n\n")
-# f.write("Iter\tTrain\tTest\tN=6\n")
-# for T in range(1, 1050, 50):
-#     hypothesis = Random_Forest_Train(S_train, Attributes, T, 6)
-#     err_train = Random_Forest_Test(hypothesis, S_train)
-#     err_test = Random_Forest_Test(hypothesis, S_test)
-#     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
-#     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
-#     reset_weights(S_train)
+f.write("\n\n")
+f.write("Iter\tTrain\tTest\tN=6\n")
+for T in range(1, 1050, 50):
+    hypothesis = Random_Forest_Train(S_train, Attributes, T, 6)
+    err_train = Random_Forest_Test(hypothesis, S_train)
+    err_test = Random_Forest_Test(hypothesis, S_test)
+    f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
+    reset_weights(S_train)
 
 
 ## Generates Data for 2e ##
+print "Generating data for problem 2e"
 
 single_predictions = len(S_test)*[None]
 mass_predictions = len(S_test)*[None]

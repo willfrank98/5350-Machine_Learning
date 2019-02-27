@@ -103,12 +103,23 @@ m > \frac{1}{\epsilon}\big(\log(|H|) + \log\frac{1}{\delta}\big).
 \begin{enumerate}
 	\item~[1 points] Simple disjunctions out of $n$ binary variables
 	\bigskip\newline
-	This hypothesis space has size at most $2^n$. This being a finite number, some m can be chosen for any n such that the PAC learnability inequality is true.
+	Because each binary variable can be required to be true or ignored, the hypothesis space size is $2^n$. Plugging this into the PAC guarantee formula tells us we need at least $\frac{1}{\epsilon}(n\ln(2) + \ln(\frac{1}{\delta}))$ samples. Because this is polynomial, this concept class is PAC learnable.
 	\bigskip
-	\item~[1 points] $m$-of-$n$ rules (Note that $m$ is a fixed constant).  
+	\item~[1 points] $m$-of-$n$ rules (Note that $m$ is a fixed constant).
+	\bigskip\newline
+	These rules have a hypothesis space size of $2^{\binom{n}{m}}$, which means $\frac{1}{\epsilon}(\binom{n}{m}\ln(2) + \ln(\frac{1}{\delta}))$ samples are needed. This is not polynomial, and therefore not PAC learnable.
+	\bigskip
 	\item~[1 points] General conjunctions out of $n$ binary variables (``General'' means that negations are allowed to operator on each variable before the conjunction).
+	\bigskip\newline
+	General conjunctions have a hypothesis space size of $3^n$ because each variable can be assumed to be true or false, or ignored. This means $\frac{1}{\epsilon}(n\ln(3) + \ln(\frac{1}{\delta}))$ samples are needed. As this is polynomial, this class is PAC learnable. 
+	\bigskip
 	\item~[2 points] General Boolean functions of $n$ binary variables. 
-	\item~[2 points] Can ID3 algorithm \textit{efficiently} PAC learn the above concept classes? 
+	\bigskip\newline
+	Because general boolean functions have a hypothesis space size of $2^{2^n}$, $\frac{1}{\epsilon}(n^2\ln(2) + \ln(\frac{1}{\delta}))$ samples are needed. This is exponential of $n$ rather than polynomial, and therefore is not PAC learnable.
+	\bigskip
+	\item~[2 points] Can ID3 algorithm \textit{efficiently} PAC learn the above concept classes?
+	\bigskip
+	The time complexity of ID3 is at most $O(n^2k)$, where n is the number of training examples, and k is the number of attributes. Because this is polynomial run time with respect to the right variables, ID3 can efficiently PAC learn the above (PAC learnable) concept classes.
 \end{enumerate}
 
 \item~[5 points] In our lecture about AdaBoost algorithm, we introduced the definition of weighted error in each round $t$, 
@@ -378,7 +389,7 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		\includegraphics[scale=0.8]{adaboost_graph2}
 	\end{center}
 	
-	The error of an individual stump quickly rises to near .5, but the overall error drops very slowly. A fully expanded tree is far more accurate on training data, but is prone to overfitting as AdaBoost had better testing error.
+	The weighted error of an individual stump quickly rises to near .5, but the overall error drops very slowly. A fully expanded tree is far more accurate on training data, but is prone to overfitting as AdaBoost had better testing error.
 	
 	\bigskip
 	
@@ -403,11 +414,24 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 		\href{http://www.randomservices.org/random/sample/Variance.html}{here}). You now obtain the bias and variance terms of a single tree learner for one test example. You will need to compute them for all the test examples and then take average as your final estimation of the bias and variance terms for the single decision tree learner. You can add the two terms to obtain the estimation of the general squared error (that is, expected error w.r.t test examples). Now use your $100$ bagged predictors to do the same thing and estimate the general bias and variance terms, as well as the general squared error.  Comparing the results of the single tree learner and the bagged trees, what can you conclude?  What causes the difference?  
 	\end{itemize}
 	\bigskip
-	Single Tree bias: 0.37509816
+	Single Tree Bias: 0.37509816
 	
-	Single Tree variance: 0.36286184
+	Single Tree Variance: 0.36286184
 	
-	Single Tree general error: 0.73796
+	Single Tree General Error: 0.73796
+	
+	\bigskip
+	
+	All Tree Bias: 0.369140156808
+	
+	All Tree Variance: 0.0582005373522
+	
+	All Tree General Error: 0.4273406941602
+	
+	\bigskip
+	
+	The single tree and bagged trees have about the same bias, but the single trees have a much larger variance. This is because the bagged trees average the results of many decision trees.	
+	
 	\bigskip
 	\item~[8 points] Implement the random forest algorithm as we discussed in our lecture. Vary the number of random trees from $1$ to $1000$. Note that you need to modify your tree learning algorithm to randomly select a subset of features before each split. Then use the information gain to select the best feature to split.  Vary the size of the feature subset from $\{2, 4, 6\}$. Note that if your feature subset happen to be all the features used before, simply resample the subset.  Report in a figure how the training and test errors vary along with the number of random trees for each feature subset size setting. How does the performance compare with bagged trees? 
 
@@ -419,7 +443,26 @@ $\epsilon_t = \sum_{y_i \neq h_t(x_i)} D_t(i).$
 	
 	\bigskip
 	
-	\item~[6 points] Following (c), estimate the bias and variance terms, and the squared error for a single random tree and the whole forest.  Comparing with the bagged trees, what do you observe? What can you conclude? 
+	\item~[6 points] Following (c), estimate the bias and variance terms, and the squared error for a single random tree and the whole forest.  Comparing with the bagged trees, what do you observe? What can you conclude?
+	
+	\bigskip
+	Single Tree Bias: 24.1
+	
+	Single Tree Variance: 13.723348
+	
+	Single Tree General Error: 37.823348
+	
+	\bigskip
+	
+	All Tree Bias: 18.618549407
+	
+	All Tree Variance: 0.8171063970159976
+	
+	All Tree General Error: 19.4356558040159976
+	
+	\bigskip
+	 
+	 Compared to the bagged trees, the random trees have a much larger bias, and a somewhat higher variance. Although the testing error is about the same, random trees have significantly more variance.
 \end{enumerate}
 
 \item~[\textbf{Bonus}][10 points] In practice, to confirm the performance of your algorithm, you need to find multiple datasets for test (rather than one). You need to extract and process data by yourself. Now please use the credit default dataset in UCI repository \href{https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients}{https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients}. Randomly choose $24000$ examples for training and the remaining $6000$ for test. Feel free to deal with continuous features. Run bagged trees, random forest, and Adaboost with decision stumps algorithms for $1000$ iterations. Report in a figure how the training and test errors vary along with the number of iterations, as compared with a fully expanded single decision tree. Are the results consistent with the results you obtained from the bank dataset?
