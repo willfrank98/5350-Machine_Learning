@@ -35,7 +35,7 @@ def Bagging_Test(Hypothesis, S):
 
 def get_bag_label(hypo, s):
     prediction = 0.0
-    for tree , weight in zip(hypo[0], hypo[1]):
+    for tree, weight in zip(hypo[0], hypo[1]):
             label = get_label(s, tree)
             label = 1 if label == "yes" else -1
             prediction += label * weight

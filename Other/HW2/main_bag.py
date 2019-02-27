@@ -118,7 +118,8 @@ for attr in numericList:
 #     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
 #     reset_weights(S_train)
 
-hypothesis = AdaBoost_print(S_train, S_test, Attributes, 1000)
+# hypothesis = AdaBoost_print(S_train, S_test, Attributes, 1000)
+
 
 ## Generates Data for 2b ##
 
@@ -231,3 +232,70 @@ hypothesis = AdaBoost_print(S_train, S_test, Attributes, 1000)
 #     print "T = " + str(T-1) + ": " + str(err_train) + ", " + str(err_test)
 #     f.write(str(T-1) + "\t" + str(err_train) + "\t" + str(err_test) + "\n")
 #     reset_weights(S_train)
+
+
+## Generates Data for 2e ##
+
+predictors = []
+for i in range(0, 100):
+    print "predictor " + str(i) + " done"
+    copy_S = list(S_train)
+    new_S = []
+    for i in range(0, 1000):
+        rand = random.randint(0, len(copy_S) - 1)
+        new_S.append(copy_S[rand])
+        del copy_S[rand]
+    predictor = Random_Forest_Train(new_S, Attributes, 1000, 4)
+    predictors.append(predictor)
+
+total_single_bias = 0.0
+total_single_variance = 0.0
+for s in S_test:
+    avg = 0.0
+    predictions = []
+    for p in predictors:
+        label = get_label(s, p[0][0])
+        val = 1 if label == "yes" else -1
+        avg += val
+        predictions.append(val)
+    avg /= len(predictors)
+    label_num = 1 if s["Label"] == "yes" else -1
+
+    bias = pow(label_num - avg, 2)
+    total_single_bias += bias
+
+    variance = numpy.var(predictions)
+    total_single_variance += variance
+
+single_bias = total_single_bias/len(S_test)
+single_variance = total_single_variance/len(S_test)
+
+print "Single bias: " + str(single_bias)
+print "Single variance: " + str(single_variance)
+
+total_mass_bias = 0.0
+total_mass_variance = 0.0
+T = 0
+for s in S_test:
+    print T
+    T += 1
+    avg = 0.0
+    predictions = []
+    for p in predictors:
+        val = get_bag_label(p, s) / float(len(p[0]))
+        avg += val
+        predictions.append(val)
+    avg /= len(predictors)
+    label_num = 1 if s["Label"] == "yes" else -1
+
+    bias = pow(label_num - avg, 2)
+    total_mass_bias += bias
+
+    variance = numpy.var(predictions)
+    total_mass_variance += variance
+
+mass_bias = total_mass_bias/len(S_test)
+mass_variance = total_mass_variance/len(S_test)
+
+print "Mass bias: " + str(mass_bias)
+print "Mass variance: " + str(mass_variance)
