@@ -179,23 +179,27 @@
 	\]
 	The training set are all $2^n$ Boolean input vectors in the instance space. 
 	Please derive an upper bound of the number of mistakes made by Perceptron in learning this disjunction.
+	
+	\bigskip
+	This can be separated with the hyperplane $-x_1 - \ldots - x_k + x_{k+1} + \ldots + x_{2k} - \frac{1}{2} = 0$. Assuming the augmented feature space, this gives $R = \sqrt{n+1}$. The closest point to this boundary is one where all attributes are 0, which gives $\gamma = \frac{\frac{1}{2}}{\sqrt{n+\frac{1}{4}}}$. This gives an upper mistake bound of $(n + 1)/\frac{\frac{1}{4}}{n+\frac{1}{4}} = 4n^2 + 5n + 1$.
 
 	\item~[6 points] Suppose we have a finite hypothesis space $\Hcal$.
 	\begin{enumerate}
 		\item~[3 points] Suppose $|\Hcal| = 2^{10}$. What is the VC dimension of $\Hcal$? 
 		
 		\bigskip
-		A hypothesis space of this size can represent any disjunction of up to 10 boolean variables. Therefore the VC dimension is 10.
+		A hypothesis space of this size can map 10 combinations of input values to 2 output values. Therefore it is expressive enough to shatter any 10 examples, and has a VC dimension of 10.
+		
 		\bigskip
 		\item~[3 points] Generally, for  any finite $\Hcal$, what is $\mathrm{VC}(\Hcal)$?
 		
 		\bigskip
-		$\mathrm{VC}(\Hcal) = \log(|\Hcal|)$ for finite $\Hcal$, generally.
+		Generally, $\mathrm{VC}(\Hcal) = log_2(\Hcal)$
 	\end{enumerate}
 	\item~[6 points] Prove that linear classifiers in a plane cannot shatter any $4$ distinct points. 
 	
 	\bigskip
-	The XOR function on 2 binary variables will give four points that are not linearly separable, and therefore cannot be shattered.
+	The XOR function on 2 binary variables will give four points that are not linearly separable, and therefore cannot be shattered. 
 	
 	\begin{center}
 		\includegraphics[scale=.5]{XOR_pic}
@@ -203,7 +207,10 @@
 	\bigskip
 	\item~[\textbf{Bonus}]~[10 points] Consider our infinite hypothesis space $\Hcal$ are all rectangles in a plain. Each rectangle corresponds to a classifier --- all the points inside the rectangle are classified as positive, and otherwise classified as negative. What is $\mathrm{VC}(\Hcal)$? 
 
-
+	\bigskip
+	The instance space here is all points on a plane. Because the points can be placed anywhere before iterating every possible label partition we will assume the n points are corners on a regular n-gon, as this makes the points the most separable. Using this configuration the VC dimension can be shown to be 5, as 6 points are not able to be shattered. If the points of the hexagon alternate positive and negative labels then there is no rectangle that can separate positive and negative.
+	
+	$\mathrm{VC}(\Hcal) = 6$
 \end{enumerate}
 
 \section{Practice [60 points ]}
