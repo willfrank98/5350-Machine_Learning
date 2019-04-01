@@ -1,0 +1,227 @@
+\documentclass[12pt, fullpage,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcommand{\semester}{Spring 2019}
+\newcommand{\assignmentId}{4}
+\newcommand{\releaseDate}{20 Mar, 2019}
+\newcommand{\dueDate}{11:59pm, 5 Apr, 2019}
+
+\newcommand{\bx}{{\bf x}}
+\newcommand{\bw}{{\bf w}}
+
+\title{CS 5350/6350: Machine Learining \semester}
+\author{Homework \assignmentId}
+\date{Handed out: \releaseDate\\
+	Due: \dueDate}
+
+
+\title{CS 5350/6350: Machine Learning \semester}
+\author{Homework \assignmentId}
+\date{Handed out: \releaseDate\\
+  Due date: \dueDate}
+
+\begin{document}
+\maketitle
+
+\input{emacscomm}
+\newcommand{\Hcal}{\mathcal{H}} 
+{\footnotesize
+	\begin{itemize}
+		\item You are welcome to talk to other members of the class about
+		the homework. I am more concerned that you understand the
+		underlying concepts. However, you should write down your own
+		solution. Please keep the class collaboration policy in mind.
+		
+		\item Feel free to discuss the homework with the instructor or the TAs.
+		
+		\item Your written solutions should be brief and clear. You do not need to include original problem descriptions in your solutions. You need to
+		show your work, not just the final answer, but you do \emph{not}
+		need to write it in gory detail. Your assignment should be {\bf no
+			more than 15 pages}. Every extra page will cost a point.
+		
+		\item Handwritten solutions will not be accepted.
+		
+		
+		\item {\em Your code should run on the CADE machines}. \textbf{You should
+		include a shell script, {\tt run.sh}, that will execute your code
+		in the CADE environment. Your code should produce similar output to what you include in your report.}
+		
+		You are responsible for ensuring that the grader can execute the
+		code using only the included script. If you are using an
+		esoteric programming language, you should make sure that its
+		runtime is available on CADE.
+		
+		\item Please do not hand in binary files! We will {\em not} grade
+		binary submissions.
+		
+		\item The homework is due by \textbf{midnight of the due date}. Please submit
+		the homework on Canvas.
+		
+	\end{itemize}
+}
+
+
+\section{Paper Problems [40 points]}
+\begin{enumerate}
+	\item~[3 points] The learning of soft SVMs is formulated as the following optimization problem,
+		\begin{align}
+		\min\limits_{\w, b, \{\xi_i\}} &\;\;\;\frac{1}{2}\w^\top\w + C\sum_i \xi_i, \nonumber\\
+		\mathrm{s.t.}\;\; \forall 1 \le i \le N, &\;\;\; y_i(\w^\top \x_i + b) \ge 1 - \xi_i , \nonumber \\
+		&\;\;\; \xi_i \ge 0 \nonumber
+		\end{align}
+		where $N$ is the number of the training examples.
+	As we discussed in the class, the slack variables $\{\xi_i\}$ are introduced to allow the training examples to break into the margin so that we can learn a linear classifier even when the data is not linearly separable. 
+	\begin{enumerate}
+		\item~[1 point] What values $\xi_i$ can take when the training example $\x_i$ breaks into the margin? 
+		
+		$\xi_i = 1 - y_i (\w^T\x_i+b)$
+		
+		\item~[1 point] What values $\xi_i$ can take when the training example $\x_i$ stays on or outside the margin? 
+		
+		$\xi_i = 0$
+		
+		\item~[1 point] Why do we incorporate the term $C\cdot\sum_i \xi_i $ in the objective function? What will happen if we throw out this term?
+		
+		This term determines the trade off between a generally large margin and the total penalty of examples in or behind the margin. Without this term the model might over-fit the data instead of using a larger margin and generalize poorly.
+		
+	\end{enumerate}
+	
+	
+	\item~[6 points] Write down the dual optimization problem for soft SVMs.  
+	Please clearly indicate the constraints, and explain how it is derived. (Note: do NOT directly copy slides content, write down your own understanding.)
+	
+	Minimize $\frac{1}{2}\w^T\w$ over $\w$ and minimize $\sum_i \xi_i$ over $\w$ and $b$. The constraints on this are that $\forall i, y_i(\w^\top \x_i + b) \ge 1 - \xi_i$ and $\xi_i \ge 0$. This means that every example has a value $\xi$ which is the amount by which it 'breaks into' the margin. By using hinge loss this becomes an accumulation of the penalty of a weight vector.
+	
+	\item~[8 points] Continue with the dual form. Suppose after the training procedure, you have obtained the optimal parameters.
+	\begin{enumerate}
+		\item~[2 points] What parameter values can indicate if an example stays outside the margin?
+		\item~[3 points] What are common and what are different when we use these parameters and the slack variables $\{\xi_i\}$ to determine the relevant positions of the training examples to the margin?
+		\item~[3 points] Now if we want to find out which training examples just sit on the margin (neither inside nor outside), what shall we do? Note you are not allowed to examine if the functional margin (\ie $y_i(\w^\top\x_i +b)$) is $1$.
+	\end{enumerate}
+	
+	
+	\item~[3 points] How can we use the kernel trick to enable SVMs to perform nonlinear classification? What is the corresponding optimization problem?
+
+
+	\item~[5 points] Prove that the primal objective function of the soft SVM is convex to $\w$ and $b$, 
+	\[
+	\frac{1}{2}\w^\top\w + C\sum_{i} \max\big(0, 1 - y_i(\w^\top\x_i+b)\big).
+	\]
+	
+	\item~[2 points] Illustrate how the Occam's Razor principle is reflected in the SVM objective and optimization in Problem 5. 
+	
+	
+	%calculate the subgradient
+	\item~[3 points] Suppose we have the training dataset shown in Table 1. We want to learn a SVM classifier. We initialize all the model parameters with $0$. We set the learning rates for the first three steps to $\{0.01, 0.005, 0.0025\}$.  Please list the sub-gradients of the SVM objective w.r.t the model parameters for the first three steps, when using the stochastic sub-gradient descent algorithm. 
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{ccc|c}
+			$x_1$ & $x_2$ & $x_3$ &  $y$\\ 
+			\hline\hline
+			$0.5$ & $-1$ & $0.3$ & $1$ \\ \hline
+			$-1$ & $-2$ & $-2$ & $-1$\\ \hline
+			$1.5$ & $0.2$ & $-2.5$ & $1$\\ \hline
+		\end{tabular}
+	\caption{Dataset}
+	\end{table}
+
+	%kernel Perceptron
+	\item~[10 points] Let us derive a dual form for Perceptron. Recall, in each step of Perceptron, we add to the current weights $\w$ (including the bias parameter) $y_i\x_i$ for some misclassified example $(\x_i, y_i)$. We initialize $\w$ with $\mathbf{0}$. So, instead of updating $\w$, we can maintain for each training example $i$ a mistake count $c_i$ --- the number of times the data point $(\x_i, y_i)$ has been misclassified. 
+	
+	\begin{itemize}
+		\item~[2 points] Given the mistake counts of all the training examples, $\{c_1, \ldots, c_N\}$, how can we recover $\w$? How can we make predictions with these mistake counts? 
+		\item~[3 points] Can you develop an algorithm that uses mistake counts to learn the Perceptron? Please list the pseudo code. 
+		\item~[5 points] Can you apply the kernel trick to develop an nonlinear Perceptron? If so, how do you conduct classification? Can you give the pseudo code fo learning this kernel Perceptron? 
+	\end{itemize}   
+	
+\end{enumerate}
+
+\section{Practice [60 points + 10 bonus ]}
+\begin{enumerate}
+	\item~[2 Points] Update your machine learning library. Please check in your implementation of Perceptron, voted Perceptron and average Perceptron algorithms. Remember last time you created the folders ``Perceptron". You can commit your code into the corresponding folders now. Please also supplement README.md with concise descriptions about how to use your code to run these algorithms (how to call the command, set the parameters, etc). Please create a new folder ``SVM" in the same level as these folders.  
+
+%kernel perceptron, kernel svms
+	\item~[28 points] We will first implement SVM in the primal domain with stochastic sub-gradient descent. We will reuse the  dataset for Perceptron implementation, namely, ``bank-note.zip'' in Canvas. The features and labels are listed in the file ``classification/data-desc.txt''. The training data are stored in the file ``classification/train.csv'', consisting of $872$ examples. The test data are stored in ``classification/test.csv'', and comprise of $500$ examples. In both the training and test datasets, feature values and labels are separated by commas. Set the maximum epochs $T$ to 100. Don't forget to shuffle the training examples at the start of each epoch. Use the curve of the objective function (along with the number of updates) to diagnosis the convergence. Try the hyperparameter $C$ from $\{\frac{1}{873}, \frac{10}{873}, \frac{50}{873}, \frac{100}{873}, \frac{300}{873}, \frac{500}{873}, \frac{700}{873}\}$. Don't forget to convert the labels to be in $\{1, -1\}$.  
+	\begin{enumerate}
+		\item~[12 points] Use the schedule of learning rate: $\gamma_t = \frac{\gamma_0}{1+\frac{\gamma_0}{d}t}	$. Please tune $\gamma_0$ and $d$ to ensure convergence. For each setting of $C$, report your training and test error. 
+		
+		\bigskip
+		$\gamma_0$ = 0.01, $d$ = 0.01 
+		\begin{table}[h]
+			\begin{tabular}{l||lllllll}
+				C = & $\frac{1}{873}$ & $\frac{10}{873}$ & $\frac{50}{873}$ & $\frac{100}{873}$ & $\frac{300}{873}$ & $\frac{500}{873}$ & $\frac{700}{873}$ \\
+				\hline\hline
+				Training Error & 0.050 & 0.041 & 0.040 & 0.040 & 0.040 & 0.039 & 0.040 \\
+				Testing Error & 0.072 & 0.048 & 0.046 & 0.046 & 0.05 & 0.048 & 0.054 \\
+			\end{tabular}
+		\end{table}
+		
+		\item~[12 points] Use the schedule $\gamma_t = \frac{\gamma_0}{1+t}$. Report the training and test error for each setting of C. 
+		
+		\bigskip
+		$\gamma_0$ = 0.01
+		\begin{table}[h]
+			\begin{tabular}{l||lllllll}
+				C = & $\frac{1}{873}$ & $\frac{10}{873}$ & $\frac{50}{873}$ & $\frac{100}{873}$ & $\frac{300}{873}$ & $\frac{500}{873}$ & $\frac{700}{873}$ \\
+				\hline\hline
+				Training Error &0.050 & 0.041 & 0.039 & 0.040 & 0.042 & 0.046 & 0.047 \\
+				Testing Error & 0.072 & 0.052 & 0.046 & 0.042 & 0.048 & 0.046 & 0.054 \\
+			\end{tabular}
+		\end{table}
+		
+		\item~[6 points] For each $C$, report the differences between the model parameters learned from the two learning rate schedules, as well as the differences between the training/test errors. What can you conclude? 
+		
+		\begin{table}[h]
+			\begin{tabular}{l||llll}
+				C & Schedule A & Schedule B & Train Diff & Test Diff\\
+				\hline\hline
+				$1/873$ & [-0.373, -0.17, -0.145, -0.079] & [-0.376, -0.169, -0.147, -0.083] & 0.0 & 0.0\\
+				$10/873$ & [-0.73, -0.366, -0.371, -0.195] & [-0.781, -0.396, -0.395, -0.209] & 0.0 & 0.003 \\
+				$50/873$ & [-1.104, -0.593, -0.642, -0.247] & [-1.53, -0.858, -0.926, -0.366] & 0.001 & 0.0 \\
+				$100/873$ & [-1.266, -0.68, -0.741, -0.282] & [-2.15, -1.241, -1.366, -0.584] & 0.0 & 0.004 \\
+				$300/873$ & [-1.619, -0.821, -0.942, -0.317] & [-5.709, -3.625, -3.909, -1.789] & 0.002 & 0.002 \\
+				$500/873$ & [-1.741, -0.908, -1.011, -0.327] & [-10.712, -7.588, -7.898, -3.989] & 0.007 & 0.002 \\
+				$700/873$ & [-1.797, -0.922, -1.096, -0.351] & [-14.214, -9.392, -10.242, -4.264] & 0.007 & 0.0 \\
+			\end{tabular}
+		\end{table}
+	
+	
+	
+	\end{enumerate}
+
+
+\item~[30 points] Now let us implement SVM in the dual domain. We use the same dataset, ``bank-note.zip''. You can utilize existing constrained optimization libraries. For Python, we recommend to use ``scipy.optimize.minimize'', and you can learn how to use this API from the document at \url{https://docs.scipy.org/doc/scipy-0.19.0/reference/generated/scipy.optimize.minimize.html}.
+For Matlab, we recommend to use the internal function ``fmincon''; the document and examples are given at \url{https://www.mathworks.com/help/optim/ug/fmincon.html}. For R, we recommend to use the ``nloptr'' package with detailed documentation at \url{https://cran.r-project.org/web/packages/nloptr/nloptr.pdf}. In principle, you can choose any nonlinear optimization algorithm. But we recommend to use L-BFGS or CG for their robustness and excellent performance in practice. 
+
+\begin{enumerate}
+	\item ~[10 points] First, run your dual SVM learning algorithm with   $C$ in $\{\frac{100}{873}, \frac{500}{873}, \frac{700}{873}\}$. Recover the feature weights $\w$ and the bias $b$. Compare with the parameters learned with stochastic sub-gradient descent in the primal domain (in Problem 2) and the same settings of $C$, what can you observe? What do you conclude and why?
+	
+	\item~[15 points] Now, use Gaussian kernel in the dual form to implement the nonlinear SVM. Note that you need to modify both the objective function and the prediction. The Gaussian kernel is defined as follows:
+	\[
+	k(\x_i, \x_j) = \exp(-\frac{\|\x_i - \x_j\|^2}{\gamma}).
+	\]
+	Test $\gamma$ from $\{0.01, 0.1, 0.5, 1, 2, 5, 10, 100\}$ and the hyperparameter $C$ from $\{ \frac{100}{873}, \frac{500}{873},  \frac{700}{873}\}$. List the training and test errors for the combinations of all the $\gamma$ and $C$ values. What is the best combination? Compared with linear SVM with the same settings of $C$, what do you observe? What do you conclude and why?  
+	
+	\item~[5 points] Following (b), for each setting of $\gamma$ and $C$, list the number of support vectors. When $C = \frac{500}{873}$, report the number of overlapped support vectors between consecutive values of $\gamma$, \ie how many support vectors are the same for $\gamma= 0.01$ and $\gamma = 0.1$; how many are the same for  $\gamma = 0.1$ and $\gamma = 0.5$, etc. What do you observe and conclude? Why?
+	
+	\item~[\textbf{Bonus}]~[10 points] Implement the kernel Perceptron algorithm you developed in Problem 8 (Section 1). Use Gaussian kernel and test $\gamma$ from $\{0.01, 0.1, 0.5, 1, 2, 5, 10, 100\}$. List the training and test errors accordingly. Compared with the nonlinear SVM, what do you observe? what do you conclude and why?
+	
+\end{enumerate} 
+
+\end{enumerate}
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
