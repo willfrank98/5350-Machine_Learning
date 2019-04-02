@@ -24,8 +24,8 @@ def SVM_Primal_Train(S, Attributes, C, num_iter, gamma, d):
 def SVM_Dual_Train(S, Attributes, C):
     def main_func(x):
         ret_val = 0
-        for i in range(len(S)):
-            for j in range(len(S)):
+        for i in range(len(x)):
+            for j in range(len(x)):
                 ret_val += S[i]['Label'] * S[j]['Label'] * x[i] * x[j] * dot_prod(S[i], S[j], Attributes)
         return (ret_val / 2) - sum(x)
 
@@ -39,7 +39,7 @@ def SVM_Dual_Train(S, Attributes, C):
     w = [0 for _ in range(len(S))]
     constraints = ({'type':'eq', 'fun':cons_func})
 
-    result = minimize(main_func, w, method='CG', bounds=bounds, constraints=constraints)
+    result = minimize(main_func, w, method='L-BFGS-B', bounds=bounds, constraints=constraints)
     A = result.x
 
     w = [0 for _ in range(len(Attributes))]
