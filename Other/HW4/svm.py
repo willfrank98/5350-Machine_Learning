@@ -47,7 +47,14 @@ def SVM_Dual_Train(S, Attributes, C):
         for j in range(len(Attributes)):
             w[j] += A[i] * S[i]['Label'] * S[i][Attributes[j]]
 
-    return w
+    for i in range(len(A)):
+        if A[i] > 0 and A[i] < C:
+            b = 0
+            for j in range(len(w)):
+                b += w[j] * S[i][Attributes[j]]
+            break
+
+    return w, b
 
 def dot_prod(x1, x2, Attributes):
     tol = 0
@@ -55,12 +62,28 @@ def dot_prod(x1, x2, Attributes):
         tol += x1[Attributes[i]] * x2[Attributes[i]]
     return tol
 
-def SVM_Test(W, S, Attributes):
+def SVM_Primal_Test(W, S, Attributes):
     wrong = 0
     for s in S:
         guess = 0.0
         for i in range(0, len(W)):
             guess += float(s[Attributes[i]]) * W[i]
+        
+        if guess > 0 and s["Label"] == 1:
+            pass
+        elif guess < 0 and s["Label"] == -1:
+            pass
+        else:
+            wrong += 1
+
+    return wrong/float(len(S))
+
+def SVM_Dual_Test(w, b, S, Attributes):
+    wrong = 0
+    for s in S:
+        guess = b
+        for i in range(len(w)):
+            guess += float(s[Attributes[i]]) * w[i]
         
         if guess > 0 and s["Label"] == 1:
             pass

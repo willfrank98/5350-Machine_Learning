@@ -1,4 +1,4 @@
-from svm import SVM_Test, SVM_Primal_Train, SVM_Dual_Train
+from svm import SVM_Primal_Test, SVM_Primal_Train, SVM_Dual_Test, SVM_Dual_Train
 
 bank_note = "bank-note/"
 
@@ -32,13 +32,15 @@ Attributes.remove("Label")
 test = []
 train = []
 
-temp_s = S_train[:100]
+#temp_s = S_train[:20]
 
 C = [100, 500, 700]
 for c in C:
-    w = SVM_Dual_Train(temp_s, Attributes, C = float(c)/873) 
-    err_train = SVM_Test(w, S_train, Attributes)
-    err_test = SVM_Test(w, S_test, Attributes)
+    w, b = SVM_Dual_Train(S_train, Attributes, C = float(c)/873) 
+    #err_train = SVM_Dual_Test(w, b, S_train, Attributes)
+    #err_test = SVM_Dual_Test(w, b, S_test, Attributes)
+    print "w: " + str(w)
+    print "b: " + str(b)
     # print "w: " + str([round(wi, 3) for wi in w])
     # train.append(round(err_train, 3))
     # test.append(err_test)
