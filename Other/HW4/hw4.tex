@@ -103,12 +103,22 @@
 	\item~[8 points] Continue with the dual form. Suppose after the training procedure, you have obtained the optimal parameters.
 	\begin{enumerate}
 		\item~[2 points] What parameter values can indicate if an example stays outside the margin?
+		
+		If $a*_j = 0$ then example j is outside the margin.
+		
 		\item~[3 points] What are common and what are different when we use these parameters and the slack variables $\{\xi_i\}$ to determine the relevant positions of the training examples to the margin?
+		
+		For both a value of 0 denotes an example outside the margin, and for both a value above 0 denotes something inside the margin. One main difference is that $\{\xi_i\}$ is bounded below by $max(0, 1 - y_i(\w^\top \x_i + b))$ and above by nothing, while $\alpha_i$ is bounded below by 0 and above by the hyperparameter C.
+		
 		\item~[3 points] Now if we want to find out which training examples just sit on the margin (neither inside nor outside), what shall we do? Note you are not allowed to examine if the functional margin (\ie $y_i(\w^\top\x_i +b)$) is $1$.
 	\end{enumerate}
 	
 	
 	\item~[3 points] How can we use the kernel trick to enable SVMs to perform nonlinear classification? What is the corresponding optimization problem?
+	
+	To enable SVM's to perform nonlinear classification replace $\x_i^T\x_j$ with some nonlinear kernel $K(\x_i, \x_j)$. The new optimization problem is simply \[
+	\min\limits_{\{0 \le \alpha_i \le C\}, \sum_i \alpha_i y_i = 0} \frac{1}{2} \sum_i \sum_j y_i y_j \alpha_i \alpha_j K(\x_i, \x_j) - \sum_{i} \alpha_i
+	\]
 
 
 	\item~[5 points] Prove that the primal objective function of the soft SVM is convex to $\w$ and $b$, 
@@ -193,7 +203,7 @@
 			\end{tabular}
 		\end{table}
 	
-	
+		Despite schedule B producing weight vectors of much larger magnitude than schedule A, there is a negligible difference in training and testing error. This large magnitude is likely due to the larger values for $\gamma$ given by schedule B.
 	
 	\end{enumerate}
 

@@ -39,7 +39,7 @@ def SVM_Dual_Train(S, Attributes, C):
     w = [0 for _ in range(len(S))]
     constraints = ({'type':'eq', 'fun':cons_func})
 
-    result = minimize(main_func, w, method='L-BFGS-B', bounds=bounds, constraints=constraints)
+    result = minimize(main_func, w, bounds=bounds, constraints=constraints)
     A = result.x
 
     w = [0 for _ in range(len(Attributes))]
