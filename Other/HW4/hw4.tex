@@ -112,7 +112,8 @@
 		
 		\item~[3 points] Now if we want to find out which training examples just sit on the margin (neither inside nor outside), what shall we do? Note you are not allowed to examine if the functional margin (\ie $y_i(\w^\top\x_i +b)$) is $1$.
 		
-		UNFINISHED
+		A point which is simply on the margin will have the highest value for $\alpha_i$. Therefore, to find points on the margin find all values for which $\alpha_i = max(\alpha)$.
+		
 	\end{enumerate}
 	
 	
@@ -221,12 +222,6 @@
 		
 		Prediction = $sgn(\x_t \sum_{i} c_i y_i \x_i)$
 		
-		\bigbreak
-		\bigbreak
-		\bigbreak
-		\bigbreak
-		\bigbreak
-		
 		\item~[3 points] Can you develop an algorithm that uses mistake counts to learn the Perceptron? Please list the pseudo code. 
 		
 		\begin{itemize}
@@ -257,9 +252,13 @@
 			\item Return $\c$
 		\end{itemize}
 	
+		Prediction/classification for $\x$ = $sgn(\sum_{i} \c_i y_i K(\x_i, \x))$
+	
 	\end{itemize}   
 	
 \end{enumerate}
+
+\pagebreak
 
 \section{Practice [60 points + 10 bonus ]}
 \begin{enumerate}
@@ -321,13 +320,76 @@ For Matlab, we recommend to use the internal function ``fmincon''; the document 
 \begin{enumerate}
 	\item ~[10 points] First, run your dual SVM learning algorithm with   $C$ in $\{\frac{100}{873}, \frac{500}{873}, \frac{700}{873}\}$. Recover the feature weights $\w$ and the bias $b$. Compare with the parameters learned with stochastic sub-gradient descent in the primal domain (in Problem 2) and the same settings of $C$, what can you observe? What do you conclude and why?
 	
+	\begin{table}[h]
+		\begin{tabular}{l||ll}
+			C & $\w$ & $b$ \\
+			\hline\hline
+			$100/873$ & [-0.943, -0.651, -0.734, -0.041] & -5.141 \\
+			$500/873$ & [-1.564, -1.014, -1.1806, -0.157] & -8.590 \\
+			$700/873$ & [-2.043, -1.281, -1.514, -0.249] & -11.233 \\
+		\end{tabular}
+	\end{table}
+
+	The magnitude of these weight vectors is slightly smaller than those from 2b, and much smaller than those from 2c. This is most likely because of the lack of a bias term from the primal SVM, so weight magnitudes need to be larger to offset this.
+	
+	\bigbreak
+	
 	\item~[15 points] Now, use Gaussian kernel in the dual form to implement the nonlinear SVM. Note that you need to modify both the objective function and the prediction. The Gaussian kernel is defined as follows:
 	\[
 	k(\x_i, \x_j) = \exp(-\frac{\|\x_i - \x_j\|^2}{\gamma}).
 	\]
 	Test $\gamma$ from $\{0.01, 0.1, 0.5, 1, 2, 5, 10, 100\}$ and the hyperparameter $C$ from $\{ \frac{100}{873}, \frac{500}{873},  \frac{700}{873}\}$. List the training and test errors for the combinations of all the $\gamma$ and $C$ values. What is the best combination? Compared with linear SVM with the same settings of $C$, what do you observe? What do you conclude and why?  
 	
+	Training Error:
+	\begin{table}[h]
+		\begin{tabular}{l||llllllll}
+			C \textbackslash $\gamma$ & 0.01 & 0.1 & 0.5 & 1 & 2 & 5 & 10 & 100 \\
+			\hline\hline
+			$100/873$ & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.01 & 0.01 & 0.05 \\
+			$500/873$ & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.01 & 0.01 & 0.01 \\
+			$700/873$ & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.01 & 0.01 & 0.01 \\
+		\end{tabular}
+	\end{table}
+
+	Testing Error:
+	\begin{table}[h]
+		\begin{tabular}{l||llllllll}
+			C \textbackslash $\gamma$ & 0.01 & 0.1 & 0.5 & 1 & 2 & 5 & 10 & 100 \\
+			\hline\hline
+			$100/873$ & 0.056 & 0.024 & 0.024 & 0.024 & 0.03 & 0.03 & 0.028 & 0.88 \\
+			$500/873$ & 0.056 & 0.024 & 0.024 & 0.024 & 0.024 & 0.03 & 0.026 & 0.026 \\
+			$700/873$ & 0.056 & 0.024 & 0.024 & 0.024 & 0.024 & 0.028 & 0.028 & 0.018 \\
+		\end{tabular}
+	\end{table}
+
+	Training set size was reduced to make run time more manageable. On this train/test data, the best hyperparameter combination is $C = 700/873$ and $\gamma = 100$. Compared to the linear SVM, the dual SVM performs far better as a classifier across the board. Additionally, the convex pattern for $C$, with the best $C$ values being closer to 0.5, apparent in the linear SVM is not obvious for the dual SVM. These results suggest that C is not a very significant hyperparameter for this dataset in the dual SVM.
+	
 	\item~[5 points] Following (b), for each setting of $\gamma$ and $C$, list the number of support vectors. When $C = \frac{500}{873}$, report the number of overlapped support vectors between consecutive values of $\gamma$, \ie how many support vectors are the same for $\gamma= 0.01$ and $\gamma = 0.1$; how many are the same for  $\gamma = 0.1$ and $\gamma = 0.5$, etc. What do you observe and conclude? Why?
+	
+	Ratio of Support Vectors:
+	\begin{table}[h]
+		\begin{tabular}{l||llllllll}
+			C \textbackslash $\gamma$ & 0.01 & 0.1 & 0.5 & 1 & 2 & 5 & 10 & 100 \\
+			\hline\hline
+			$100/873$ & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 & 0.97 \\
+			$500/873$ & 1.0 & 1.0 & 1.0 & 1.0 & 0.94 & 0.86 & 0.93 & 0.51 \\
+			$700/873$ & 1.0 & 1.0 & 1.0 & 1.0 & 0.93 & 0.9 & 0.78 & 0.96 \\
+		\end{tabular}
+	\end{table}
+
+	\pagebreak
+	
+	Ratio of overlapping support vectors:
+	\begin{table}[h]
+		\begin{tabular}{l||lllllll}
+			$\gamma$ & 0.01 $\rightarrow$ 0.1 & 0.1 $\rightarrow$ 0.5 & 0.5 $\rightarrow$ 1 & 1 $\rightarrow$ 2 & 2 $\rightarrow$ 5 & 5 $\rightarrow$ 10 & 10 $\rightarrow$ 100 \\
+			\hline\hline
+			 & 1.0 & 1.0 & 0.985 & 0.945 & 0.78 & 0.53 & 0.513 \\
+		\end{tabular}
+	\end{table}
+
+
+	As $\gamma$ increases the total number of support vectors decreases, meaning the margin must be shrinking, but that more examples are more confidently classified. We also see this reflected in the number of overlapping support vectors, showing here the ratio decreases as $C$ increases.
 	
 	\item~[\textbf{Bonus}]~[10 points] Implement the kernel Perceptron algorithm you developed in Problem 8 (Section 1). Use Gaussian kernel and test $\gamma$ from $\{0.01, 0.1, 0.5, 1, 2, 5, 10, 100\}$. List the training and test errors accordingly. Compared with the nonlinear SVM, what do you observe? what do you conclude and why?
 	

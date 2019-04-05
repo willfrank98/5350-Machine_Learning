@@ -26,18 +26,17 @@ for line in f:
     S_test.append(example)
 
 S_test = np.array(S_test)
-S_train = np.array(S_train)
-newS_train = np.array(S_train[0:100])
+S_train = np.array(S_train[:200])
 
-print "\nGenerating output for 3b"
-C = [100, 500, 700]
+print "\nGenerating output for 3c"
 gamma = [0.01, 0.1, 0.5, 1, 2, 5, 10, 100]
-for c in C:
-    for g in gamma:
-        a = SVM_Kernel_Train(newS_train, C = float(c)/873, gamma=g) 
-        print "g = " + str(g) + ", c = " + str(c)
-        test = SVM_Kernel_Test(a, S_test, newS_train, g)
-        train = SVM_Kernel_Test(a, newS_train, newS_train, g)
-        print "train = " + str(train)
-        print "test = " + str(test)
-        print "SV# = " + str(SVM_Count(a)/100.0)
+old_a = []
+for g in gamma:
+    a = SVM_Kernel_Train(S_train, C=500.0/873, gamma=g) 
+    print "g = " + str(g)
+    count = 0
+    for i in range(len(old_a)):
+        if a[i] > 0 and old_a[i] > 0:
+            count += 1
+    print "count = " + str(float(count)/len(a))
+    old_a = a
