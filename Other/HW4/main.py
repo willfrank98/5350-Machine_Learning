@@ -1,4 +1,4 @@
-from svm import SVM_Primal_Test, SVM_Primal_Train, SVM_Dual_Test, SVM_Dual_Train
+from svm import SVM_Primal_Test, SVM_Primal_Train
 
 bank_note = "bank-note/"
 
@@ -36,9 +36,9 @@ train = []
 
 C = [100, 500, 700]
 for c in C:
-    w, b = SVM_Dual_Train(S_train, Attributes, C = float(c)/873) 
-    #err_train = SVM_Dual_Test(w, b, S_train, Attributes)
-    #err_test = SVM_Dual_Test(w, b, S_test, Attributes)
+    w, b = SVM_Primal_Train(S_train, Attributes, C = float(c)/873) 
+    #err_train = SVM_Primal_Test(w, b, S_train, Attributes)
+    #err_test = SVM_Primal_Test(w, b, S_test, Attributes)
     print "w: " + str(w)
     print "b: " + str(b)
     # print "w: " + str([round(wi, 3) for wi in w])

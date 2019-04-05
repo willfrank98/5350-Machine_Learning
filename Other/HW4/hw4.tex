@@ -111,6 +111,8 @@
 		For both a value of 0 denotes an example outside the margin, and for both a value above 0 denotes something inside the margin. One main difference is that $\{\xi_i\}$ is bounded below by $max(0, 1 - y_i(\w^\top \x_i + b))$ and above by nothing, while $\alpha_i$ is bounded below by 0 and above by the hyperparameter C.
 		
 		\item~[3 points] Now if we want to find out which training examples just sit on the margin (neither inside nor outside), what shall we do? Note you are not allowed to examine if the functional margin (\ie $y_i(\w^\top\x_i +b)$) is $1$.
+		
+		UNFINISHED
 	\end{enumerate}
 	
 	
@@ -126,8 +128,50 @@
 	\frac{1}{2}\w^\top\w + C\sum_{i} \max\big(0, 1 - y_i(\w^\top\x_i+b)\big).
 	\]
 	
+	The objective function can be rewritten as $f_1(\w) + C \sum_{i} f_2(\w)$, where $f_1(\w) = \frac{1}{2}\w^\top\w$, $f_2(\w) = max(0, f_3(\w))$, and $f_3(\w) = 1 - y_i(\w^\top\x_i+b)$. 
+	
+	$f_1 = \frac{1}{2}w_0^2 + \frac{1}{2}w_n^2$
+	
+	$f_3 = 1 - y_i w_0 x_{i0} - y_i w_n x_{in} - y_i b$
+	
+	$\nabla f_1(\w) =
+	\begin{Bmatrix}
+	\w_0 \\
+	\vdots \\
+	\w_n \\
+	\end{Bmatrix}$
+	
+	$\nabla^2 f_1(\w) =$ n $\times$ n identity matrix
+	
+	$\nabla f_3(\w) =
+	\begin{Bmatrix}
+		-y_i \x_{i0} \\
+		\vdots \\
+		-y_i \x_{in} \\
+	\end{Bmatrix}$
+	
+	$\nabla^2 f_3(\w) =
+	\begin{Bmatrix}
+	0 & \dots & 0 \\
+	\vdots & & \vdots \\
+	0 & \dots & 0 \\
+	\end{Bmatrix}$
+	
+	\bigskip
+	
+	$\nabla^2 f_3(\w)$ is a 0-matrix, therefore positive semi-definite, and therefore convex. $f_3$ and 0 are both convex functions, therefore $f_2 = max(0, f_3)$ preserves convexity. $\nabla^2 f_1$ is an n $\times$ n identity matrix, and is therefore also positive semi-definite and convex. Therefore the objective function is a summation of weighted convex functions, and is itself convex.
+	
+	With respect to $b$:
+	
+	$f_1''(b) = 0$
+	
+	$f_3''(b) = 0$
+	
+	The previous proof holds with respect to b. The objective function is convex with respect to $\w$ and $b$.
+	
 	\item~[2 points] Illustrate how the Occam's Razor principle is reflected in the SVM objective and optimization in Problem 5. 
 	
+	The objective function is able to use a few very simple functions to encode a very complicated optimization problem. The functions are trivial to prove convex, and with it the whole function, meaning a local minimum can always be found.
 	
 	%calculate the subgradient
 	\item~[3 points] Suppose we have the training dataset shown in Table 1. We want to learn a SVM classifier. We initialize all the model parameters with $0$. We set the learning rates for the first three steps to $\{0.01, 0.005, 0.0025\}$.  Please list the sub-gradients of the SVM objective w.r.t the model parameters for the first three steps, when using the stochastic sub-gradient descent algorithm. 
@@ -143,12 +187,61 @@
 	\caption{Dataset}
 	\end{table}
 
+	Iteration 1:
+	
+	$\nabla J^1 = $ [-0.172, 0.344, -0.103]
+	
+	$\nabla J^2 = $ [-0.344, -0.687, -0.687]
+	
+	$\nabla J^3 = $ [-0.515, -0.069, 0.859]
+	
+	Iteration 2:
+	
+	$\nabla J^1 = $ [-0.172, 0.344, -0.103]
+	
+	$\nabla J^2 = $ [-0.344, -0.687, -0.687]
+	
+	$\nabla J^3 = $ [-0.515, -0.0687, 0.859]
+	
+	Iteration 3:
+	
+	$\nabla J^1 = $ [-0.172, 0.344, -0.103]
+	
+	$\nabla J^2 = $ [-0.344, -0.687, -0.687]
+	
+	$\nabla J^3 = $ [-0.515, -0.0687, 0.859]
+
 	%kernel Perceptron
 	\item~[10 points] Let us derive a dual form for Perceptron. Recall, in each step of Perceptron, we add to the current weights $\w$ (including the bias parameter) $y_i\x_i$ for some misclassified example $(\x_i, y_i)$. We initialize $\w$ with $\mathbf{0}$. So, instead of updating $\w$, we can maintain for each training example $i$ a mistake count $c_i$ --- the number of times the data point $(\x_i, y_i)$ has been misclassified. 
 	
 	\begin{itemize}
 		\item~[2 points] Given the mistake counts of all the training examples, $\{c_1, \ldots, c_N\}$, how can we recover $\w$? How can we make predictions with these mistake counts? 
+		
+		$\w = \sum_{i} c_i y_i \x_i$
+		
+		Prediction = $sgn(\x_t \sum_{i} c_i y_i \x_i)$
+		
+		\bigbreak
+		\bigbreak
+		\bigbreak
+		\bigbreak
+		\bigbreak
+		
 		\item~[3 points] Can you develop an algorithm that uses mistake counts to learn the Perceptron? Please list the pseudo code. 
+		
+		\begin{itemize}
+			\item Initialize $\c_0 = 0 \in \mathbb{R}^n$
+			\item For each training example $(\x_i, y_i)$:
+			\begin{itemize}
+				\item predict $y' = sgn(\x_i \sum_{j} c_j y_j \x_j)$
+				\item if $y' \ne y_i$:
+					\begin{itemize}
+						\item $\c_i = c_i + 1$
+					\end{itemize}
+			\end{itemize}
+			\item Return $\c$
+		\end{itemize}
+		
 		\item~[5 points] Can you apply the kernel trick to develop an nonlinear Perceptron? If so, how do you conduct classification? Can you give the pseudo code fo learning this kernel Perceptron? 
 	\end{itemize}   
 	
