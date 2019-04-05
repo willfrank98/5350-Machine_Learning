@@ -1,4 +1,4 @@
-from svm import SVM_Primal_Test, SVM_Primal_Train
+from svm import SVM_Primal_Test, SVM_Primal_Train, SVM_Primal_Train_A, SVM_Primal_Train_B
 
 bank_note = "bank-note/"
 
@@ -32,17 +32,44 @@ Attributes.remove("Label")
 test = []
 train = []
 
-#temp_s = S_train[:20]
-
-C = [100, 500, 700]
+print "\nGenerating output for 2a"
+C = [1, 10, 50, 100, 300, 500, 700]
 for c in C:
-    w = SVM_Primal_Train(S_train, Attributes, C = float(c)/873, num_iter=100, gamma=0.01, d=0.01) 
-    #err_train = SVM_Primal_Test(w, b, S_train, Attributes)
-    #err_test = SVM_Primal_Test(w, b, S_test, Attributes)
-    print "w: " + str(w)
-    # print "w: " + str([round(wi, 3) for wi in w])
-    # train.append(round(err_train, 3))
-    # test.append(err_test)
+    w = SVM_Primal_Train_A(S_train, Attributes, C = float(c)/873, num_iter=100, gamma=0.01, d=0.01) 
+    err_train = SVM_Primal_Test(w, S_train, Attributes)
+    err_test = SVM_Primal_Test(w, S_test, Attributes)
+    train.append(round(err_train, 3))
+    test.append(err_test)
 
-# print str(train).replace(', ', ' & ')
-# print str(test).replace(', ', ' & ')
+print str(train).replace(', ', ' & ')
+print str(test).replace(', ', ' & ')
+
+test = []
+train = []
+
+print "\nGenerating output for 2b"
+for c in C:
+    w = SVM_Primal_Train_B(S_train, Attributes, C = float(c)/873, num_iter=100, gamma=0.01, d=0.01) 
+    err_train = SVM_Primal_Test(w, S_train, Attributes)
+    err_test = SVM_Primal_Test(w, S_test, Attributes)
+    # print "w: " + str(w)
+    # print "w: " + str([round(wi, 3) for wi in w])
+    train.append(round(err_train, 3))
+    test.append(err_test)
+
+print str(train).replace(', ', ' & ')
+print str(test).replace(', ', ' & ')
+
+print "\nGenerating output for 2c"
+
+print "Schedule A:"
+for c in C:
+    w = SVM_Primal_Train_A(S_train, Attributes, C = float(c)/873, num_iter=100, gamma=0.01, d=0.01) 
+    print "w: " + str(w)
+    print "w: " + str([round(wi, 3) for wi in w])
+
+print "\nSchedule B:"
+for c in C:
+    w = SVM_Primal_Train_B(S_train, Attributes, C = float(c)/873, num_iter=100, gamma=0.01, d=0.01) 
+    print "w: " + str(w)
+    print "w: " + str([round(wi, 3) for wi in w])

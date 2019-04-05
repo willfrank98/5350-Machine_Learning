@@ -22,6 +22,44 @@ def SVM_Primal_Train(S, Attributes, C, num_iter, gamma, d):
         gamma = gamma / (1 + gamma/d*t)
     return w
 
+def SVM_Primal_Train_A(S, Attributes, C, num_iter, gamma, d): 
+    w = [0 for _ in range(len(Attributes))]
+
+    for t in range(0, num_iter):
+        shuffle(S)
+        for s in S:
+            prod = 0
+            for i in range(len(w)):
+                prod += s[Attributes[i]] * w[i]
+            prod *= s['Label']
+
+            if prod <= 1:
+                w = [(1 - gamma) * w[i] + (gamma * C * len(S) * s['Label'] * s[Attributes[i]]) for i in range(len(w))]
+            else:
+                w = [(1 - gamma) * w[i] for i in range(len(w))]
+
+        gamma = gamma / (1 + gamma/d*t)
+    return w
+
+def SVM_Primal_Train_B(S, Attributes, C, num_iter, gamma, d): 
+    w = [0 for _ in range(len(Attributes))]
+
+    for t in range(0, num_iter):
+        shuffle(S)
+        for s in S:
+            prod = 0
+            for i in range(len(w)):
+                prod += s[Attributes[i]] * w[i]
+            prod *= s['Label']
+
+            if prod <= 1:
+                w = [(1 - gamma) * w[i] + (gamma * C * len(S) * s['Label'] * s[Attributes[i]]) for i in range(len(w))]
+            else:
+                w = [(1 - gamma) * w[i] for i in range(len(w))]
+
+        gamma = gamma / (1 + t)
+    return w
+
 
 def SVM_Dual_Train(S, C):
     def main_func(x):

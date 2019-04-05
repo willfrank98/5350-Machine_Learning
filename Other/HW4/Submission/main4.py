@@ -28,6 +28,7 @@ for line in f:
 S_test = np.array(S_test)
 S_train = np.array(S_train[:200])
 
+print "\nGenerating output for 3c"
 gamma = [0.01, 0.1, 0.5, 1, 2, 5, 10, 100]
 old_a = []
 for g in gamma:

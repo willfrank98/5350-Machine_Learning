@@ -29,6 +29,7 @@ for line in f:
 S_test = np.array(S_test)
 S_train = np.array(S_train)
 
+print "\nGenerating output for 3a"
 C = [100, 500, 700]
 for c in C:
     w, b = SVM_Dual_Train(S_train, C = float(c)/873) 
