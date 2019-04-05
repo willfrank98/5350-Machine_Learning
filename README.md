@@ -69,3 +69,27 @@ Attributes - A dictionary of all attributes and their possible values, in the fo
 R - Learning rate
 Covnergence - When any weight changes by at most Convergence the weights are returned
 Returns - A list of weights of length len(Attributes)
+
+## Standard Perceptron
+Perceptron_Standard(S, Attributes, R, MaxEpochs)
+S - A list of dictionaries, where each dictionary is a training example of form Attribute:value for each attribute in Attributes, and "Label":"value"
+Attributes - A dictionary of all attributes and their possible values, in the form "Attribute":["all", "possible", "values"], or "Attribute":["(numeric)"] for numerical attributes
+R - Learning rate
+MaxEpochs - Maximum number of iterations to perform
+Returns - A list of weights of length len(Attributes)
+
+## Averaged Perceptron
+Perceptron_Average(S, Attributes, R, MaxEpochs)
+S - A list of dictionaries, where each dictionary is a training example of form Attribute:value for each attribute in Attributes, and "Label":"value"
+Attributes - A dictionary of all attributes and their possible values, in the form "Attribute":["all", "possible", "values"], or "Attribute":["(numeric)"] for numerical attributes
+R - Learning rate
+MaxEpochs - Maximum number of iterations to perform
+Returns - A list of weights of length len(Attributes)
+
+## Voted Perceptron
+Perceptron_Voted(S, Attributes, R, MaxEpochs)
+S - A list of dictionaries, where each dictionary is a training example of form Attribute:value for each attribute in Attributes, and "Label":"value"
+Attributes - A dictionary of all attributes and their possible values, in the form "Attribute":["all", "possible", "values"], or "Attribute":["(numeric)"] for numerical attributes
+R - Learning rate
+MaxEpochs - Maximum number of iterations to perform
+Returns - A list of weights of length len(Attributes), and a list of counts of the same length

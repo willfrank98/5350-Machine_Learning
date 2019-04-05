@@ -1,4 +1,4 @@
-\documentclass[12pt, fullpage,letterpaper]{article}
+ \documentclass[12pt, fullpage,letterpaper]{article}
 
 \usepackage[margin=1in]{geometry}
 \usepackage{url}
@@ -233,16 +233,30 @@
 			\item Initialize $\c_0 = 0 \in \mathbb{R}^n$
 			\item For each training example $(\x_i, y_i)$:
 			\begin{itemize}
-				\item predict $y' = sgn(\x_i \sum_{j} c_j y_j \x_j)$
+				\item predict $y' = sgn(\x_i \sum_{j} \c_j y_j \x_j)$
 				\item if $y' \ne y_i$:
 					\begin{itemize}
-						\item $\c_i = c_i + 1$
+						\item $\c_i = \c_i + 1$
 					\end{itemize}
 			\end{itemize}
 			\item Return $\c$
 		\end{itemize}
 		
 		\item~[5 points] Can you apply the kernel trick to develop an nonlinear Perceptron? If so, how do you conduct classification? Can you give the pseudo code fo learning this kernel Perceptron? 
+		
+		\begin{itemize}
+			\item Initialize $\c_0 = 0 \in \mathbb{R}^n$
+			\item For each training example $(\x_i, y_i)$:
+			\begin{itemize}
+				\item predict $y' = sgn(\sum_{j} \c_j y_j K(\x_i, \x_j))$
+				\item if $y' \ne y_i$: 
+				\begin{itemize}
+					\item $\c_i = \c_i + 1$
+				\end{itemize}
+			\end{itemize}
+			\item Return $\c$
+		\end{itemize}
+	
 	\end{itemize}   
 	
 \end{enumerate}
