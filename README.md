@@ -93,3 +93,6 @@ Attributes - A dictionary of all attributes and their possible values, in the fo
 R - Learning rate
 MaxEpochs - Maximum number of iterations to perform
 Returns - A list of weights of length len(Attributes), and a list of counts of the same length
+
+## Support Vector Machines
+SVM_Primal_Train(S, Attributes, C, num_iter, gamma, d)
