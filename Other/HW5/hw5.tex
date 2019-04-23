@@ -127,7 +127,7 @@
 	
 	$z^2_2 = \sigma(w^2_{02} + w^2_{12}z^1_1 + w^2_{22}z^1_2) = 0.98197$
 	
-	$y = w^3_{01} + w^3_{11}z^2_1 + w^3_{12}z^2_1 = -1 + 2*0.01803 + -1.5*0.98197 = -2.436895$
+	$y = w^3_{01} + w^3_{11}z^2_1 + w^3_{21}z^2_2 = -1 + 2*0.01803 + -1.5*0.98197 = -2.436895$
 	
 	%logistic-regression
 	\item~[20 points] Suppose we have a training example  where the input vector is $\x = [1,1,1]$ and the label $y^* = 1$. We use a square loss for the prediction, 
@@ -140,9 +140,9 @@
 	
 	$\frac{\partial L}{\partial w^{3}_{01}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial w^{3}_{01}} = (y-y^*)(1) = -2.436895 - 1 = -3.436895$
 	
-	$\frac{\partial L}{\partial w^{3}_{11}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial w^{3}_{11}} = (y-y^*)(z^2_1) = (-3.436895)(0.01803) = -0.06197$
+	$\frac{\partial L}{\partial w^{3}_{11}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial w^{3}_{11}} = (y-y^*)(z^2_1) = -0.06197$
 	
-	$\frac{\partial L}{\partial w^{3}_{21}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial w^{3}_{21}} = (y-y^*)(z^2_2) = (-3.436895)(0.98197) = -3.37493$
+	$\frac{\partial L}{\partial w^{3}_{21}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial w^{3}_{21}} = (y-y^*)(z^2_2) = -3.37493$
 	
 	$\frac{\partial L}{\partial w^{2}_{01}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial z^2_1}\frac{\partial z^2_1}{\partial w^{2}_{01}} = (y-y^*)(w^{3}_{11})\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{2}_{01}} = (-3.436895)(2)(\sigma(s)(1-\sigma(s)))(1) = (-3.436895)(2)(0.01803)(0.98197)(1) = -0.12170$
 	
@@ -156,8 +156,17 @@
 	
 	$\frac{\partial L}{\partial w^{2}_{22}} = \frac{\partial L}{\partial y}\frac{\partial y}{\partial z^2_2}\frac{\partial z^2_2}{\partial w^{2}_{22}} = (y-y^*)(w^{3}_{21})\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{2}_{22}} = (-3.436895)(-1.5)(0.98197)(0.01803)(0.99753) = 0.09105$
 
-	$\frac{\partial L}{\partial w^{1}_{01}} = \frac{\partial L}{\partial y}(\frac{\partial y}{\partial z^2_1}\frac{\partial z^2_1}{\partial w^{1}_{01}} + \frac{\partial y}{\partial z^2_2}\frac{\partial z^2_2}{\partial w^{1}_{01}}) = $
+	$\frac{\partial L}{\partial w^{1}_{01}} = \frac{\partial L}{\partial y}(\frac{\partial y}{\partial z^2_1}\frac{\partial z^2_1}{\partial w^{1}_{01}} + \frac{\partial y}{\partial z^2_2}\frac{\partial z^2_2}{\partial w^{1}_{01}}) = (y-y^*)((w^3_{11})(\frac{\partial z^2_1}{\partial z^1_1}\frac{\partial z^1_1}{\partial w^{1}_{01}}) + (w^3_{21})(\frac{\partial z^2_2}{\partial z^1_1}\frac{\partial z^1_1}{\partial w^{1}_{01}})) = (y-y^*)((w^3_{11})((w^2_{11})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{01}})) + (w^3_{21})((w^2_{12})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{01}}))) = (-3.436895)((2)((-2)(((0.00247)(0.99753))(1))+(-1.5)((2)(((0.00247)(0.99753))(1))))) = 0.08468$
 	
+	$\frac{\partial L}{\partial w^{1}_{11}} = (y-y^*)((w^3_{11})((w^2_{11})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{11}})) + (w^3_{21})((w^2_{12})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{11}}))) = (-3.436895)((2)((-2)(((0.00247)(0.99753))(1))+(-1.5)((2)(((0.00247)(0.99753))(1))))) = 0.08468$
+	
+	$\frac{\partial L}{\partial w^{1}_{21}} = (y-y^*)((w^3_{11})((w^2_{11})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{21}})) + (w^3_{21})((w^2_{12})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{21}}))) = (-3.436895)((2)((-2)(((0.00247)(0.99753))(1))+(-1.5)((2)(((0.00247)(0.99753))(1))))) = 0.08468$
+	
+	$\frac{\partial L}{\partial w^{1}_{02}} = (y-y^*)((w^3_{11})((w^2_{21})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{02}})) + (w^3_{21})((w^2_{22})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{02}}))) = (-3.436895)((2)((-3)(((0.99753)(0.00247))(1))+(-1.5)((3)(((0.99753)(0.00247))(1))))) = 0.12702$
+	
+	$\frac{\partial L}{\partial w^{1}_{12}} = (y-y^*)((w^3_{11})((w^2_{21})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{12}})) + (w^3_{21})((w^2_{22})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{12}}))) = (-3.436895)((2)((-3)(((0.99753)(0.00247))(1))+(-1.5)((3)(((0.99753)(0.00247))(1))))) = 0.12702$
+	
+	$\frac{\partial L}{\partial w^{1}_{22}} = (y-y^*)((w^3_{11})((w^2_{21})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{22}})) + (w^3_{21})((w^2_{22})(\frac{\partial \sigma}{\partial s}\frac{\partial s}{\partial w^{1}_{22}}))) = (-3.436895)((2)((-3)(((0.99753)(0.00247))(1))+(-1.5)((3)(((0.99753)(0.00247))(1))))) = 0.12702$
 	
 	%calculate the subgradient
 	\item~[10 points] Suppose we have the training dataset shown in Table \ref{tb:dt}. We want to learn a logistic regression model. We initialize all the model parameters with $0$.  We assume each parameter (\ie feature weights $\{w_1, w_2, w_3\}$ and the bias $w_0$ ) comes from a standard Gaussian prior distribution, 
