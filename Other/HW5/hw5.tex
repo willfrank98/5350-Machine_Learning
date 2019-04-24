@@ -243,6 +243,7 @@
 		$\gamma_0 = 0.0000001, d = 0.000001$
 		
 		(see next page)
+		
 		\begin{table}[h]
 			\begin{tabular}{l||ll}
 				$v$ & Training Error & Testing Error \\
@@ -277,6 +278,9 @@
 		\end{table}
 		
 		\item~[3 points] How is the training and test performance of the MAP estimation compared with the ML estimation? What can you conclude? What do you think of $v$, as compared to  the hyperparameter $C$ in SVM?
+		
+		The MAP estimation seems to perform better than the MLE in general. The training error is roughly the same, however test error appears to vary with the variance for MAP, achieving better and worse testing performance than MLE. This is likely because the variance is creating a model which generalizes better. The hyperparameter $C$ acted as a modifier on the learning rate, while $v$ adds variance directly to the gradient. It is easier to imagine the affect $C$ will have on $\w$, but $v$ can scale up and down.
+		
 	\end{enumerate}
 
 
