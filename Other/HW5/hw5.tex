@@ -176,7 +176,38 @@
 	
 	\begin{itemize}
 		\item~[7 points] We want to obtain the  maximum a posteriori (MAP) estimation. Please write down the objective function, namely, the log joint probability, and derive the gradient of the objective function. 
+		
+		Objective function: 
+		\[
+		\min_{\w} \sum_{i}^{m} \log(1 + \exp(-y_i\w^\top\x_i)) + \frac{1}{2} \w^\top \w
+		\]
+		
+		Gradient:
+		$
+		\begin{bmatrix} 
+			\sum_{i}^{m} -\frac{y_i\x_{i0} e^{-y_i\w^\top\x_i}}{1+e^{-y_i\w^\top\x_i}} + \w_0 \\
+			\vdots \\
+			\sum_{i}^{m} -\frac{y_i\x_{in} e^{-y_i\w^\top\x_i}}{1+e^{-y_i\w^\top\x_i}} + \w_n \\
+		\end{bmatrix}
+		$
+		
+		\bigskip
+		
 		\item~[3 points] We set the learning rates for the first three steps to $\{0.01, 0.005, 0.0025\}$.  Please list the stochastic gradients of the objective w.r.t the model parameters for the first three steps, when using the stochastic gradient descent algorithm. 
+		
+		Step 0:
+		
+		$\w = [0, 0, 0, 0]$
+		
+		Step 1:
+		
+		$\nabla J(\w) = 
+		\begin{Bmatrix}
+		content...
+		\end{Bmatrix}$
+		
+		
+		
 	\end{itemize}
 	\begin{table}[h]
 		\centering
@@ -207,8 +238,43 @@
 		p(w_i ) = \N(w_i |0, v)=\frac{1}{\sqrt{2\pi v}} \exp(-\frac{1}{2v}w_i^2)
 		\]
 		where $v$ is the variance.  From the paper problem 4, you should be able to write down  the objective function and derive the gradient. Try the prior variance $v$ from $\{0.01, 0.1, 0.5, 1, 3, 5, 10, 100\}$. 
-		Use the schedule of learning rate: $\gamma_t = \frac{\gamma_0}{1+\frac{\gamma_0}{d}t}	$. Please tune $\gamma_0$ and $d$ to ensure convergence. For each setting of variance, report your training and test error. 
+		Use the schedule of learning rate: $\gamma_t = \frac{\gamma_0}{1+\frac{\gamma_0}{d}t}	$. Please tune $\gamma_0$ and $d$ to ensure convergence. For each setting of variance, report your training and test error.
+		
+		$\gamma_0 = 0.0000001, d = 0.000001$
+		
+		(see next page)
+		\begin{table}[h]
+			\begin{tabular}{l||ll}
+				$v$ & Training Error & Testing Error \\
+				\hline\hline
+				0.01 & 0.209862385321 & 0.214 \\
+				0.1 & 0.202981651376 & 0.204 \\
+				0.5 & 0.292431192661 & 0.282 \\
+				1 & 0.279816513761 & 0.304 \\
+				3 & 0.235091743119 & 0.232 \\
+				5 & 0.313073394495 & 0.32 \\
+				10 & 0.185779816514 & 0.19 \\
+				100 & 0.209862385321 & 0.216 \\
+			\end{tabular}
+		\end{table}
+		 
 		\item~[5 points] We will then obtain the maximum likelihood (ML) estimation. That is, we do not assume any prior over the model parameters, and just maximize the logistic likelihood of the data. Use the same learning rate schedule. Tune $\gamma_0$ and $d$ to ensure convergence. For each setting of variance, report your training and test error. 
+		
+		$\gamma_0 = 0.0000001, d = 0.000001$
+		\begin{table}[h]
+			\begin{tabular}{l||ll}
+				$v$ & Training Error & Testing Error \\
+				\hline\hline
+				0.01 & 0.262614678899 & 0.262 \\
+				0.1 & 0.229357798165 & 0.25 \\
+				0.5 & 0.295871559633 & 0.286 \\
+				1 & 0.316513761468 & 0.294 \\
+				3 & 0.302752293578 & 0.288 \\
+				5 & 0.292431192661 & 0.29 \\
+				10 & 0.280963302752 & 0.276 \\
+				100 & 0.297018348624 & 0.316 \\
+			\end{tabular}
+		\end{table}
 		
 		\item~[3 points] How is the training and test performance of the MAP estimation compared with the ML estimation? What can you conclude? What do you think of $v$, as compared to  the hyperparameter $C$ in SVM?
 	\end{enumerate}
