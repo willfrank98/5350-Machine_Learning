@@ -110,4 +110,27 @@ d - Hyperparameter which affects learning rate, float
 
 See SVM_Primal_Train_A and SVM_Primal_Train_B for two different learning rate schedules.
 
+SVM_Dual_Train(S, C)  
+S - a numpy array where each row is a training example, with the last value of each row being the label  
+C - Hyperparameter which affects learning rate, float  
 
+SVM_Kernel_Train(S, C, gamma)
+S - a numpy array where each row is a training example, with the last value of each row being the label  
+C - Hyperparameter which affects learning rate, float  
+gamma - Hyperparameter affecting the kernel math  
+
+
+## Logistic Regression  
+MAP(S, T, variance, gamma, d)  
+S - A numpy array where each row is a training example, with the last value of each row being the label  
+T - Number of iterations to perform  
+variance - The initial variance for the MAP estimation  
+gamma - Initial learning rate  
+d - Hyperparameter which affects learning rate  
+
+MLE(S, T, variance, gamma, d)  
+S - A numpy array where each row is a training example, with the last value of each row being the label  
+T - Number of iterations to perform  
+variance - Does nothing here  
+gamma - Initial learning rate  
+d - Hyperparameter which affects learning rate  
