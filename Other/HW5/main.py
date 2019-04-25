@@ -1,5 +1,4 @@
 from logres import MAP, MLE, LR_Test
-from nn import backprop
 import numpy as np
 
 bank_note = "bank-note/"
