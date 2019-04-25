@@ -201,12 +201,21 @@
 		
 		Step 1:
 		
-		$\nabla J(\w) = 
-		\begin{Bmatrix}
-		content...
-		\end{Bmatrix}$
+		$\nabla J(\w) = [-0.5, 1.0, -0.30, -1.0]$
 		
+		$\w = [-0.005, 0.01, -0.003, -0.01]$
 		
+		Step 2:
+		
+		$\nabla J(\w) = [-1.98575, -3.97150, -3.97150, 1.98575]$
+		
+		$\w = [0.00493,  0.02986 ,  0.01686 , -0.01993]$
+		
+		Step 3:
+		
+		$\nabla J(\w) = [-1.55479, -0.20730, 2.59131, -1.03652]$
+		
+		$\w = [ 0.00104,  0.02934,  0.02334, -0.02252]$		
 		
 	\end{itemize}
 	\begin{table}[h]
@@ -242,20 +251,19 @@
 		
 		$\gamma_0 = 0.0000001, d = 0.000001$
 		
-		(see next page)
-		
 		\begin{table}[h]
+			\centering
 			\begin{tabular}{l||ll}
 				$v$ & Training Error & Testing Error \\
 				\hline\hline
-				0.01 & 0.209862385321 & 0.214 \\
-				0.1 & 0.202981651376 & 0.204 \\
-				0.5 & 0.292431192661 & 0.282 \\
-				1 & 0.279816513761 & 0.304 \\
-				3 & 0.235091743119 & 0.232 \\
-				5 & 0.313073394495 & 0.32 \\
-				10 & 0.185779816514 & 0.19 \\
-				100 & 0.209862385321 & 0.216 \\
+				0.01 & 0.33371559633 & 0.328 \\
+				0.1 & 0.207568807339 & 0.212 \\
+				0.5 & 0.0917431192661 & 0.096 \\
+				1 & 0.0401376146789 & 0.06 \\
+				3 & 0.0435779816514 & 0.062 \\
+				5 & 0.0470183486239 & 0.07 \\
+				10 & 0.0435779816514 & 0.05 \\
+				100 & 0.0493119266055 & 0.054 \\
 			\end{tabular}
 		\end{table}
 		 
@@ -263,23 +271,24 @@
 		
 		$\gamma_0 = 0.0000001, d = 0.000001$
 		\begin{table}[h]
+			\centering
 			\begin{tabular}{l||ll}
 				$v$ & Training Error & Testing Error \\
 				\hline\hline
-				0.01 & 0.262614678899 & 0.262 \\
-				0.1 & 0.229357798165 & 0.25 \\
-				0.5 & 0.295871559633 & 0.286 \\
-				1 & 0.316513761468 & 0.294 \\
-				3 & 0.302752293578 & 0.288 \\
-				5 & 0.292431192661 & 0.29 \\
-				10 & 0.280963302752 & 0.276 \\
-				100 & 0.297018348624 & 0.316 \\
+				0.01 & 0.0653669724771 & 0.086 \\
+				0.1 & 0.0447247706422 & 0.064 \\
+				0.5 & 0.0401376146789 & 0.06 \\
+				1 & 0.0504587155963 & 0.064 \\
+				3 & 0.0401376146789 & 0.048 \\
+				5 & 0.0584862385321 & 0.068 \\
+				10 & 0.0401376146789 & 0.052 \\
+				100 & 0.0516055045872 & 0.062 \\
 			\end{tabular}
 		\end{table}
 		
 		\item~[3 points] How is the training and test performance of the MAP estimation compared with the ML estimation? What can you conclude? What do you think of $v$, as compared to  the hyperparameter $C$ in SVM?
 		
-		The MAP estimation seems to perform better than the MLE in general. The training error is roughly the same, however test error appears to vary with the variance for MAP, achieving better and worse testing performance than MLE. This is likely because the variance is creating a model which generalizes better. The hyperparameter $C$ acted as a modifier on the learning rate, while $v$ adds variance directly to the gradient. It is easier to imagine the affect $C$ will have on $\w$, but $v$ can scale up and down.
+		The ML estimation does not vary with $v$ (of course), while the MAP estimation appears to increase in accuracy as variance increases. Having a very large variance in the MAP estimate is equivalent to the ML estimate, which appears to perform better on this dataset. The hyperparameter $C$ acted as a modifier on the learning rate, while $v$ adds variance directly to the gradient based on the value of $\x$. It is easier to imagine the affect $C$ will have on $\w$, but $v$ can scale up and down.
 		
 	\end{enumerate}
 
@@ -299,7 +308,41 @@
 	
 	\item~[\textbf{Bonus}]~[50 points] Please use tensor-flow (TF) to fulfill the neural network training and prediction. Please try two activation functions, ``tanh'' and ``RELU''.  For ``tanh", please use the ``Xavier' initialization; and for ``RELU'', pelase use the ``he'' initialization. You can implement these initializations by yourselves or use TF library. 
 	Vary the depth from $\{3, 5, 9\} $ and width from $\{5, 10, 25, 50, 100\}$. Pleas use the Adam optimizer for training. The default settings of Adam should be sufficient. 
-	 Report the training and test error with each (depth, width) combination. What do you observe and conclude? Note that, we won't provide any link or manual for you to work on this bonus problem. It is YOUR JOB to search the document and web pages, find  code snippets, and test and debug with TF to ensure the correct usage of  TF. This is what all machine learning practitioners do in practice. 
+	Report the training and test error with each (depth, width) combination. What do you observe and conclude? Note that, we won't provide any link or manual for you to work on this bonus problem. It is YOUR JOB to search the document and web pages, find  code snippets, and test and debug with TF to ensure the correct usage of  TF. This is what all machine learning practitioners do in practice. 
+	
+	\pagebreak
+	
+	Cells are in the format (training error, testing error).
+	
+	\bigbreak
+	 
+	"tanh" activation and "Xavier" initialization
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{l||lll}
+			w $\backslash$ d & 3 & 5 & 9 \\
+			\hline\hline
+			5 & 0.864, 0.85 & 0.981, 0.976 & 0.993, 0.992 \\
+			10 & 0.983, 0.984 & 0.999, 0.998 & 1.0, 1.0 \\
+			25 & 0.998, 0.994 & 1.0, 1.0 & 1.0, 1.0 \\
+			50 & 1.0, 1.0 & 1.0, 1.0 & 1.0, 1.0 \\
+			100 & 1.0, 1.0 & 1.0, 1.0 & 1.0, 1.0 \\
+		\end{tabular}
+	\end{table}
+
+	"RELU" activation and "he normal" initialization
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{l||lll}
+			w $\backslash$ d & 3 & 5 & 9 \\
+			\hline\hline
+			5 & 0.555, 0.562 & 0.554, 0.558 & 0.915, 0.938 \\
+			10 & 0.919, 0.904 & 0.769, 0.786 & 0.969, 0.968 \\
+			25 & 0.999, 0.996 & 0.554, 0.558 & 0.554, 0.558 \\
+			50 & 0.554, 0.558 & 1.0, 1.0 & 1.0, 1.0 \\
+			100 & 0.554, 0.558 & 0.864, 0.844 & 0.554, 0.558 \\
+		\end{tabular}
+	\end{table}
 	
 \end{enumerate} 
 

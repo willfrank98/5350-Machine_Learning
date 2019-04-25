@@ -100,4 +100,14 @@ Returns - A list of weights of length len(Attributes), and a list of counts of t
 
 
 ## Support Vector Machines  
-SVM_Primal_Train(S, Attributes, C, num_iter, gamma, d)  
+SVM_Primal_Train(S, Attributes, C, num_iter, gamma, d)
+S - A list of dictionaries, where each dictionary is a training example of form Attribute:value for each attribute in Attributes, and "Label":"value"  
+Attributes - A dictionary of all attributes and their possible values, in the form "Attribute":["all", "possible", "values"], or "Attribute":["(numeric)"] for numerical attributes
+C - Hyperparameter which affects learning rate, float  
+num_iter - Number of iterations to perform  
+gamma - Initial gamma/learning rate  
+d - Hyperparameter which affects learning rate, float  
+
+See SVM_Primal_Train_A and SVM_Primal_Train_B for two different learning rate schedules.
+
+
